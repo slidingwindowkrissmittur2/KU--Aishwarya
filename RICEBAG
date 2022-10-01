@@ -1,0 +1,39 @@
+public class RiceBags {
+
+    public static void main(string[] args) {
+        Console.WriteLine(new RiceBags().perfectRiceBags(new int[] {3, 4, 2, 9, 16}));
+    }
+
+    private List<int> elements = new List<>();
+    private Dictionary<int, int> cache = new Dictionary<>();
+
+    public int perfectRiceBags(int[] arr) {
+        foreach( int a in arr) {
+            elements.add(a);
+        }
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i < arr.length; i++) {
+            int riceBags = dfs(arr[i]);
+
+            if(max < riceBags) {
+                max = riceBags;
+            }
+        }
+
+        return max;
+    }
+
+    private int dfs(int a) {
+        if(cache.containsKey(a)) {
+            return cache.get(a);
+        }
+
+        if(elements.contains(a)) {
+            int result = 1 + dfs(a * a);
+            cache.put(a, result);
+            return result;
+        }
+
+        return 0;
+    }
+}
