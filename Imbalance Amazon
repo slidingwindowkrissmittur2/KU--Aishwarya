@@ -1,1 +1,39 @@
+public static int Imbalance(List weights)
+{
+var sum = SumSubarray(weights, false) - SumSubarray(weights, true);
+return sum;
+}
 
+    public static int SumSubarray(List<int> arr, bool min)
+    {
+        var sum = 0;
+        var valueStack = new Stack<int>();
+        var countStack = new Stack<int>();
+        int curSum = 0;
+        foreach(var curValue in arr)
+        {
+            int curCount = 1;
+            while (valueStack.Count >0)
+            {
+                if (min && valueStack.Peek() < curValue) // Monotonic increasing sequence breaks. Exit while loop
+                {
+                    break;
+                }
+                else if (!min && valueStack.Peek() > curValue) // // Monotonic decreasing sequence breaks. Exit while loop
+                {
+                    break;
+                }
+
+                // Else pop the value and current count.
+                int value = valueStack.Pop();
+                int count = countStack.Pop();
+                curCount += count; // Keep adding popped count to current count
+                curSum -= value * count; // Keep subtracting 'value * count' from current/local sum
+            }
+            valueStack.Push(curValue);
+            countStack.Push(curCount);
+            curSum += curValue * curCount; // Keep adding 'curValue * curCount' to current/local sum
+            sum += curSum; // keep adding current sum to global sum
+        }
+        return sum;
+    }       
