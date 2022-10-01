@@ -4,15 +4,15 @@ public class RiceBags {
         Console.WriteLine(new RiceBags().perfectRiceBags(new int[] {3, 4, 2, 9, 16}));
     }
 
-    private List<int> elements = new List<>();
-    private Dictionary<int, int> cache = new Dictionary<>();
+    public static List<int> elements = new List<int>();
+    public static Dictionary<int, int> cache = new Dictionary<int,int>();
 
-    public int perfectRiceBags(int[] arr) {
+    public static int perfectRiceBags(int[] arr) {
         foreach( int a in arr) {
-            elements.add(a);
+            elements.Add(a);
         }
-        int max = Integer.MIN_VALUE;
-        for(int i = 0; i < arr.length; i++) {
+        int max = Int32.MinValue;
+        for(int i = 0; i < arr.Length; i++) {
             int riceBags = dfs(arr[i]);
 
             if(max < riceBags) {
@@ -23,14 +23,14 @@ public class RiceBags {
         return max;
     }
 
-    private int dfs(int a) {
+    private static int dfs(int a) {
         if(cache.containsKey(a)) {
-            return cache.get(a);
+            return cache[a];
         }
 
         if(elements.contains(a)) {
             int result = 1 + dfs(a * a);
-            cache.put(a, result);
+            cache.Add(a, result);
             return result;
         }
 
