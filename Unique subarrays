@@ -1,0 +1,107 @@
+using System;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+
+class Program
+{
+public static int ExactlyK(int[] arr, int n, int k)
+
+{    
+    return (atMostK(arr, n, k)
+
+                - atMostK(arr, n, k - 1));
+}
+
+ private static int atMostK(int[] arr, int n, int k)
+
+    {
+ 
+
+        // To store the result
+
+        int count = 0;
+ 
+
+        // Left boundary of window
+
+        int left = 0;
+ 
+
+        // Right boundary of window
+
+        int right = 0;
+ 
+
+        // Map to keep track of number of distinct
+
+        // elements in the current window
+
+        Dictionary<int, int> map
+
+            = new Dictionary<int, int>();
+ 
+
+        // Loop to calculate the count
+
+        while (right < n) {
+ 
+
+            // Calculating the frequency of each
+
+            // element in the current window
+
+            if (map.ContainsKey(arr[right]))
+
+                map[arr[right]] = map[arr[right]] + 1;
+
+            else
+
+                map.Add(arr[right], 1);
+ 
+
+            // Shrinking the window from left if the
+
+            // count of distinct elements exceeds K
+
+            while (map.Count > k) {
+
+                if (map.ContainsKey(arr[left])) {
+
+                    map[arr[left]] = map[arr[left]] - 1;
+
+                    if (map[arr[left]] == 0)
+
+                        map.Remove(arr[left]);
+
+                }
+
+                left++;
+
+            }
+ 
+
+            // Adding the count of subarrays with at most
+
+            // K distinct elements in the current window
+
+            count += right - left + 1;
+
+            right++;
+
+        }
+
+        return count;
+    }
+    static void Main() {
+        int[] A= new int[5]{1,2,1,2,3};
+        int K= 2;
+      int an= ExactlyK(A,A.Length,K);
+  Console.WriteLine("{0},*",an);
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
