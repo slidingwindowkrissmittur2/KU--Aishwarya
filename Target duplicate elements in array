@@ -1,0 +1,94 @@
+// C# program to find 
+// duplicates in the given array 
+
+using System;
+
+using System.Collections.Generic;
+ 
+
+class GFG
+{
+
+    // function to find and print duplicates
+
+    static void printDuplicates(int[] arr, int n)
+
+    {
+
+        Dictionary<int, 
+
+                   int> map = new Dictionary<int, 
+
+                                             int>();
+
+        int count = 0;
+
+        bool dup = false;
+
+        for (int i = 0; i < n; i++)
+
+        {
+
+            if (map.ContainsKey(arr[i]))
+
+            {
+
+                count = map[arr[i]];
+
+                map[arr[i]]++;
+
+            }
+
+            else
+
+                map.Add(arr[i], 1);
+
+        }
+ 
+
+        foreach (KeyValuePair<int, 
+
+                              int> entry in map)
+
+        {
+
+            // if frequency is more than 1 
+
+            // print the element
+
+            if (entry.Value > 1)
+
+                Console.Write(entry.Key + " ");
+
+            dup = true;
+
+        }
+ 
+
+        // no duplicates present
+
+        if (!dup)
+
+            Console.WriteLine("-1");
+
+    }
+ 
+
+    // Driver Code 
+
+    public static void Main(String[] args)
+
+    {
+
+        int[] arr = { 12, 11, 40, 12, 
+
+                     5, 6, 5, 12, 11 };
+
+        int n = arr.Length;
+
+        printDuplicates(arr, n);
+
+    }
+}
+ 
+// This
