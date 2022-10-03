@@ -1,0 +1,61 @@
+/ from string using maps
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+ 
+
+class GFG{
+ 
+
+static void printDups(String str)
+{
+
+    Dictionary<char, 
+
+               int> count = new Dictionary<char, 
+
+                                           int>();
+ 
+
+    for(int i = 0; i < str.Length; i++) 
+
+    {
+
+        if (count.ContainsKey(str[i]))
+
+            count[str[i]]++;
+
+        else
+
+            count[str[i]] = 1;
+
+    }
+ 
+
+    foreach(var it in count.OrderBy(key => key.Value))
+
+    {
+
+        if (it.Value > 1)
+
+            Console.WriteLine(it.Key + ", count = " +
+
+                              it.Value);
+
+    }
+}
+ 
+// Driver code
+
+static public void Main()
+{
+
+    String str = "test string";
+
+    printDups(str);
+}
+}
+ 
