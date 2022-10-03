@@ -1,0 +1,86 @@
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {string}
+ */
+var minWindow = function(s, t) {
+    
+    if(t.length > s.length) return "";
+    
+	// adding overbound to check if the substring is present or to return empty string
+    let minSubstring = s+'a';
+    
+	// hashmap to store all the character count 
+    let tMap = new Map();
+    
+	
+	// getting all the characters from t
+    for(let i = 0; i < t.length; i++){
+        
+        if(tMap.has(t[i])){
+            let temp = tMap.get(t[i]) + 1;
+            tMap.set(t[i],temp);
+        }
+        else tMap.set(t[i], 1);
+    }
+    
+    
+    // slow and fast pointers to create a window
+    let slow = 0, fast = 0;
+	
+	// match counter for comparing if s satisfies t character count
+    let matchCounter = 0;
+	
+	// Do this till we reach the end with fast counter
+    while(fast != s.length){
+        
+        let currentFastWord = s[fast];
+		
+		// check if the current character in t
+        if(tMap.has(currentFastWord)){
+		
+			// if yes then we update the t's hashmap
+            tMap.set(currentFastWord,tMap.get(currentFastWord) - 1);
+            
+			// and if the current character count reaches 0 then we update the matchcounter
+			// meaning we have satisfied character count in string s for one of the character in string t
+            if(tMap.get(currentFastWord)== 0)  matchCounter++;
+        }
+        
+		// at this stage we have matched all the character count        
+		// time to shrink the window if we can
+       while(matchCounter == tMap.size){
+            
+			// as we have got matched count we can finally update the minsubstring
+            minSubstring = getMinSubstring(minSubstring, fast, slow, s);
+            
+			// now check if the slow pointer points to character in t and update accordingly
+                let currentSlowWord = s[slow];
+                
+                if(tMap.has(currentSlowWord)){
+                    // if the match is found and the slow is pointing to character whose value is zero then we will decrement matchCounter
+                    if(tMap.get(currentSlowWord) == 0) matchCounter--;
+                    tMap.set(currentSlowWord, tMap.get(currentSlowWord) + 1);
+                }
+                slow++;
+        }
+        
+        fast++;
+        
+    }
+ 
+    return minSubstring.length > s.length ? "" : minSubstring;
+    
+};
+
+
+const getMinSubstring = (minString, fast, slow, originalString)=>{
+    
+    // console.log('Min sent', minString, )
+    if(minString.length > (fast - slow +1) ){
+        // console.log('substing ', originalString.substring(slow, fast))
+        minString = originalString.substring(slow, fast + 1);
+    }
+    
+    return minString;
+}
