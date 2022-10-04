@@ -1,0 +1,52 @@
+using System;
+
+class Program
+{
+
+static void Main(){
+
+int[,]  a = new int[,]{{0,0,0},{0,1,0},{1,0,1}};
+bool found = false;
+
+
+int m=a.GetLength(0);
+int n = a.GetLength(0);
+
+int[] xiter = new int[] { 1, 0 , -1 ,0 };
+int[] yiter  = new int[] { 0, 1 , 0 ,-1 };
+
+int island_count = 0;
+
+
+// Count number of islands -
+for (int i =0 ; i < a.GetLength(0); i++)
+for (int j = 0; j < a.GetLength(0); j++) {
+if (a[i,j] == 1) {
+bool island = true;
+a[i,j] = 2;
+for (int k = 0; k < 4; k++) {
+int x = i+ xiter[k];
+int y = j + yiter[k];
+if (x < 0 || y < 0 || x >=m || y>= n)
+continue;
+if (a[x,y] == 1) {
+a[x,y] = 2;
+} else if (a[x,y] == 2) {
+island = false;
+}
+}
+if (island)
+island_count++;
+}
+}
+Console.WriteLine(" Number of islands :{0} " , island_count);
+
+
+    
+        int x12 = 10;
+        int y12 = 25;
+        int z12= x12 + y12;
+
+        Console.Write("Sum of x + y = "+ z12);
+    }
+}
