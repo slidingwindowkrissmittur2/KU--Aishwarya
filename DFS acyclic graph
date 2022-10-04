@@ -1,0 +1,107 @@
+// C# Code For DFS for a n-ary tree (acyclic graph) 
+// represented as adjacency list 
+
+using System;
+
+using System.Collections.Generic;
+
+public class GFG { 
+
+     
+
+    // DFS on tree 
+
+    public static void dfs(List<int> []list, 
+
+                            int node, int arrival) 
+
+    { 
+
+        // Printing traversed node 
+
+        Console.WriteLine(node); 
+
+     
+
+        // Traversing adjacent edges 
+
+        for (int i = 0; i < list[node].Count; i++) { 
+
+     
+
+            // Not traversing the parent node 
+
+            if (list[node][i] != arrival) 
+
+                dfs(list, list[node][i], node); 
+
+        } 
+
+    } 
+
+     
+
+    /* Driver program to test above function */
+
+    public static void Main(String[] args) 
+
+    { 
+ 
+
+        // Number of nodes 
+
+        int nodes = 5; 
+
+     
+
+        // Adjacency list 
+
+        List<int> []list = new List<int>[nodes+1];     
+
+         
+
+        for (int i = 0; i < list.Length; i ++){ 
+
+            list[i] = new List<int>(); 
+
+        } 
+
+         
+
+        // Designing the tree 
+
+        list[1].Add(2); 
+
+        list[2].Add(1); 
+
+     
+
+        list[1].Add(3); 
+
+        list[3].Add(1); 
+
+     
+
+        list[2].Add(4); 
+
+        list[4].Add(2); 
+
+     
+
+        list[3].Add(5); 
+
+        list[5].Add(3); 
+
+     
+
+        // Function call 
+
+        dfs(list, 1, 0); 
+
+         
+
+         
+
+    } 
+} 
+// This
