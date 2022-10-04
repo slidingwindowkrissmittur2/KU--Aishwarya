@@ -1,0 +1,84 @@
+int rowMax;int colMax;
+	//boolean visited[][]= null;
+	public int countIslands(int[][] arr, int m, int n){
+		boolean visited[][] = new boolean[m][n];
+		rowMax = m; colMax=n;
+		for(int i =0; i<=m; i++){ //make a boolean array to mark the visited cell
+			for(int j =0; j<=m; j++){
+				visited[i][j]= false;
+			}
+		}
+		int count =0; //cluster count
+		for(int i =0; i<=m; i++){
+			for(int j =0; j<=m; j++){
+				if(arr[i][j] == 1 && ! visited[i][j]){// cell value =1 and cell not visited
+					traverseDFS(arr, i, j, visited); //completes a patch / cluster / island / fill a shape recursively
+					++count; 					
+				}
+			}
+		}
+		return count;
+		
+	}
+	class Grid{
+		int x;	int y;
+		public Grid(int x, int y) {
+			this.x =x; this.y=y;
+		}
+	}
+	public Map<Integer,List<Grid>> getAllIlands(int[][] arr, int m, int n){
+		boolean visited[][] = new boolean[m][n];
+		rowMax = m; colMax=n;
+		for(int i =0; i<=m; i++){ //make a boolean array to mark the visited cell
+			for(int j =0; j<=m; j++){
+				visited[i][j]= false;
+			}
+		}
+		int clusterId =0; //cluster count
+		List<Grid> cluster = new ArrayList<Grid>();
+		Map<Integer,List<Grid>> map = new HashMap<Integer,List<Grid>>();
+		for(int i =0; i<=m; i++){
+			for(int j =0; j<=m; j++){
+				if(arr[i][j] == 1 && ! visited[i][j]){// cell value =1 and cell not visited
+					traverseDFS(arr, i, j, visited, cluster); //completes a patch / cluster / island / fill a shape recursively
+					++clusterId;
+					map.put(clusterId, cluster);
+					cluster = new ArrayList<Grid>();
+				}
+			}
+		}
+		return map;
+		
+	}
+	// To go for {8 - fill} or {4-fill} as per situation
+	private void traverseDFS(int[][] arr, int i, int j, boolean[][] visited,
+			List<Grid> cluster) {
+		 int dx[] = {-1, -1, -1,  0, 0,  1, 1, 1}; // 0 <= |x-x'| <= 1
+		 int dy[] = {-1,  0,  1, -1, 1, -1, 0, 1}; // 0 <= |y-y'| <= 1
+		 visited[i][j]= true;		  
+		 for(int k= 0; k<;8; k++){
+			 if(canVisit(arr, i+dx[k], j+dy[k], visited)){
+				 cluster.add(new Grid(i+dx[k], j+dy[k]));
+				 traverseDFS(arr, i+dx[k], j+dy[k], visited, cluster) ;
+			 }
+		 }
+		
+		
+	}
+	// reduce the number of arguments - recursion is heavy
+	private void traverseDFS(int[][] arr, int i, int j, boolean[][] visited) {
+		 int dx[] = {-1, -1, -1,  0, 0,  1, 1, 1}; // 0 <= |x-x'| <= 1
+		 int dy[] = {-1,  0,  1, -1, 1, -1, 0, 1}; // 0 <= |y-y'| <= 1
+		 visited[i][j]= true;		  
+		 for(int k= 0; k<;8; k++){
+			 if(canVisit(arr, i+dx[k], j+dy[k], visited)){
+				 traverseDFS(arr, i+dx[k], j+dy[k], visited) ;
+			 }
+		 }		
+	}
+
+	private boolean canVisit(int[][] arr, int i, int j, boolean[][] visited) {
+		return (i >= 0) && (i < rowMax) && // row number is in range
+				(j >= 0) && (j < colMax) && // column number is in range
+				((arr[i][j]==1) && !visited[i][j]); // value is 1 and not yet visited
+	}
