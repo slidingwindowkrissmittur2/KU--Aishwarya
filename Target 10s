@@ -1,0 +1,57 @@
+using System;
+public class MatrixClass {
+
+	public static void Main() {
+		int[,] arr = new int[,] {
+										{1,1,0,1},
+										{1,1,1,0},
+										{1,1,0,0},
+										{1,1,0,0}
+									};
+		checkMatrix(arr);
+	}
+	
+	public static void checkMatrix(int[,] matrix) {
+		int row  = matrix.Length;
+		int col = matrix.GetLength(0);
+		int count_1s = 0;
+		int count_0s = 0;
+		
+		for(int i=0; i<row; i++) 
+		{
+			int temp = matrix[i,0];
+			int count=0;
+			
+			for(int j=0; j<col; j++) {
+				if(temp == matrix[i,j]) {
+					count++;
+				}
+			}
+			if(count == col && temp == 1) {
+				count_1s++; 
+			} else if(count == col && temp == 0) {
+				count_0s++;
+			}
+		}
+		
+		for(int i=0; i<col; i++) 
+		{
+			int temp = matrix[0,i];
+			int count=0;
+			
+			for(int j=0; j<row; j++) {
+				if(temp == matrix[j,i]) {
+					count++;
+					
+				}
+			}
+			if(count == row && temp == 1) {
+				count_1s++; 
+			} else if(count == row && temp == 0) {
+				count_0s++;
+			}
+		}
+		
+		Console.WriteLine("O's: " + count_0s + " , 1's: " + count_1s);
+	}
+}
