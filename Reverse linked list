@@ -1,0 +1,11 @@
+Reverse(Node  head)
+        prev=NULL       //Previous Pointer
+        cur=head        //Current Node
+        nxt=*cur.next   //Next Pointer
+        while cur is not NULL
+            nxt=(*cur).next
+            (*cur).next=prev
+            prev=cur
+            cur=nxt
+        head=prev
+        return head
