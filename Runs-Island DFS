@@ -1,8 +1,8 @@
 using System;
-
+//https://www.faceprep.in/c/find-the-total-number-of-islands-using-dfs/
 class Program
 {
-  static bool isSafe(int N,int M, int i,intj)
+  static bool isSafe(int N,int M, int i,int j)
 {
     if(i<0||i >=N)
      return false;
@@ -13,7 +13,7 @@ class Program
     return true;
 
 }
-static void DelIsland(int **A, int N,int M,int i, int j)
+static void DelIsland(int[,] A, int N,int M,int i, int j)
 {
   if(isSafe(N,M,i,j)&& A[i,j]==1)
 {
@@ -29,7 +29,7 @@ DelIsland(A,N,M,i+1,j-1);
 
 }
 }
- static int TotalBridge(int **A,int N,int M)
+ static int TotalBridge(int[,] A,int N,int M)
 {
   int count=0;
   for(int i=0;i<N;++i )
@@ -50,22 +50,22 @@ return count;
 }
   static void Main()
 {
-  /*int N =5 ;
+ /* int N =5 ;
   int M =8;
   
- int[,] A = 
+ int[,] A = new int[,]
 {{0, 0, 0, 0, 0, 0, 0, 1}, 
 {0, 1, 1, 1, 1, 0, 0, 1}, 
 {0, 1, 0, 1, 0, 0, 0, 1}, 
 {0, 1, 1, 1, 1, 0, 1, 0}, 
-{0, 0, 0, 0, 0, 0, 0, 1}} 
-*/
+{0, 0, 0, 0, 0, 0, 0, 1}} ;*/
 
-int N =5 ;
-  int M =8;
+
+int N =10;
+  int M =5;
   
- int[,] A =
-{1 ,0 ,1 ,0 ,1}
+ int[,] A = new int [,] {
+{1 ,0 ,1 ,0 ,1},
 
 {0 ,0 ,1 ,0 ,0},
 
@@ -84,6 +84,6 @@ int N =5 ;
 {0 ,0 ,0 ,1 ,1},
 
 {1 ,1 ,0 ,0, 0}};
- System.Console(TotalBridge(A,N,M));
+ Console.WriteLine(TotalBridge(A,N,M));
 }
 }
