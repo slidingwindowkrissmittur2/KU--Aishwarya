@@ -1,0 +1,63 @@
+main() {
+int m,n;
+int a[100] [100];
+bool found = false;
+
+cout << " m & n :" ;
+cin>>m >>n;
+
+cout<<" Enter matrix elements : ";
+for (int i = 0; i < m; i++) {
+for (int j = 0 ; j < n ; j++) {
+cin>>a[i][j];
+}
+}
+
+int xiter [] = { 1, 0 , -1 ,0 };
+int yiter [] = { 0, 1 , 0 ,-1 };
+
+int island_count = 0;
+
+for (int i=1 ; i < m -1; i++)
+for (int j = 1; j < n-1; j++)
+if (a[i][j] == 1) {
+found = true;
+for (int k =0 ; k < 4; k++) {
+int x = i + xiter[k];
+int y = j + yiter[k];
+if (a[x][y] != 0) {
+found = false;
+break;
+}
+}
+if (found) {
+cout << "Island found at "<<i <<", "<<j<<endl;
+}
+}
+
+// Count number of islands - 1 surrounded by 0
+
+for (int i =0 ; i < m; i++)
+for (int j = 0; j < n; j++) {
+if (a[i][j] == 1) {
+bool island = true;
+a[i][j] = 2;
+for (int k = 0; k < 4; k++) {
+int x = i+ xiter[k];
+int y = j + yiter[k];
+if (x < 0 || y < 0 || x >=m || y>= n)
+continue;
+if (a[x][y] == 1) {
+a[x][y] = 2;
+} else if (a[x][y] == 2) {
+island = false;
+}
+}
+if (island)
+island_count++;
+}
+}
+cout << " Number of islands : " <<island_count <<endl;
+
+return 0;
+}
