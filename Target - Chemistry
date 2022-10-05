@@ -1,10 +1,6 @@
 // take array equal size, non overlapping 
 //Consecutively placed arrays
-//Reverse the positions in second set
-
-// mixes each chemical from the first set with the correspondin-placed chemicals of second set
-
-//total vapor rate = sum of the products of respective vapor rates of the chemicals that he mixed from both sets
+{8,0,5,3,9,6}
 
 using System;
 
@@ -12,7 +8,7 @@ class Program
 {
     static void Main() {
         int[] x = new int[]{8,0,5,3,9,6};
-        int y = x.Length/2;
+        
         
         //Equal size non overlapping consecutive arrays
         int[] xa= new int []{8,0,5};
@@ -30,6 +26,8 @@ class Program
           total += xbcd[i];
           }
         
+       Array.SortDescending(x);
+       Console.WriteLine(x[0]*x[1]);
           
         int z = 10+25;
 
