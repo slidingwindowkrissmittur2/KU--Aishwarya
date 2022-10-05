@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Collections;
 public class RiceBags {
 
-    public static void main(string[] args) {
-        Console.WriteLine(new RiceBags().perfectRiceBags(new int[] {625,2,4,5,25}));
+    public static void Main(string[] args) {
+        Console.WriteLine(perfectRiceBags(new int[] {625,2,4,5,25}));
     }
 
     public static List<int> elements = new List<int>();
@@ -28,11 +28,11 @@ public class RiceBags {
     }
 
     private static int dfs(int a) {
-        if(cache.containsKey(a)) {
+        if(cache.ContainsKey(a)) {
             return cache[a];
         }
 
-        if(elements.contains(a)) {
+        if(elements.Contains(a)) {
             int result = 1 + dfs(a * a);
             cache.Add(a, result);
             return result;
