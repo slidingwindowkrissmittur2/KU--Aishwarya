@@ -2,24 +2,24 @@
 
 //https://www.geeksforgeeks.org/target-corporation-interview-experience-2/
 
-using System.Console;
+using System;
  class Program
 {
-static void main()
+static void Main()
 {
 int num = 5;
 
-int[] house_number= new int[num];
-int[] position= new int[num];
+int[] house_number= new int[num]{3,1,2,5,4};
+int[] position= new int[num]{7,9,0,15,30};
 for (int i= 0; i<num; i++)
 {
 Console.ReadLine(house_number[i]);
 Console.ReadLine(position[i]);
-int temp;
-int x1;
-int x2;
-int position1;
-int position2;
+int temp=0;
+int x1=0;
+int x2=0;
+int position1=0;
+int position2=0;
 int maxi=0;
 
 for(int i= 0; i < num;i++)
@@ -35,12 +35,12 @@ sort(copy_position,copy_position+num);
 for(int i= 0; i < num-1;i++)
 {
 int temp= abs(copy_position[i+1]- copy_position[i] );
-if (temp>maxi)
+if (temp>maxi){
 maxi=temp;
 x1=copy_position[i];
 x2=copy_position[i+1];
 }
-}
+
 
 for(int i= 0; i < num;i++)
 {
@@ -55,11 +55,11 @@ position2 = i;
 }
 if(house_number[position1]>house_number[position2]) //The house number is displayed which is matched by the position obtained
 {
-cout<<"Result:"<<"["<<house_number[position2]<<","<<house_number[position1]<<"]";
+Console.WriteLine("Result:{0} {1}"house_number[position2], house_number[position1]);
 }
 else
 {
-cout<<"Result:"<<"["<<house_number[position1]<<","<<house_number[position2]<<
+Console.WriteLine("Result: {0} {1}" house_number[position1],house_number[position2]);
 }
 return 0;
 }
