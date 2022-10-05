@@ -35,6 +35,14 @@ class Program
 
         Console.WriteLine(" {0}", total);
         
+           int[] A = new int[] {8,0,5,3,9,6};
+        A = A.OrderByDescending(c => c).ToArray();
+       Console.WriteLine(A[0]*A[1]);
+       
+       Array.Sort(A);
+       Array.Reverse(A);
+       Console.WriteLine(A[0]*A[1]);
+          
         
     }
 }
