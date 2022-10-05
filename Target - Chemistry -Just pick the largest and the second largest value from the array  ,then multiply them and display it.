@@ -1,4 +1,6 @@
-// take array equal size, non overlapping 
+Just pick the largest and the second largest value from the array  ,then multiply them and display it.
+
+/ take array equal size, non overlapping 
 //Consecutively placed arrays
 {8,0,5,3,9,6}
 
