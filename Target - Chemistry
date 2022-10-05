@@ -19,23 +19,23 @@ class Program
         int[] xb = new int []{3,9,6};
         
         //Reverse xb
-        int xbc = new int[]{6,9,3};
+        int[] xbc = new int[]{6,9,3};
         
         // Multiply the two positions store in array
-        int xbcd = new int[xbc.Length]();
+        int[] xbcd = new int[xbc.Length];
         int total = 0;
-        for (int i = 0; i < xbc.Length)
+        for (int i = 0; i < xbc.Length;++i)
          {
           xbcd[i] = xa[i] * xbc[i];
           total += xbcd[i];
           }
         
           
-        int z = x + y;
+        int z = 10+25;
 
         Console.Write("Sum of x + y = "+ z);
 
-        Console.WriteLine(" {0}, total);
+        Console.WriteLine(" {0}", total);
         
         
     }
