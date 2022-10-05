@@ -1,0 +1,13 @@
+static int maxProduct(int[] nums) {
+    int[] mins = new int[nums.Length];
+    int[] maxs = new int[nums.Length];
+    int ans=0;
+    
+    ans = mins[0] = maxs[0] = nums[0];
+    for (int i = 1; i < nums.Length; i++) {
+        mins[i] = Math.Min(nums[i], Math.Min(nums[i] * mins[i - 1], nums[i] * maxs[i - 1]));
+        maxs[i] = Math.Max(nums[i], Math.Max(nums[i] * mins[i - 1], nums[i] * maxs[i - 1]));
+        ans = Math.Max(ans, maxs[i]);
+    }
+    return ans;    
+};
