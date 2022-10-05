@@ -1,0 +1,66 @@
+using System;
+
+class Program
+{
+   
+    public static int maxSum(int[] A, int L, int M) {
+        int max_val = 0;
+       
+        int[] subs = new int[A.Length];
+        int sum = 0;
+        for(int i=0;i<A.Length;++i){
+            sum += A[i];
+            if(i == M-1) subs[i] = sum;
+            else if(i > M-1){
+                sum = sum - A[i-M];
+                subs[i] = Math.Max(subs[i-1],sum);
+            }
+        }
+        sum = 0;
+        for(int i=A.Length-1,j=L-1;i>0;--i,--j){
+            sum += A[i];
+            if(j <= 0){
+                if(j < 0) sum -= A[i+L];                
+                max_val = Math.Max(max_val,subs[i-1] + sum);
+            }
+        }
+
+        sum = 0;
+        Array.Fill(subs,0);
+
+        for(int i=A.Length-1,j=M-1;i>=0;--i,--j){
+            sum += A[i];
+            if(j == 0) subs[i] = sum;
+            else if(j < 0){
+                sum -= A[i+M];
+                subs[i] = Math.Max(subs[i+1],sum);
+            }            
+        }
+        sum = 0;
+        for(int i=0,j=0;i<A.Length-1;++i,++j){
+            sum += A[i];
+            if(j >= L-1){
+                if(j >= L) sum -= A[i-L];
+                max_val = Math.Max(max_val,subs[i+1] + sum);
+            } 
+        }
+
+
+
+        return max_val;
+    }
+
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+
+        Console.Write("Sum of x + y = "+ z);
+        
+        int[] A = new int[]{3,8,1,3,2,1,8,9,0 };
+        int M = 3;
+        int N = 2;
+        
+        Console.WriteLine(" {0} ", maxSum(A,M,N));
+    }
+}
