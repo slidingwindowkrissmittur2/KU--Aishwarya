@@ -1,0 +1,63 @@
+public interface Filter {
+       public bool match(File f);
+   }
+
+public class ExtensionFilter implements Filter {
+       final private String ext;
+   
+       public ExtensionFilter(String ext) {
+           this.ext = ext;
+       }
+   
+       public bool match(File f) {
+           return f.getName().endsWith("." + ext);
+       }
+   }
+
+public class SizeFilter implements Filter {
+       enum SizeOperator {
+           LT,
+           LTE,
+           EQ,
+           GT,
+           GTE
+       };
+   
+       private final int size;
+       private final SizeOperator op;
+   
+       public SizeFilter(int size, SizeOperator op) {
+           this.size = size;
+           this.op = op;
+       }
+   
+       public bool match(File f) {
+          int actualSize = f.length();
+           switch (op) {
+               case LT:
+                   return actualSize < size;
+               case LTE:
+                   return actualSize <= size;
+               case EQ:
+                   return actualSize == size;
+               case GT:
+                   return actualSize > size;
+               case GTE:
+                   return actualSize >= size;
+           }
+   
+           return false;
+       }
+   }
+
+public void find(File f, Filter filter, List<Files> files) {
+           if (f.isDirectory()) {
+               for (File file : baseDir.listFiles()) {
+                  find(file, filter, files);
+               }
+           } else {
+                  if (filter.match(f)) {
+                       files.add(f);
+                   }
+             }
+       }
