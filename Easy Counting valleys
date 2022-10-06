@@ -17,3 +17,4 @@ static int countingValleys(int steps, string path) {
   }
 
   return valleyCount;
+}
