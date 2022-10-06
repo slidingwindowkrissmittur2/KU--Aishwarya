@@ -1,0 +1,41 @@
+using System;
+
+class Program
+{
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+        
+        string s = "abcaca";
+        long n=10;
+            long strLength = s.Length;
+
+    // Count the number of 'a' in the given string
+    int count = 0;
+    for (int i = 0; i < strLength; i++) {
+      if (s[i] == 'a') {
+        ++count;
+      }
+    }
+
+    long repeatedTimes = n / strLength;
+    Console.WriteLine(repeatedTimes);
+    // Find the length of string left after repetitions
+    long stringLeftLength = n - (strLength * repeatedTimes);//repeatedTimes);
+    Console.WriteLine(stringLeftLength);
+    
+    // Count the remaining repetitions
+    int extra = 0;
+    for (int i = 0; i < stringLeftLength; i++) {
+      if (s[i] == 'a') {
+        ++extra;
+      }
+    }
+    Console.WriteLine(extra);
+    long totalCount = (repeatedTimes * count) + extra;
+
+    Console.WriteLine( totalCount);
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
