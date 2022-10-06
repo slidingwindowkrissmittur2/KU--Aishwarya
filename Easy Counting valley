@@ -1,0 +1,19 @@
+static int countingValleys(int steps, string path) {
+  var valleyCount = 0;
+  var elevation = 0;
+  var isValley = false;
+
+  foreach (var ch in path) {
+    elevation += Char.ToUpper(ch) == 'U' ? 1 : -1;
+    if (elevation < 0)
+    {
+      isValley = true;
+    }
+    else if (elevation == 0 && isValley)
+    {
+      valleyCount++;
+      isValley = false;
+    }
+  }
+
+  return valleyCount;
