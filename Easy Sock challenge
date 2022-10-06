@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+class Solution{
+ static int sockMerchant(int[] socksPile)
+{
+  var pairsFound=0;
+  var sockColorHash = new Dictionary();
+  foreach (var sock in sockPile)
+   {
+    if (sockColorHash.ContainsKey(sock))
+     {
+        pairsFound++;
+        sockColorHash.Remove(sock);
+        }
+        else
+        {
+          sockColorHash.Add(sock,1);
+         }
+   }
+   return pairsFound;
+}
+}
