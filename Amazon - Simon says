@@ -1,0 +1,17 @@
+public int MinimumRounds(int[] tasks)
+        {
+            int res = 0;
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            foreach(var task in tasks)
+            {
+                if (dict.ContainsKey(task)) dict[task]++;
+                else dict.Add(task,1);
+            }
+            foreach(var key in dict.Keys)
+            {
+                if (dict[key] == 1) return -1;
+                if (dict[key] % 3 == 0) res += dict[key] / 3;
+                else res += dict[key] / 3 + 1;
+            }
+            return res;
+        }
