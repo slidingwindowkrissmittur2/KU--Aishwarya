@@ -1,0 +1,5 @@
+Step 1 : For a given value of N, find the “Power of 2” immediately smaller than N. Let’s call it P 
+Step 2 : Subtract N from (P-1). Lets call it M, i.e, M = (P-1)- N 
+Step 3 : Multiply M by 2. i.e M*2 
+Step 4 : Subtract M*2 from P-1. Let’s call it ans, i.e, ans = (P-1) – (M*2) 
+So, the person with number “ans” will survive till last. 
