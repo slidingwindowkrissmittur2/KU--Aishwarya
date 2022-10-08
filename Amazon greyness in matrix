@@ -1,0 +1,21 @@
+public static int maxGreyness(String[] strArray){
+		int[] rowCount = new int[strArray.length];
+		int[] colCount = new int[strArray[0].length()];
+		int rows = strArray.length;
+		int cols = strArray[0].length();
+		for(int i=0;i<rows;i++){
+			for(int j=0;j<cols;j++) {
+				if (strArray[i].charAt(j) == '1') {
+					rowCount[i]++;
+					colCount[j]++;
+				}
+			}
+		}
+		int ans = Integer.MIN_VALUE;
+		for(int i=0;i<rows;i++){
+			for(int j=0;j<cols;j++){
+				ans = Integer.max(ans, 2*(rowCount[i]+colCount[j]) - (rows+cols));
+			}
+		}
+		return ans;		
+	}
