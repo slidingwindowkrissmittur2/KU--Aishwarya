@@ -26,30 +26,29 @@ public void setZeroes(int[][] matrix) {
 
 using System;
 using System.Linq;
-
+using System.Text;
 class Program
 {
-    public static void setZeroes(int[,] arr) {
-        int l = arr.Length;
-        int m = arr.GetLength(0);
-        int[] arr1=new int[l];
-        int[] arr2=new int[m];
-        for(int i=0;i<l;i++){
-            for(int j=0;j<m;j++){
-                if(arr[i,j]==0){
+    public static void setZeroes(int[,] matrix) {
+        int[] arr1=new int[matrix.GetLength(0)];
+        int[] arr2=new int[matrix.GetLength(1)];
+        for(int i=0;i<matrix.GetLength(0);i++){
+            for(int j=0;j<matrix.GetLength(1);j++){
+                if(matrix[i,j]==0){
                     arr1[i]=1;
                     arr2[j]=1;
             }
             }
         }
-        for(int i=0;i<l;i++){
-            for(int j=0;j<m;j++){
+        for(int i=0;i<matrix.GetLength(0);i++){
+            for(int j=0;j<matrix.GetLength(1);j++){
                 if(arr1[i]==1 || arr2[j]==1){
-                    arr[i,j]=0;
+                    matrix[i,j]=0;
             }
             }
         }
     }
+
     public static void Print2DArray<T>(T[,] matrix)
     {
         for (int i = 0; i < matrix.GetLength(0); i++)
@@ -66,12 +65,12 @@ class Program
         int y = 25;
         int z = x + y;
         
-        int[,] array2D= new int[,]{{1,1,1},{1,0,1},{1,1,1}};
-        //int[,] matr= new int[3, 4]{ {2,5,55,44},{10,45,5,22 },{ 67,34,56,77} };
+        //int[,] array2D= new int[,]{{1,1,1},{1,0,1},{1,1,1}};
+        int[,] array2D= new int[3, 4]{ {0,1,2,0},{3,4,5,2},{1,3,1,5}};//{2,5,55,44},{10,45,5,22 },{ 67,34,56,77} };
 //int[,] array2D = new int[,] { { 1, 2 }, { 3, 4 }, { 5, 6 }, { 7, 8 } };
 
         setZeroes(array2D);
-        //Print2DArray(array2D);
+        Print2DArray(array2D);
        // Console.WriteLine(string.Join(" ", array2D.Cast<int>()));
         Console.WriteLine("Sum of x + y = {0} {1} {2}", array2D.Length,array2D.GetLength(0),array2D.GetLength(1));
     }
