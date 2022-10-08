@@ -1,0 +1,478 @@
+https://www.careercup.com/question?id=5669891241672704
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ 
+/**
+ *
+ * @author annamaxam
+ */
+public class Coordinate {
+    
+    private int x=0;
+    private int y=0;
+    private bool isBarren=true;
+    private bool visited = false;
+    private string text = " ";
+
+    public Coordinate() {
+        
+    }
+    
+    public Coordinate(int x, int y) {
+        this.x = x;
+        this.y = y;
+//        text = "-";
+    }
+    
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public bool isIsBarren() {
+        return isBarren;
+    }
+
+    public void setIsBarren(bool isBarren) {
+        this.isBarren = isBarren;
+    }
+
+    public bool isVisited() {
+        return visited;
+    }
+
+    public void setVisited(bool visited) {
+        this.visited = visited;
+        if(visited) {
+            text ="*";
+        }
+    }
+
+    public string getText() {
+        return text;
+    }
+
+    public void setText(string text){
+        this.text= text;
+        
+    }
+}
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+
+
+
+
+/**
+ *
+ * @author annamaxam
+ */
+public static class BarrenLandAnalysis {
+
+     static int TILE_SIZE = 1;
+    private static  int WIDTH = 400;
+    private static  int HEIGHT = 600;
+
+    private static  int X_TILES = WIDTH / TILE_SIZE;
+    private static  int Y_TILES = HEIGHT / TILE_SIZE;
+
+    private static Coordinate[,] grid = new Coordinate[X_TILES,Y_TILES];
+
+    /*public static void Main() {
+        string[] STDIN = {"0 292 399 307"};
+//        String[] STDIN = {"48 192 351 207", "48 392 351 407", "120 52 135 547", "260 52 275 547"};
+
+        string STDOUT = findFertileLand(STDIN);
+        Console.WriteLine(STDOUT);
+
+    }*/
+
+    /**
+     * Find total fertile land in grid based on String array of rectangle endpoints
+     * @param rectangleCornersArray
+     * @return String of all the fertile land area in square meters, sorted from smallest area to greatest, separated by a space
+     */
+    public static string findFertileLand(string[] rectangleCornersArray) {
+        List<int> fertileLand = new List<int>();
+
+        List<int[]> barrenLandEndPoints = getBarrenLandCoordinates(rectangleCornersArray);
+
+        List<Coordinate> totalBarrenLand = new List<Coordinate>();
+//        Fill barrenLand list 
+        foreach (int[] rectangle in barrenLandEndPoints) {
+            List<Coordinate> tr = new List<Coordinate>();
+            tr= findTotalBarrenLandForRectangle(rectangle);
+            totalBarrenLand.AddRange(tr);
+        }
+
+//        Loop through bounds of the grid filling a multidimentional array with each of the coordinate points in it
+        for (int y = 0; y < Y_TILES; y++) {
+            for (int x = 0; x < X_TILES; x++) {
+                Coordinate co = new Coordinate(x, y);
+//                for each coordinate, if it's present in the totalBarrenLand list, mark that coordinate as barren and visited
+                foreach (Coordinate c in totalBarrenLand) {
+                    if (c.getX() == x && c.getY() == y) {
+                        co.setIsBarren(true);
+                        co.setVisited(true);
+                        break;
+                    } else {
+                        co.setIsBarren(false);
+                    }
+                }
+                grid[x,y] = co;
+            }
+        }
+
+        fertileLand = checkForUnvisitedAreasAndCountFertileLand(fertileLand, 0, 0);
+
+        fertileLand.Sort();
+
+        string STDOUT = "";
+
+        if (!(fertileLand.Count==0)) {
+            foreach (int land in fertileLand) {
+                STDOUT += land.ToString() + " ";
+            }
+        } else {
+            STDOUT = "No fertile land available.";
+        }
+
+        return STDOUT;
+
+    }
+
+    /**
+     * Get list of integer arrays for each string of rectangle endpoints
+     * @param rectangleCornersArray
+     * @return Integer array of rectangle endpoint arrays
+     */
+    public static List<int[]> getBarrenLandCoordinates(string[] rectangleCornersArray) {
+
+//        List of arrays of rectangle points 
+        List<int[]> rectanglePoints = new List<int[]>();
+//        For each rectangle coordinates, split into array of strings, convert to array of ints, add array to list of arrays of rectangles 
+        for (int h = 0; h < rectangleCornersArray.Length; h++) {
+            string[] strRectangleCorner = rectangleCornersArray[h].Split(" ");
+            int[] intRectangleCorner = new int[strRectangleCorner.Length];
+            for (int i = 0; i < strRectangleCorner.Length; i++) {
+                intRectangleCorner[i] = Int32.Parse(strRectangleCorner[i]);
+            }
+            rectanglePoints.Add(intRectangleCorner);
+        }
+
+        return rectanglePoints;
+    }
+
+    /**
+     * Populate a barren land rectangle with all the coordinates in that space
+     * @param bounds
+     * @return List of coordinates in barren land rectangle
+     */
+    public static List<Coordinate> findTotalBarrenLandForRectangle(int[] bounds) {
+        List<Coordinate> allBarrenLandCoordinates = new List<Coordinate>();
+
+//        Loop through endpoints and create new coordinate for each coordinate within rectangle endpoints - then add to allBarrenLandCoordinates list
+        for (int i = bounds[0]; i <= bounds[2]; i++) {
+            for (int j = bounds[1]; j <= bounds[3]; j++) {
+                Coordinate coordinates = new Coordinate(i, j);
+                allBarrenLandCoordinates.Add(coordinates);
+            }
+        }
+        return allBarrenLandCoordinates;
+    }
+
+    /**
+     * Check through grid, find first unvisited point, flood fill the fertile area directly connected to that point, and return the total area
+     * @param land
+     * @param xVal
+     * @param yVal
+     * @return List of area of each fertile land plot
+     */
+    public static List<int> checkForUnvisitedAreasAndCountFertileLand(List<int> land, int xVal, int yVal) {
+        for (int y = yVal; y < Y_TILES; y++) {
+            for (int x = xVal; x < X_TILES; x++) {
+                Coordinate tile = grid[x,y];
+                if (!tile.isVisited()) {
+                    int totalFertileArea = floodFill(grid, x, y);
+                    land.Add(totalFertileArea);
+                    checkForUnvisitedAreasAndCountFertileLand(land, x, y);
+                }
+            }
+        }
+        return land;
+
+    }
+
+    /**
+     * Visit all coordinates in a fertile land space and find the area
+     * @param grid
+     * @param x
+     * @param y
+     * @return area (int) of the current fertile land space
+     */
+    public static int floodFill(Coordinate[,] grid, int x, int y) {
+        int count = 0; // Count of grid squares being filled/visited
+
+        Stack<Coordinate> stack = new Stack<Coordinate>();
+        stack.Push(new Coordinate(x, y));
+
+        while (!(stack.Count==0)) {
+            Coordinate c = stack.Pop();
+
+//         If Coordinate c is unvisited, visit it, increase count by 1, and add neighbors to the stack;
+            if(isCoordinateUnvisited(grid, c)) {     
+                count += 1;
+                    if ( c.getY() -1 >= 0 && !grid[c.getX(),c.getY() - 1].isVisited() ) {
+                        stack.Push(new Coordinate(c.getX(), c.getY() - 1));
+                    }
+                    if (c.getY() +1 < Y_TILES && !grid[c.getX(),c.getY() + 1].isVisited()) {
+                        stack.Push(new Coordinate(c.getX(), c.getY() + 1));
+                    }
+                    if ( c.getX() -1 >= 0 && !grid[c.getX() - 1,c.getY()].isVisited()) {
+                        stack.Push(new Coordinate(c.getX() - 1, c.getY()));
+                    }
+                    if (c.getX() +1 < X_TILES && !grid[c.getX() + 1,c.getY()].isVisited()) {
+                        stack.Push(new Coordinate(c.getX() + 1, c.getY()));
+                    }
+            }
+
+        }
+        return count;
+    }
+
+    /**
+     * Check if coordinate has been visited already - if not, switch visited to true
+     * @param grid
+     * @param c
+     * @return boolean value representing whether coordinate c has been visited or not
+     */
+    public static bool isCoordinateUnvisited(Coordinate[,] grid, Coordinate c) {
+
+//        Check that Coordinate c is not outside bounds of the grid
+        if (c.getX() < 0 || c.getY() < 0 || c.getX() >= X_TILES || c.getY() >= Y_TILES) {
+            return false;
+        }
+
+        Coordinate coordinateToCheck = grid[c.getX(),c.getY()];
+
+        if (coordinateToCheck.isVisited()) {
+            return false;
+        }
+
+        coordinateToCheck.setVisited(true);
+
+        return true;
+    }
+
+}
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author annamaxam
+ 
+public class BarrenLandAnalysisTest {
+    
+    BarrenLandAnalysis bla = new BarrenLandAnalysis();
+    
+    public BarrenLandAnalysisTest() {
+    }
+    
+    
+    public static void setUpClass() {
+    }
+    
+   
+    public static void tearDownClass() {
+    }
+    
+    
+    public void setUp() {
+    }
+    
+    
+    public void tearDown() {
+    }
+
+    /**
+     * Test of main method, of class BarrenLandAnalysis.
+     
+    
+    public void testMain() {
+    }
+
+    /**
+     * Test of findFertileLand method, of class BarrenLandAnalysis.
+     
+    
+    public void testFindFertileLand() {
+        string[] strSTDIN = {"0 292 399 307"};
+        string STDOUT = "116800 116800 ";
+        
+        
+        assertEquals(STDOUT, bla.findFertileLand(strSTDIN));
+  
+    }
+    
+    /**
+     * Test of findFertileLand method, of class BarrenLandAnalysis.
+     
+    
+    public void testFindFertileLand2() {
+        string[] strSTDIN = {"48 192 351 207", "48 392 351 407", "120 52 135 547", "260 52 275 547"};
+        string STDOUT = "22816 192608 ";
+        
+        
+        assertEquals(STDOUT, bla.findFertileLand(strSTDIN));
+  
+    }
+    
+    /**
+     * Test of findFertileLand method, of class BarrenLandAnalysis.
+     
+   
+    public void testFindFertileLand3() {
+        string[] strSTDIN = {"0 0 399 599"};
+        string STDOUT = "No fertile land available.";
+        
+        
+        assertEquals(STDOUT, bla.findFertileLand(strSTDIN));
+  
+    }
+    
+    /**
+     * Test of findFertileLand method, of class BarrenLandAnalysis.
+     
+    
+    public void testFindFertileLand4() {
+        string[] strSTDIN = {"0 0 1 1"};
+        string STDOUT = "239996 ";
+        
+        
+        assertEquals(STDOUT, bla.findFertileLand(strSTDIN));
+  
+    }
+    
+    /**
+     * Test of findFertileLand method, of class BarrenLandAnalysis.
+     
+    
+    public void testFindFertileLand5() {
+        string[] strSTDIN = {"0 0 0 599"};
+        string STDOUT = "239400 ";
+        
+        
+        assertEquals(STDOUT, bla.findFertileLand(strSTDIN));
+  
+    }
+    
+    /**
+     * Test of findFertileLand method, of class BarrenLandAnalysis.
+     
+   
+    public void testFindFertileLand6() {
+        string[] strSTDIN = {"0 0 0 599", "2 0 2 599"};
+        string STDOUT = "600 238200 ";
+        
+        
+        assertEquals(STDOUT, bla.findFertileLand(strSTDIN));
+  
+    }
+    
+    /**
+     * Test of findFertileLand method, of class BarrenLandAnalysis.
+     
+    
+    public void testFindFertileLand7() {
+        string[] strSTDIN = {"0 0 0 599", "2 0 2 599", "3 2 399 3"};
+        string STDOUT = "600 794 236612 ";
+        
+        
+        assertEquals(STDOUT, bla.findFertileLand(strSTDIN));
+  
+    }
+    
+    /**
+     * Test of findFertileLand method, of class BarrenLandAnalysis.
+     
+    
+    public void testFindFertileLand8() {
+        string[] strSTDIN = {"0 0 0 599", "2 0 2 599", "3 2 399 3", "5 0 5 1"};
+        string STDOUT = "4 600 788 236612 ";
+        
+        
+        assertEquals(STDOUT, bla.findFertileLand(strSTDIN));
+  
+    }
+    
+    /**
+     * Test of findFertileLand method, of class BarrenLandAnalysis.
+     
+    
+    public void testFindFertileLand9() {
+        string[] strSTDIN = {"0 0 0 599", "0 0 399 0", "399 0 399 599", "0 599 399 599"};
+        string STDOUT = "238004 ";
+        
+        
+        assertEquals(STDOUT, bla.findFertileLand(strSTDIN));
+  
+    }
+
+    /**
+     * Test of findFertileLand method, of class BarrenLandAnalysis.
+     
+    
+    public void testFindFertileLand10() {
+        string[] strSTDIN = {"0 0 0 599", "2 0 2 599", "3 2 399 3", "5 0 5 1", "10 4 12 599"};
+        string STDOUT = "4 600 788 4172 230652 ";
+        
+        
+        assertEquals(STDOUT, bla.findFertileLand(strSTDIN));
+  
+    }
+    
+}*/
+class Program
+{
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+//BarrenLandAnalysis bla = new BarrenLandAnalysis();
+string[] strSTDIN = {"0 292 399 307"};
+        string STDOUT = "116800 116800 ";
+        
+        
+        Console.WriteLine(BarrenLandAnalysis.findFertileLand(strSTDIN));
+  
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
+
