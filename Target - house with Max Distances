@@ -2,6 +2,36 @@
 
 //https://www.geeksforgeeks.org/target-corporation-interview-experience-2/
 
+
+houseList = [[3, 7],[1, 9],[2, 0],[5, 15],[4, 30]]
+Output: [4, 5]
+À
+// House list in Dictionary
+// Sort Descending by 2 value in Dictionary of houselist
+// Take the first two elements in Dictionary
+// Display the first value of the two arrays
+
+//using System.Collections.Specialized;
+// ListDictionary houseList = new ListDictionary();
+// houseList.Add(3, 7);
+// houseList.Add(1, 9);
+// houseList.Add(2, 0);
+// houseList.Add(5, 15);
+// houseList.Add(4, 30);
+//
+var sortedDict = 
+     from entry in houseList orderby 
+     entry.Value descending select entry;
+
+
+
+// houseList.Sort();
+// houseList.Reverse();
+// var newList = houseList.OrderByDescending(x => x.Product.Name).ToList();
+//for(int i =0; i <2; i++)
+//{
+// Console.WriteLine(houseList(i));
+
 using System;
  class Program
 {
@@ -15,6 +45,7 @@ for (int i= 0; i<num; i++)
 {
 Console.ReadLine(house_number[i]);
 Console.ReadLine(position[i]);
+}
 int temp=0;
 int x1=0;
 int x2=0;
