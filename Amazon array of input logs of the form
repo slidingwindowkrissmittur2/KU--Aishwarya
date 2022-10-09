@@ -1,0 +1,194 @@
+Question
+
+You are given an array of input logs of the form {"starting_website": X, "new_website": Y, "session_id": Z} where each log represents a click from starting_website that brings you to new_website within a given session. The logs are not ordered, one website can potentially point to many others, and one website can potentially have many other websites pointing to it.
+
+Given any 2 websites (A, B), determine if there is a path to get from A to B. A path is only valid if it entirely occurred within a specific session and you do not need to care about the relationship from B to A.
+
+
+Let's say youre searching for a path from A to C
+
+[{"starting_website": A, "new_website": B,
+ "session_id": 1}, 
+{"starting_website": A, "new_website": B, 
+"session_id": 2}, 
+{"starting_website": B, "new_website": C,
+ "session_id": 1}]
+
+This would be valid since you can get from A to C in
+ session 1 via B
+
+[{"starting_website": A, "new_website": B,
+ "session_id": 1},
+ {"starting_website": B, "new_website": C, 
+"session_id": 2}]
+
+This is invalid since you cannot get from A to C
+ in one session
+
+[{"starting_website": A, "new_website": B,
+ "session_id": 1},
+ {"starting_website": A, "new_website": B,
+ "session_id": 2},
+ {"starting_website": B, "new_website": D,
+ "session_id": 1},
+ {"starting_website": E, "new_website": C,
+ "session_id": 1}]
+
+This would also be invalid since 
+there is no path from A to C
+* Pass loop logs
+* Create a graph for each session since
+ unordered
+* node in the graph contained references 
+to all websites it connected to.
+* 
+Once the graphs were created, I did a BFS
+ on each session graph containing both
+ A and B
+ starting from Node A to determine
+ if it reached 
+B.
+
+*Union find for each session
+inputarr= [{"starting_website": 'A', "new_website": 'B',
+ "session_id": 1}, 
+{"starting_website": 'A', 
+"new_website": 'B', "session_id": 2}, 
+{"starting_website": 'B', 
+"new_website": 'C', "session_id": 1}]
+print (isConnected(inputarr, 'A', 'C'))
+
+public static bool isConnected(
+  string[,,] inputArr,
+ char wsite1
+,char wsite2)
+{ 
+  List<string>sessions = 
+  new List<string>();
+  foreach ( var elem in inputArr)
+{
+   sessions[elem["session_id"]].
+   Append((elem['starting_website'], 
+                elem['new_website']));
+}
+   foreach (var sesid in sessions){
+        parent = {}
+        rank = {}
+        for e1, e2 in sessions[sesid]:
+            union(e1, e2, parent, rank)
+        if find(wsite1, parent, rank) == 
+           find(wsite2, parent, rank):
+            return true;
+}
+    return false;
+}
+
+find(node, parent, rank){
+        if node not in parent:
+            parent[node] = node
+        p = parent[node]
+        while p != parent[p]:
+            if p not in parent:
+                parent[p] = p
+            '''path compression'''
+            if parent[p] in parent:
+                parent[p] = parent[parent[p]]
+            p = parent[p]
+        return p;
+}
+ public static bool union(nodeA, nodeB, parent, rank){
+        p1, p2 = find(nodeA, parent, rank), 
+find(nodeB, parent, rank)
+
+        if p1 == p2:
+            return 0
+        r1 = rank.get(p1, 1)
+        r2 = rank.get(p2, 1)
+        if r1 >= r2:
+            parent[p2] = p1
+            rank[p1] = rank.get(p1, 1) + 1
+        else:
+            parent[p1] = p2
+            rank[p2] = rank.get(p2, 1) + 1
+        return 1;
+}
+from collections import defaultdict
+
+def isConnected(inputArr, wsite1, wsite2):
+    sessions = defaultdict(list)
+
+    for elem in inputArr:
+        sessions[elem["session_id"]].
+        append((elem['starting_website'], 
+                elem['new_website']))
+    
+    def find(node, parent, rank):
+        if node not in parent:
+            parent[node] = node
+        p = parent[node]
+        while p != parent[p]:
+            if p not in parent:
+                parent[p] = p
+            '''path compression'''
+            if parent[p] in parent:
+                parent[p] = parent[parent[p]]
+            p = parent[p]
+        return p
+
+
+    def union(nodeA, nodeB, parent, rank):
+        p1, p2 = find(nodeA, parent, rank), 
+find(nodeB, parent, rank)
+
+        if p1 == p2:
+            return 0
+        r1 = rank.get(p1, 1)
+        r2 = rank.get(p2, 1)
+        if r1 >= r2:
+            parent[p2] = p1
+            rank[p1] = rank.get(p1, 1) + 1
+        else:
+            parent[p1] = p2
+            rank[p2] = rank.get(p2, 1) + 1
+        return 1
+    
+    for sesid in sessions:
+        parent = {}
+        rank = {}
+        for e1, e2 in sessions[sesid]:
+            union(e1, e2, parent, rank)
+        if find(wsite1, parent, rank) == find(wsite2, parent, rank):
+            return True
+    return False
+
+
+
+
+
+
+inputarr= [{"starting_website": 'A', "new_website": 'B',
+ "session_id": 1}, 
+{"starting_website": 'A', 
+"new_website": 'B', "session_id": 2}, 
+{"starting_website": 'B', 
+"new_website": 'C', "session_id": 1}]
+print (isConnected(inputarr, 'A', 'C'))
+
+inputarr= [{"starting_website": 'A', "new_website": 'B', "session_id": 1}, 
+{"starting_website": 'B', "new_website": 'C', "session_id": 2}]
+print (isConnected(inputarr, 'A', 'C'))
+
+inputarr= [{"starting_website": 'A', "new_website": 'B', "session_id": 1},
+ {"starting_website": 'A', "new_website": 'B', "session_id": 2}, 
+{"starting_website": 'B', "new_website": 'D', "session_id": 1},
+ {"starting_website": 'E', "new_website": 'C', "session_id": 1}]
+print (isConnected(inputarr, 'A', 'C'))
+
+inputarr= [{"starting_website": 'A', "new_website": 'B', "session_id": 1},
+ {"starting_website": 'A', "new_website": 'B', "session_id": 2}, 
+{"starting_website": 'B', "new_website": 'D', "session_id": 1},
+ {"starting_website": 'E', "new_website": 'C', "session_id": 1}, 
+{"starting_website": 'D', "new_website": 'C', "session_id": 1}]
+print (isConnected(inputarr, 'A', 'C'))
+
+
