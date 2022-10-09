@@ -1,0 +1,51 @@
+Given a square matrix with entries
+ just 0’s and 1’s, 
+Output -1 If there are two 1’s that are 
+right next 
+to each other
+
+input  :
+
+2
+
+0 1 1 1
+
+3
+
+0 0 0 0 1 0 1 0 1
+
+output :
+
+-1
+
+1
+
+
+using System;
+
+class Program
+{
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+        int[] arr = new int[]{ 0 , 0 , 0 , 0,  1 , 0, 1, 0, 1};
+        bool flag = false;
+        for (int i = 0; i < arr.Length-1;++i)
+        {
+            if (arr[i] == arr[i+1] && arr[i]==1){
+              Console.WriteLine("-1");
+              flag = true;
+              break;
+                
+            }
+            
+              
+        }
+        if (flag == false)
+        Console.WriteLine("1");
+        
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
+
