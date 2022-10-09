@@ -1,0 +1,68 @@
+https://leetcode.com/discuss/interview-question/2676963/Amazon-oror-SDE2-Onsite-oror-Tough-Question/
+
+https://www.programiz.com/python-programming/online-compiler/
+
+
+
+
+
+from collections import defaultdict
+
+def isConnected(inputArr, wsite1, wsite2):
+    sessions = defaultdict(list)
+
+    for elem in inputArr:
+        sessions[elem["session_id"]].append((elem['starting_website'], elem['new_website']))
+    
+    def find(node, parent, rank):
+        if node not in parent:
+            parent[node] = node
+        p = parent[node]
+        while p != parent[p]:
+            if p not in parent:
+                parent[p] = p
+            '''path compression'''
+            if parent[p] in parent:
+                parent[p] = parent[parent[p]]
+            p = parent[p]
+        return p
+
+
+    def union(nodeA, nodeB, parent, rank):
+        p1, p2 = find(nodeA, parent, rank), find(nodeB, parent, rank)
+
+        if p1 == p2:
+            return 0
+        r1 = rank.get(p1, 1)
+        r2 = rank.get(p2, 1)
+        if r1 >= r2:
+            parent[p2] = p1
+            rank[p1] = rank.get(p1, 1) + 1
+        else:
+            parent[p1] = p2
+            rank[p2] = rank.get(p2, 1) + 1
+        return 1
+    
+    for sesid in sessions:
+        parent = {}
+        rank = {}
+        for e1, e2 in sessions[sesid]:
+            union(e1, e2, parent, rank)
+        if find(wsite1, parent, rank) == find(wsite2, parent, rank):
+            return True
+    return False
+
+
+
+
+inputarr= [{"starting_website": 'A', "new_website": 'B', "session_id": 1}, {"starting_website": 'A', "new_website": 'B', "session_id": 2}, {"starting_website": 'B', "new_website": 'C', "session_id": 1}]
+print (isConnected(inputarr, 'A', 'C'))
+
+inputarr= [{"starting_website": 'A', "new_website": 'B', "session_id": 1}, {"starting_website": 'B', "new_website": 'C', "session_id": 2}]
+print (isConnected(inputarr, 'A', 'C'))
+
+inputarr= [{"starting_website": 'A', "new_website": 'B', "session_id": 1}, {"starting_website": 'A', "new_website": 'B', "session_id": 2}, {"starting_website": 'B', "new_website": 'D', "session_id": 1}, {"starting_website": 'E', "new_website": 'C', "session_id": 1}]
+print (isConnected(inputarr, 'A', 'C'))
+
+inputarr= [{"starting_website": 'A', "new_website": 'B', "session_id": 1}, {"starting_website": 'A', "new_website": 'B', "session_id": 2}, {"starting_website": 'B', "new_website": 'D', "session_id": 1}, {"starting_website": 'E', "new_website": 'C', "session_id": 1}, {"starting_website": 'D', "new_website": 'C', "session_id": 1}]
+print (isConnected(inputarr, 'A', 'C'))
