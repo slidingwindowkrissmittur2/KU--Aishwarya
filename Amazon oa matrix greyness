@@ -1,3 +1,5 @@
+https://leetcode.com/discuss/interview-question/1753436/Amazon-OA
+
 public static int maxGreyness(String[] strArray){
 		int[] rowCount = new int[strArray.Length];
 		int[] colCount = new int[strArray[0].Length()];
