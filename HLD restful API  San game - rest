@@ -1,0 +1,102 @@
+https://leetcode.com/discuss/interview-question/system-design/132140/Design-online-multiplayer-snakeandladder-game/
+Design an online snake & ladder game.
+
+
+What RESTful services would you create?
+What UI stack will you use?
+How do you give dice chance and update his pawn?
+How do you handle players who go offline in the middle of the game?
+What are the other porblems you may face?
+Object Design
+Game
+- id
+- permalink
+- state (active, paused, finished)
+- playerTurn
+- winner (playerId)
+
+Player
+- id
+- user_account_id
+- game_id
+- status
+- position (in board)
+
+UserAccount
+- id
+- social ids
+- games played
+- games won
+- games lost
+etc..
+
+Game has one-to-many relationship 
+with Player.
+Player has many-to-one mapping 
+with UserAccount
+
+API Design
+POST to /account creates a user 
+account w/ login etc.
+
+POST to /games creates a new Game.
+Payload: { user_account_id: <>, ... }
+Response:
+
+{
+    id,
+    permalink,
+    ...
+}
+
+Response:
+
+{
+    id,
+    permalink,
+    ...
+}
+POST to /games/{id}/players creates a new player in the game.
+Payload: { user_account_id: <>, ... }
+
+DELETE to /games/{id}/players is for a player to leave the game.
+
+GET /games/{id} gives the state of the game at any moment in time.
+Response:
+
+{
+    id,
+    permalink,
+    players: [
+        {
+          id,
+          status (active, inactive, won, lost etc..),
+          positionInBoard
+        },
+        ...
+    ],
+    playerTurn: <playerId> (always determined by the server)
+}
+PUT /games/{id} is used to store the outcome of a player's turn, determine win / loss, switch turn to next player etc.
+Payload will be the player id.
+
+Dice roll happens at server end (to prevent client side tampering).
+Response might look something like:
+
+{
+    diceResult,
+    positionResult.
+    ...(game stats)
+}
+Client Design
+I would use a simple ReactJS + Redux setup for the client. Various components can be Board, BoardPiece, Dice, Player etc.
+
+Once a game is created by a certain user, other users visiting that game's permalink will join the game. Game can have a dynamic max players limit at server side.
+
+Far more interesting is to figure out how to keep the board updated at all times. HTTP2 push / websockets seem like a good solution. Long polling is another.
+
+When it is not a certain player's turn, the "roll dice" button is disabled. In fact, the server will reject a game update API request if it is not that player's turn.
+
+When a player goes offline, game gets notified and server updates the game state accordingly. For example, if only one player is active, the game can be paused.
+
+Client can have some nice dice roll / board piece animations.
