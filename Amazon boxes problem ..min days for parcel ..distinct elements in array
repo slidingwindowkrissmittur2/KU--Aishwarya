@@ -1,0 +1,25 @@
+public static int GetMinimumDays(int[] parcels)
+{
+int minDays = 0;
+Array.Sort(parcels);
+
+        for(int i = 0; i < parcels.Length; i++)
+        {
+            int minParcel = parcels[i];
+            if (minParcel == 0)
+            {
+                continue;
+            }                
+            
+            for(int j = i; j < parcels.Length; j++)
+            {
+                parcels[j] -= minParcel; 
+            }
+
+            minDays++;
+        }
+
+        return minDays;
+    }
+
+number of distinct elements in the array
