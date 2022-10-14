@@ -1,0 +1,42 @@
+Find Maximum Sustainable Cluster Size
+
+Maximum Number of Robots Within Budget
+
+
+https://leetcode.com/discuss/interview-question/2061294/amazon-oa
+
+https://leetcode.com/discuss/interview-question/1636493/Amazon-or-OA-or-Max-Length-of-Valid-Server-Cluster
+
+
+: chargeTimes = [3,6,1,3,4], runningCosts = [2,1,3,4,5], budget = 25
+Output: 3
+Explanation: 
+It is possible to run all individual and consecutive pairs of robots within budget.
+To obtain answer 3, consider the first 3 robots. The total cost will be max(3,6,1) + 3 * sum(2,1,3) = 6 + 3 * 6 = 24 which is less than 25.
+It can be shown that it is not possible to run more than 3 consecutive robots within budget, so we return 3.
+
+public int maximumRobots(int[] chargeTimes, int[] runningCosts, long budget) {
+    int len = chargeTimes.length;
+    if(len == 0 || chargeTimes == null || runningCosts == null) return 0;
+    int ans = 0;
+    for(int i=0;i<len;i++){
+        long count = 1;
+        long sum =0;
+        long max = runningCosts[i];
+        for(int j=i;j<len;j++){
+            sum += runningCosts[j];
+            long mul = sum * count;
+
+            max = Math.max(max,chargeTimes[j]);
+            long tempPower = mul + max;
+            if(tempPower <= budget){
+                // System.out.println(tempPower);
+                ans = (int)Math.max(count, ans);
+            }else break;
+            count++;
+        }
+    }
+    return ans;
+}
+
+
