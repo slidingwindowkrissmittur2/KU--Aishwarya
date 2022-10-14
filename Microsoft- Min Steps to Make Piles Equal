@@ -8,7 +8,13 @@ just lower than the maximum height of the
 steps required to make all of the piles
  equal in height.
 
-
+Input: piles = [5, 2, 1]
+Output: 3
+Explanation:
+Step 1: reducing 5 -> 2 [2, 2, 1]
+Step 2: reducing 2 -> 1 [2, 1, 1]
+Step 3: reducing 2 -> 1 [1, 1, 1]
+So final number of steps required is 3.
 public int minSteps(int[] piles){
         int len = piles.length;
         if(len <= 1) return 0;
