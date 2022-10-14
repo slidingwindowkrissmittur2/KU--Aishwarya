@@ -1,0 +1,55 @@
+OPTIMIZING BOX WEIGHT | GIFT 
+
+
+ROBLEM 1 : If we sort the array, the subset A with maximal total weight is the shortest trailing subarray with sum greater than half of the total sum, e.g. for the example above,
+
+sorted(arr) = [1, 2, 2, 3, 4, 5]
+sum(arr) / 2 = 17 / 2 = 8.5
+A = [4, 5]
+sum(A) = 9
+
+split array in two parts, constraints: A sum >= B sum
+num of elements A <= B
+A & B should be distinct.
+return expected A
+
+Approach :
+1. calculate sum of total elements
+2. target = sum/2
+3. take MaxQueue PriorityQueue
+4. while(localsum < target) add elements to result and localsum
+5. return result in reverse
+this solution passed all test cases except 1
+
+PROBLEM 2 : GIFTING GROUPS
+Amazon is working on grouping people in audible groups. You are given a list of integers which are pictorially repesented as 2D matrix
+col 0 col1 col2
+row 0 1 1 0
+row 1 1 1 0
+row 2 0 0 1
+
+submitted the first best answer in the solutions, it passed all test cases
+Solution:
+
+public static List minimalHeaviestSetA(List arr) {
+// Write your code here
+Collections.sort(arr);
+long sum =0;
+for(Integer i : arr){
+sum+=(long)i;
+}
+long s=0;
+List res = new ArrayList<>();
+for(int i=arr.size()-1;i>=0;i--){
+s+=(long)arr.get(i);
+res.add(arr.get(i));
+
+     if(sum-s < s){
+         break;
+     }
+
+ if(res != null)
+ Collections.sort(res);
+ 
+ return res;
+}
