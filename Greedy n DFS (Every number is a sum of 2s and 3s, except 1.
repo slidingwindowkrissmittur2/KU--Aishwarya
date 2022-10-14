@@ -1,0 +1,55 @@
+Intuition : Every number is a sum of 2s and 3s, except 1.
+
+class Solution {
+    public int minimumRounds(int[] tasks) {
+        
+        HashMap<Integer, Integer> m = new HashMap<>();
+        for (int task : tasks)
+            m.put(task, m.getOrDefault(task, 0) + 1);
+        
+        int ans = 0;
+        for (int val : m.values()) {
+            if (val == 1) return -1;
+            if (val % 3 == 0)  ans += val / 3;
+            else {
+                int groupOfThree = val / 3;
+				if (val % 3 == 1)    groupOfThree--;
+				val -= groupOfThree * 3;
+				ans += groupOfThree + val / 2;
+            }
+        }
+        return ans;
+    }
+}
+
+
+class Solution {
+    public int minimumRounds(int[] tasks) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int t : tasks){
+            map.put(t, map.getOrDefault(t, 0) + 1);
+        }
+        int total = 0;
+        for (int val : map.values()){   
+            int res = helper(val, 0);
+            if (res == -1){
+                return -1;
+            }
+            total += res;
+        }
+        return total;    
+    }
+    private int helper(int val, int count){
+        if (val < 0){
+            return -1;
+        }
+        if (val == 0){
+            return count;
+        }
+        int res = helper(val - 3, count + 1);
+        if (res == -1){
+            res = helper(val - 2, count + 1);
+        }
+        return res;
+    }
+}
