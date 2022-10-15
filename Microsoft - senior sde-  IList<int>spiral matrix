@@ -1,0 +1,50 @@
+https://leetcode.com/discuss/interview-question/1387277/Microsoft-Onsite/
+
+Spiral Matrix
+
+Given an m x n matrix, return all elements of the matrix in spiral order.
+
+public class Solution {
+    public IList<int> SpiralOrder(int[][] matrix) {
+        IList<int> result = new List<int>();
+        
+        if(matrix == null || matrix.Length == 0)
+            return result;
+        
+        int maxRow = matrix.Length;
+        int maxCol = matrix[0].Length;        
+        int i = 0, row = 0, col = 0;
+        
+        while(row < maxRow && col < maxCol)
+        {
+            // #Move Left to Right and #Remove row from Top
+            for(i = col; i < maxCol; i++)
+                result.Add(matrix[row][i]);
+            row++;
+            
+            // #Move Top to Down and #Remove col from Right
+            for(i = row; i < maxRow; i++)
+                result.Add(matrix[i][maxCol - 1]);
+            maxCol--;
+            
+            // #Move Right to Left and #Remove row from Bottom
+			if(row < maxRow)
+			{
+				for(i = maxCol - 1; i >= col; i--)
+					result.Add(matrix[maxRow - 1][i]);
+				maxRow--;
+			}
+            
+            // #Move Down to Top and #Remove col from Left
+			if(col < maxCol)
+			{
+				for(i = maxRow - 1; i >= row; i--)
+					result.Add(matrix[i][col]);
+				col++;         
+			}  
+        }
+        
+        return result;
+    }
+}
+
