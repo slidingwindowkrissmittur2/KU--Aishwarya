@@ -1,0 +1,29 @@
+Give you one sorted array, please put them into n buckets, we need to ensure we get n sub array with approximately equal weights.
+Example;
+input {1, 2, 3, 4, 5} n = 3
+output [[[5],[1,4],[2,3]];
+
+class Mini{
+    public static bool canPartitionKSubsets(int[] nums, int k) {
+        int sum = Array.Stream(nums).Sum();
+        if (sum%k != 0) return false;
+        int target = sum/k;
+        bool[][] dp = new bool[nums.length + 1][1 << nums.length + 1];
+        return f(0, 0, k, 0, nums, target, dp);
+    }
+
+    private static bool f(int i, int mask, int k, int cur, int[] nums, int target, bool[][] dp) {
+        if (k == 1) return true;
+        if (cur == target) return f(0, mask, k - 1, 0, nums, target, dp);
+        else if (cur > target) return false;
+        if (dp[i][mask] != null) return dp[i][mask];
+        for (int j = i; j < nums.length; j++) {
+            if ((mask& 1L << j) == 0){
+                if (f(j, mask| 1 << j, k, cur + nums[j], nums, target, dp)) {
+                    return dp[i][mask] = true;
+                }
+            }
+        }
+        return dp[i][mask] = false;
+    }
+}
