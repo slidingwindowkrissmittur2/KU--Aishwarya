@@ -45,3 +45,5 @@ public class MyQueue {
         return s1.Count == 0;
     }
 }
+https://leetcode.com/problems/implement-queue-using-stacks/discuss/1074157/c
+
