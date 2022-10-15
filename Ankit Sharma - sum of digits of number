@@ -1,0 +1,14 @@
+How to find the sum of digits of a positive integer?
+Ans.: The user will input a positive integer and the method should return the sum of all the digits in that integer.
+
+input: 168, output: 15
+internal static void SumOfDigits(int num)  
+{  
+    int sum = 0;  
+    while (num > 0)  
+    {  
+        sum += num % 10;  
+        num /= 10;  
+    }  
+    Console.WriteLine(sum);  
+}
