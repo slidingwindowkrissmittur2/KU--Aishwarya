@@ -1,0 +1,25 @@
+How to convert a one-dimensional array to a two-dimensional array?
+Ans.: The user will input a 1-D array along with the number of rows and columns. The method should convert this 1-D array to a 2-D array(matrix) of a given row and column. We will create a matrix row-wise.
+
+input: {1, 2, 3, 4, 5, 6} ,2 ,3
+output:
+1 2 3
+
+4 5 6
+
+internal static void SingleToMulti(int[] array, int row, int column)  
+ {  
+     int index = 0;  
+     int[,] multi = new int[row, column];  
+  
+     for (int y = 0; y < row; y++)  
+     {  
+         for (int x = 0; x < column; x++)  
+         {  
+             multi[y, x] = array[index];  
+             index++;  
+             Console.Write(multi[y, x] + " ");  
+         }  
+         Console.WriteLine();  
+     }  
+ }
