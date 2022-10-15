@@ -1,0 +1,17 @@
+How to find all possible substring of a
+ given string?
+Ans.: This is a very frequent interview question. Here we need to form all the possible substrings from input string, varying from length 1 to the input string length. The output will include the input string also.
+
+input: abcd , output : a ab abc abcd b bc bcd c cd d
+internal static void findallsubstring(string str)  
+ {  
+     for (int i = 0; i < str.Length; ++i)  
+     {  
+         StringBuilder subString = new StringBuilder(str.Length - i);  
+         for (int j = i; j < str.Length; ++j)  
+         {  
+             subString.Append(str[j]);  
+             Console.Write(subString + " ");  
+         }  
+     }  
+ }
