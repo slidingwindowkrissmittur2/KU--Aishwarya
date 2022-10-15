@@ -1,0 +1,18 @@
+How to perform Right circular rotation of an array?
+Ans: The user will input an integer array and the method should shift each element of input array to its Right by one position in circular fashion. The logic is to iterate loop from 0 to Length-1 and swap each element with first element
+
+input: 1 2 3 4 5, output: 5 1 2 3 4
+internal static void RotateRight(int[] array)  
+{  
+    int size = array.Length;  
+    int temp;  
+    for (int j = 0; j < size - 1; j++)  
+    {  
+        temp = array[0];  
+        array[0] = array[j + 1];  
+        array[j + 1] = temp;  
+    }  
+    foreach (int num in array)  
+    {  
+        Console.Write(num + " ");  
+    }  
