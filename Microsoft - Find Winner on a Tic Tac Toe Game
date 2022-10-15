@@ -1,0 +1,48 @@
+https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/description/
+
+Input: moves = [[0,0],[2,0],[1,1],[2,1],[2,2]]
+Output: "A"
+Explanation: A wins, they always play first.
+
+
+
+
+public class Solution
+{
+	public string Tictactoe(int[][] moves)
+	{
+		int mark = 0;
+		int[] board = new int[9];
+		Array.Fill(board, -1);
+
+		foreach(var move in moves)
+		{
+			int pos = 3 * move[0] + move[1];
+			board[pos] = mark;
+			if (IsAWinner(board, pos))
+				return mark == 0 ? "A" : "B";
+
+			mark ^= 1;
+		}
+
+		return moves.GetLength(0) != 9 ? "Pending" : "Draw";
+	}
+
+public bool IsAWinner(int[] board, int pos)
+	{
+		int row = pos / 3, col = pos % 3;
+		int firstRow = row * 3;
+		return (board[firstRow] == board[pos] && board[firstRow + 1] == board[pos] && board[firstRow + 2] == board[pos]) ||
+			(board[col] == board[pos] && board[col + 3] == board[pos] && board[col + 6] == board[pos]) ||
+			(CheckIsDignoal(pos) && ((board[0] == board[pos]
+			&& board[4] == board[pos]
+			&& board[8] == board[pos]) || (board[2] == board[pos] && board[4] == board[pos] && board[6] == board[pos])));
+	}
+
+	public bool CheckIsDignoal(int pos)
+	{
+		return pos == 0 || pos == 4 || pos == 8 || pos == 2 || pos == 6;
+	}
+}
+
+
