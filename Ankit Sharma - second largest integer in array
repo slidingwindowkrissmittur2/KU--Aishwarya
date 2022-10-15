@@ -1,0 +1,23 @@
+How to find second largest integer in an array using only one loop?
+Ans.: The user will input an unsorted integer array and the method should find the second largest integer in the array.
+
+input: 3 2 1 5 4, output: 4
+internal static void FindSecondLargeInArray(int[] arr)  
+{  
+    int max1 = int.MinValue;  
+    int max2 = int.MinValue;  
+
+    foreach (int i in arr)  
+    {  
+        if (i > max1)  
+        {  
+            max2 = max1;  
+            max1 = i;  
+        }  
+        else if (i >= max2 && i != max1)  
+        {  
+            max2 = i;  
+        }  
+    }  
+    Console.WriteLine(max2); ;  
+}
