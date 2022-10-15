@@ -1,0 +1,60 @@
+public class Solution 
+{
+    private IEnumerable<char> 
+     Insert(IEnumerable<char> s, 
+     char digit, 
+     Func<char, char, bool> skip) => s
+        .TakeWhile(c => skip(digit, c))
+        .Append(digit)
+        .Concat(s.SkipWhile(
+         c => skip(digit, c)));
+    
+    public string MaxValue(string n, int x) 
+        => n.First() == '-' ? "-" + 
+           String.Concat(Insert(n.Skip(1), 
+           (char)('0' + x), (digit, c)
+            => digit >= c))
+            : String.Concat(Insert
+            (n, (char)('0' + x), 
+            (digit, c) => digit <= c));
+}
+
+		bool isInserted = false;
+		StringBuilder res = new StringBuilder();
+
+		if (n[0] == '-')
+		{
+			res.Append('-');
+
+			for (int i = 1; i < n.Length; i++)
+			{
+				if (!isInserted && (n[i] - '0') > x)
+				{
+					res.Append(x);
+					isInserted = true;
+				}
+
+				res.Append(n[i]);
+			}
+		}
+		else
+		{
+			for (int i = 0; i < n.Length; i++)
+			{
+				if (!isInserted && (n[i] - '0') < x)
+				{
+					res.Append(x);
+					isInserted = true;
+				}
+
+				res.Append(n[i]);
+			}
+		}
+
+		if (res.Length == n.Length)
+			res.Append(x);
+
+		return res.ToString();
+
+
+
