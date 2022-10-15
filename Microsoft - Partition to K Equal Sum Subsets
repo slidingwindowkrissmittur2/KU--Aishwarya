@@ -1,0 +1,110 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _698_partition_k_subset___2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+        }
+
+        /// <summary>
+        /// Oct. 29, 2020
+        /// second practice
+        /// study code
+        /// https://leetcode.com/problems/partition-to-k-equal-sum-subsets/discuss/441919/C-Easy-to-follow-and-Commented-Backtracking-Solution
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public bool CanPartitionKSubsets(int[] nums, int k) 
+        {
+            // calculate sum needed per group
+            int sum = nums.Sum();
+
+            if (sum % k != 0)
+            {
+                return false;
+            }
+
+            int percentage = sum / k;
+        
+            return CanPartitionSubset(nums, percentage, k, index: 0, total : 0);
+        }
+
+        /// <summary>
+        /// use -1 to mark visit, no need to use extra hashset to mark visit
+        /// 
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <param name="sum"></param>
+        /// <param name="k"></param>
+        /// <param name="index"></param>
+        /// <param name="total"></param>
+        /// <returns></returns>
+        private bool CanPartitionSubset(
+            int[] numbers,
+            int sum,
+            int k,
+            int index,
+            int total)
+        {
+            // base case
+            if (k == 1)
+            {
+                return true;
+            }
+
+            if (total == sum)
+            {
+                /// good tip to learn: put variable name before the value
+                return CanPartitionSubset(
+                    numbers,
+                    sum,
+                    k - 1,
+                    index: 0,
+                    total: 0);
+            }
+            
+            for (int i = index; i < numbers.Length; i++)
+            {
+                var current = numbers[i];
+
+                if (current == -1)
+                {
+                    continue;
+                }
+
+                if (total + current <= sum)
+                {
+                    // prepare for backup
+                    var backup = numbers[i];
+
+                    // mark visit, all numbers supposed to be positive
+                    numbers[i] = -1;  
+
+                    var rest = CanPartitionSubset(
+                        numbers,
+                        sum,
+                        k,
+                        i + 1,
+                        total + backup);
+
+                    if (rest)
+                    {
+                        return true;
+                    }
+
+                    // restore the value
+                    numbers[i] = backup;
+                }
+            }
+
+            return false;            
+        }
+    }
+}
