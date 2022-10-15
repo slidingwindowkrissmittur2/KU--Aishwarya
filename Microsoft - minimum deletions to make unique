@@ -1,0 +1,18 @@
+int[] arr = new int[26];
+        foreach(var c in s)
+            arr[c - 'a']++;
+        
+        HashSet<int> set = new();
+        int count = 0;
+        
+        for(int i=0; i<26; i++)
+        {
+            while(set.Contains(arr[i]) && arr[i] > 0)
+            {
+                arr[i]--;
+                count++;
+            }
+            set.Add(arr[i]);
+        }
+        
+        return count;
