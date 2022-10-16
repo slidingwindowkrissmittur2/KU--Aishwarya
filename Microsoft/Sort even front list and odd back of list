@@ -1,3 +1,111 @@
+
+using System;
+
+using System.Linq;
+ 
+
+class GFG {
+
+    // To do two way sort. First sort even numbers in
+
+    // ascending order, then odd numbers in descending
+
+    // order.
+
+    static void twoWaySort(int[] arr, int n)
+
+    {
+
+        // Current indexes from left and right
+
+        int l = 0, r = n - 1;
+ 
+
+        // Count of odd numbers
+
+        int k = 0;
+ 
+
+        while (l < r) 
+
+        {
+
+         
+
+            // Find first even number 
+
+            // from left side.
+
+            while (arr[l] % 2 != 0) 
+
+            {
+
+                l++;
+
+                k++;
+
+            }
+ 
+
+            // Find first odd number from right side.
+
+            while (arr[r] % 2 == 0 && l < r)
+
+                r--;
+ 
+
+            // Swap even number present 
+
+            // on left and odd
+
+            // number right.
+
+            if (l < r) {
+
+                // swap arr[l] arr[r]
+
+                int temp = arr[l];
+
+                arr[l] = arr[r];
+
+                arr[r] = temp;
+
+            }
+
+        }
+ 
+
+        // Sort odd number in descending order
+
+        Array.Sort(arr, 0, k);
+
+        Array.Reverse(arr, 0, k);
+ 
+
+        // Sort even number in ascending order
+
+        Array.Sort(arr, k, n - k);
+
+    }
+ 
+
+    // Driver Method
+
+    public static void Main(String[] args)
+
+    {
+
+        int[] arr = { 1, 3, 2, 7, 5, 4 };
+ 
+
+        twoWaySort(arr, arr.Length);
+ 
+
+        Console.WriteLine(String.Join
+(" ", arr));
+
+    }
+}
 Sort the list of Integers with minimum number of swaps
 
 Constraints:
