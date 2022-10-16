@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
+class Program
+{
+    public static int getMEX(int[] a) {
+  int n = a.Length;
+  List<int> hash = new List <int > ();
+  for (int i = 0; i < n; i++) {
+    hash.Add(a[i]);
+  }
+  for (int i = 1; i <= n + 1; i++) {
+    if (!hash.Contains(i)) {
+      return i;
+    }
+  }
+  return -1;
+}
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+        Console.WriteLine(getMEX(new int[] {-1,-3}));
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
