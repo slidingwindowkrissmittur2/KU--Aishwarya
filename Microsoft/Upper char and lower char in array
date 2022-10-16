@@ -1,0 +1,27 @@
+
+
+Upper and lower character present 
+
+public string solution(string S) {
+    bool[] upperC = new bool[26];
+    bool[] lowerC = new bool[26];
+
+    char[] arr = S.ToCharArray();
+    
+    
+        foreach (char c in arr) {
+    if(Char.IsLower(c))
+        lowerC[c-'a'] = true;
+
+    if(Char.IsUpper(c))
+        upperC[c-'A'] = true;
+}
+
+    for(int i = 25; i>= 0; i--){
+        if(upperC[i] && lowerC[i]){
+            return(char)(i + 'A') + "";
+        }
+    }
+
+    return "NO";
+}
