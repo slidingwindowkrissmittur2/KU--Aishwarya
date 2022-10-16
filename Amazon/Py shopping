@@ -1,0 +1,24 @@
+def shoppingOptions(priceOfJeans: List[int], priceOfShoes: List[int], priceOfSkirts: List[int], priceOfTops: List[int], budgeted) -> int:
+    smap = {}
+    for i in priceOfJeans:
+        for j in priceOfShoes:
+            smap[i+j] = smap.get(i+j, 0) + 1
+
+    priceOfSkirts.sort()
+    priceOfTops.sort()
+
+    options = 0
+    for sum, count in smap.items():
+        s = 0
+        t = len(priceOfTops) - 1
+
+        while s < len(priceOfSkirts) and t >= 0:
+            if priceOfSkirts[s] + priceOfTops[t] == budgeted - sum:
+                t -= 1
+                options += count
+            elif priceOfSkirts[s] + priceOfTops[t] > budgeted - sum:
+                t -= 1
+            elif priceOfSkirts[s] + priceOfTops[t] < budgeted - sum:
+                s += 1
+                options += count
+    return options
