@@ -1,0 +1,119 @@
+ 
+using System;
+
+class Program
+{
+    static int coutSubSeq(int[] A, int N, int M) 
+    { 
+        int sum = 0; 
+        int ans = 0; 
+      
+        // Three nested loop to find all the 
+        // sub sequences of length three in 
+        // the given array A[]. 
+        for (int i = 0; i < N; i++) { 
+            for (int j = i + 1; j < N; j++) { 
+                for (int k = j + 1; k < N; k++) 
+                { 
+                    sum = A[i] + A[j] + A[k]; 
+      
+                    // checking if the sum of 
+                    // the chosen three number 
+                    // is divisible by m. 
+                    if (sum % M == 0) 
+                        ans++; 
+                } 
+            } 
+        } 
+        return ans; 
+    } 
+      
+    // Driver code 
+    public static void Main() 
+    { 
+        int M = 3; 
+        int []A = {  3, 5, 7, 11, 12, 4, 2};
+//O/P:- 13
+        int N = A.Length; 
+        Console.WriteLine(coutSubSeq(A, N, M)); 
+    } 
+} 
+   /* static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+
+        Console.Write("Sum of x + y = "+ z);
+    }
+}*/
+
+
+
+ static bool find3Numbers(int[] A,
+
+                             int arr_size, int sum)
+
+    {
+
+        // Fix the first element as A[i]
+
+        for (int i = 0; i < arr_size - 2; i++) {
+ 
+
+            // Find pair in subarray A[i+1..n-1]
+
+            // with sum equal to sum - A[i]
+
+            HashSet<int> s = new HashSet<int>();
+
+            int curr_sum = sum - A[i];
+
+            for (int j = i + 1; j < arr_size; j++) 
+
+            {
+
+                if (s.Contains(curr_sum - A[j])) 
+
+                {
+
+                    Console.Write("Triplet is {0}, {1}, {2}", A[i],
+
+                                  A[j], curr_sum - A[j]);
+
+                    return true;
+
+                }
+
+                s.Add(A[j]);
+
+            }
+
+        }
+ 
+
+        // If we reach here, then no triplet was found
+
+        return false;
+
+    }
+ 
+
+    /* Driver code */
+
+    public static void Main()
+
+    {
+
+        int[] A = { 1, 4, 45, 6, 10, 8 };
+
+        int sum = 22;
+
+        int arr_size = A.Length;
+ 
+
+        find3Numbers(A, arr_size, sum);
+
+    }
+}
+ 
+/* This code
