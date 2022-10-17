@@ -1,0 +1,25 @@
+using System;
+
+class Program
+{
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+        int term_count = 0;
+        int number=123451;
+        int term = 234;
+        bool flag = false;
+       while(number > 0){
+    if(number % 100 == term)
+        term_count++;
+        flag = true;
+    number = number/10;
+} 
+        if ( flag)
+        Console.WriteLine("founs");
+        else
+Console.WriteLine("not found");
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
