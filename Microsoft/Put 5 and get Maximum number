@@ -1,75 +1,24 @@
-
-public static void maximizeNumber(int N, int K)
-{
-
-    // Convert it into N to string
-
-    String s = N.ToString();
-
-    int L = s.Length;
- 
-
-    // Stores the maximum value of N
-
-    // after inserting K
-
-    string result =  "";
-
-    int i = 0;
- 
-
-    // Iterate till all digits that
-
-    // are not less than K
-
-    while ((i < L) && (K <= ((int)s[i]- (int)'0'))) {
- 
-
-        // Add the current digit to
-
-        // the string result
-
-        result += (s[i]);
-
-        ++i;
-
+public string MaxValue(string n, int x) {
+        if(string.IsNullOrEmpty(n))return x.ToString();
+        int sign=n[0]=='-'?-1:1;
+        if(sign==1)
+        {
+            int i=0;
+            for(;i<n.Length;i++)
+            {
+                if(n[i]-'0'<x)
+                    break;
+            }
+            return n.Insert(i,x.ToString());
+        }
+        else
+        {
+            int i=1;
+            for(;i<n.Length;i++)
+            {
+                if(n[i]-'0'>x)
+                    break;
+            }
+            return n.Insert(i,x.ToString());
+        }
     }
- 
-
-    // Add digit 'K' to result
-
-    result += ((char)(K + (int)'0'));
- 
-
-    // Iterate through all remaining
-
-    // characters
-
-    while (i < L) {
- 
-
-        // Add current digit to result
-
-        result += (s[i]);
-
-        ++i;
-
-    }
- 
-
-    // Print the maximum number formed
-
-     Console.Write(result);
-}
-// Driver Code
-
-static void Main()
-{
-
-     
-
-    int N = 6673, K = 6;
-
-    maximizeNumber(N, K);
-}
-}
