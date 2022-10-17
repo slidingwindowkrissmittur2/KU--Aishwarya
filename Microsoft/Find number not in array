@@ -1,0 +1,16 @@
+int N = A.Length, res = 1;     
+	bool found = false; 
+    	Set<int> set = new HashSet<>();  
+   	foreach (int a in A) {
+     	    if (a > 0) {
+     	        set.Add(a); 
+    	    }   
+  	}   
+  	for (int i = 1;
+            i <= N + 1 && !found; i++) {  
+   	    if (!set.contains(i)) {  
+   	        res = i;   
+  	        found = true;  
+   	    }   
+  	}       
+  return res;
