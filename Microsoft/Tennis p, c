@@ -1,0 +1,23 @@
+
+class Program
+{
+    public static int maxMatch(int P, int C) {
+    // write your code in JavaScript (Node.js 8.9.4)
+    if(P<2) return 0;
+    int p1 = 0 ; // players
+    int g1= 0; // games
+    while(p1+2<=P && g1+1<=C){
+        p1+= 2;
+        g1 += 1;
+    }
+    
+    return g1;
+}
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+        Console.WriteLine(maxMatch(10,3));
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
