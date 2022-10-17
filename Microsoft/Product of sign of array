@@ -1,0 +1,30 @@
+https://leetcode.com/discuss/interview-question/1999509/Microsoft-or-OA-or-SDE-III
+
+
+
+https://leetcode.com/discuss/interview-question/1915190/Microsoft-or-OA-or-Redmond-WA-or-Get-Maximum-Distance-of-Same-Elements-in-an-Array
+
+
+using System;
+
+class Program
+{
+    public static int ArraySign(int[] nums) {
+	var result = 1;
+	foreach (var num in nums) {
+		if (num == 0) {
+			return 0;
+		}
+		result *= num > 0 ? 1 : -1;
+	}
+	return result;
+}
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+        int[] v = new int[]{-1,1,-1,1,-1};
+        Console.WriteLine(ArraySign(v));
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
