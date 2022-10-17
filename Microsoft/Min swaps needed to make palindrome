@@ -1,0 +1,21 @@
+ public int MinMovesToMakePalindrome(string s) {
+        int moves = 0;
+        List<char> list = s.ToList();
+        while(list.Count > 2){
+            char target = list[0];
+            int i = list.FindLastIndex(l => l == target);
+            if(i != 0){
+                int count = list.Count;
+                list.RemoveAt(0);
+                moves += count-i-1;
+                list.RemoveAt(i-1);
+            } else{
+                target = list[list.Count-1];
+                list.RemoveAt(list.Count-1);
+                i = list.FindIndex(l => l == target);
+                moves += i;
+                list.RemoveAt(i);
+            }
+        }
+        return moves;
+}
