@@ -1,0 +1,27 @@
+Given an array A of N integers, 
+return true if A contains at least two elements
+ which differ by 1, 
+and false otherwise.
+
+using System;
+
+class Program
+{
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+        int v= 0;
+        int[] z1 = new int[]{11,1,8,12,14};//,2,4,6,8,10};
+        for (int u =0; u < z1.Length; u++)
+        {
+            v = v + z1[u];
+        }
+        if (v /2 == 0)
+           Console.WriteLine("trfalse");
+           else Console.WriteLine("true");
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
+
+
