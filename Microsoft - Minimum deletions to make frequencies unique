@@ -1,1 +1,37 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+class Program
+{
+    public static int minDeletions(string s)
+{
+ 
+int[] arr = new int [26];
+foreach ( var c in s)
+  arr[c - 'a'] ++;
+  
+HashSet<int> set = new HashSet<int>();
+int count =0;
 
+for (int i = 0; i < 26; i++)
+{
+   while(set.Contains(arr[i]) && arr[i]>0)
+    {
+       arr[i]--;
+       count++;
+    }
+set.Add(arr[i]);
+}
+return count;
+}
+
+
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+        Console.WriteLine(minDeletions("aaabbbcc"
+        ));
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
