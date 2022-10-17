@@ -5,16 +5,19 @@ class Program
 {
     public static int getMEX(int[] a) {
   int n = a.Length;
+bool found = false;
+int res = 1;
   List<int> hash = new List <int > ();
   for (int i = 0; i < n; i++) {
     hash.Add(a[i]);
   }
-  for (int i = 1; i <= n + 1; i++) {
+  for (int i = 1; i <= n + 1 && !found; i++) {
     if (!hash.Contains(i)) {
-      return i;
+      res= i;
+      found = true;
     }
   }
-  return -1;
+  return res;
 }
     static void Main() {
         int x = 10;
