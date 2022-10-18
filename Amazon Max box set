@@ -31,25 +31,38 @@ row 2 0 0 1
 submitted the first best answer in the solutions, it passed all test cases
 Solution:
 
-public static List minimalHeaviestSetA(List arr) {
+using System;
+using System.Collections.Generic;
+class Program
+{
+    public static List<int> minimalHeaviestSetA(List<int> arr) {
 // Write your code here
-Collections.sort(arr);
-long sum =0;
-for(Integer i : arr){
-sum+=(long)i;
+ arr.Sort();
+int sum =0;
+foreach(int i in arr){
+sum+=(int)i;
 }
-long s=0;
-List res = new ArrayList<>();
-for(int i=arr.size()-1;i>=0;i--){
-s+=(long)arr.get(i);
-res.add(arr.get(i));
+int s=0;
+List<int> res = new List<int>();
+for(int i=arr.Count-1;i>=1;i--){
+s+=arr[i];
+res.Add(arr[i]);
 
      if(sum-s < s){
          break;
      }
 
  if(res != null)
- Collections.sort(res);
- 
+ res.Sort();
+}
  return res;
+
+}
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+
+        Console.Write("Sum of x + y = "+ z);
+    }
 }
