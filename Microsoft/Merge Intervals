@@ -1,0 +1,24 @@
+public int[][] Merge(int[][] intervals) 
+	{        
+        List<int[]> lists = intervals.ToList();
+        lists = lists.OrderBy(x => x[0]).ToList();
+
+        List<int[]> rets = new List<int[]>();
+        while (lists.Count() > 1)
+        {
+            bool overlap = lists[0][0] <= lists[1][lists[1].Length -1] && lists[1][0] <= lists[0][lists[0].Length - 1];
+            if (overlap)
+            {
+                int[] temp = { lists[0][0], Math.Max(lists[1][lists[1].Length - 1], lists[0][lists[0].Length - 1]) };
+                lists.RemoveRange(0, 2);
+                lists.Insert(0, temp);
+            }
+            else
+            {
+                rets.Add(lists[0]);
+                lists.RemoveAt(0);
+            }
+        }
+
+        rets.Add(lists[0]);
+	}
