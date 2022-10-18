@@ -1,0 +1,15 @@
+public int solution(int K, int[] A) {
+        int N = A.length;
+        int result = 0;
+        int length = 0;
+        for (int rope : A) {
+            length += rope;
+            if (length >= K) {
+                result++;
+                length = 0;
+            }
+        }
+        return result;
+
+https://github.com/ZRonchy/Codility/blob/master/Lesson14/TieRopes.java
+https://app.codility.com/programmers/lessons/16-greedy_algorithms/
