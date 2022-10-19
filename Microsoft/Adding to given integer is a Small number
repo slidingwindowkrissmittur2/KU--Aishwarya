@@ -1,0 +1,23 @@
+Smallest number that adds to given N
+
+
+static void smallestNumber(int N)
+{
+
+    Console.WriteLine((N % 9 + 1) * 
+
+             Math.Pow(10, (N / 9)) - 1);
+}
+ 
+// Driver code
+
+public static void Main()
+{
+
+    int N = 10;
+
+     
+
+    smallestNumber(N);
+}
+}
