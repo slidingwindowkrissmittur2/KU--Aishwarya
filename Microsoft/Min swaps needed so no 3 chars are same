@@ -1,0 +1,18 @@
+https://leetcode.com/discuss/interview-question/1736595/microsoft-oacodility
+
+private static int minSwap(String s){
+	    int res = 0; 
+	    int s_size = s.length();
+	    char[] sArr = s.toCharArray();
+	    
+	    for(int i = 0; i < s_size;) {
+	        int next = i + 1;
+	        // if we meet sequence of the same letters scanning the string to find length of this sequence
+	        while((next < s_size) && (sArr[i] == sArr[next]) ) {
+	        	next++; 
+	        }
+	        res += (next - i) / 3;
+	        i = next; // skip processed letters
+	    }
+	    return res;
+	}
