@@ -1,0 +1,33 @@
+public static void main(String[] args){
+    string[] strs1 = {"..XX.X.", "X.X.X.."};
+    string[] strs2 = {".XXX...X", "..X.XXXX"};
+    string[] strs3 = {"XXXXX", ".X..X"};
+    string[] strs4 = {"X...X", "..X.."};
+    Console.WriteLine(solve(strs1));
+    Console.WriteLine(solve(strs2));
+    Console.WriteLine(solve(strs3));
+    Console.WriteLine(solve(strs4));
+}
+
+public static int solve(string[] strs) {
+    int l = strs[0].Length;
+    int sum1 = 0, sum2 = 0;
+    for(int i=0;i<l;i++){
+        if(strs[0][i]== 'X')
+            sum1++;
+        if(strs[1][i] == 'X')
+            sum2++;
+    }
+    int tmp1 = 0, tmp2 = 0, min = Int32.MaxValue;
+    for(int i=0;i<l;i++){
+        if(strs[0][i] == 'X')
+            tmp1++;
+        if(strs[1][i] == 'X')
+            tmp2++;
+        int change = Math.Min(tmp1 + sum2 - tmp2 , tmp2 + sum1 - tmp1) + (strs[1][i] == 'X' ? 1 : 0) + (strs[0][i] == 'X' ? 1 : 0);
+        min = Math.Min(min, Math.Min(sum1, Math.Min(sum2, change)));
+    }
+    return sum1 + sum2 - min;
+}
+
+https://leetcode.com/discuss/interview-question/1769043/Microsoft-or-OA-or-SDE2/
