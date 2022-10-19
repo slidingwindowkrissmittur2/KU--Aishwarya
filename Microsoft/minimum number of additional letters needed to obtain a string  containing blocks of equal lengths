@@ -1,23 +1,56 @@
 https://leetcode.com/discuss/interview-question/1418596/Microsoft-or-OA-or-Codility
 https://leetcode.com/discuss/interview-question/1725338/codility-oa-deloitte-hashedin
+Then ans = 
+(size of largest block * 
+ total number of blocks)
+ - sum of all block size
+
+https://leetcode.com/discuss/interview-question/1418596/Microsoft-or-OA-or-Codility
+
+public static int solution(string s){
+int maxb=1;
+int totalb=0;
+int sumbSizes=0;
+int curr_size=1;
+int i=1;
+int n=s.Length;
+
+for(int i=1;i<n;i++){
+    if(s[i]==s[i-1]){
+        curr_size++;
+    }
+    else{
+        sumbSizes=sumbSizes+curr_size;
+        totalb++;
+        maxb=Math.Max(maxb,curr_size);
+        curr_size=1;
+    }
+}
+sumbSizes=sumbSizes+curr_size;
+totalb++;
+ maxb=Math.Max(maxb,curr_size);
+return ((maxb*totalb)-sumbSizes);
+}
+----
+
 public int solution(String S){
 
     int maxcount = 0;
     int count = 1;
-    for(int i=1; i <S.length(); i++){
-        if(S.charAt(i) != S.charAt(i-1)){ 
-            maxcount = Math.max(maxcount, count);
+    for(int i=1; i <S.Length; i++){
+        if(S.[i]!= S[i-1]){ 
+            maxcount = Math.Max(maxcount, count);
             count = 1;
         }
         else{
             count++;
         }
     }
-    maxcount = Math.max(maxcount, count);    
+    maxcount = Math.Max(maxcount, count);    
     count = 1;
     int res = 0;
-    for(int i=1; i<S.length(); i++){
-        if(S.charAt(i) != S.charAt(i-1)){
+    for(int i=1; i<S.Length; i++){
+        if(S[i] != S[i-1]){
             res = res+maxcount-count;
             count = 1;
         }
