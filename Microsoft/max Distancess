@@ -1,6 +1,6 @@
 
 https://leetcode.com/discuss/interview-question/1915190/Microsoft-or-OA-or-Redmond-WA-or-Get-Maximum-Distance-of-Same-Elements-in-an-Array
-
+https://leetcode.com/discuss/interview-question/1999509/Microsoft-or-OA-or-SDE-III
 
 public static int maxDistanceNum(int[] nums)
 {
