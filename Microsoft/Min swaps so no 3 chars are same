@@ -1,0 +1,64 @@
+https://leetcode.com/discuss/interview-question/1736595/Microsoft-Online-Assessment-2022
+
+    static int getCount(string str, int n)
+
+    {
+ 
+
+        // To store the count of
+
+        // operations required
+
+        int cnt = 0;
+ 
+
+        int i = 0;
+
+        while (i < n - 2) {
+ 
+
+            // A character needs to be
+
+            // inserted after str[i + 1]
+
+            if (str[i] == str[i + 1]
+
+                && str[i] == str[i + 2]) {
+
+                cnt++;
+
+                i = i + 2;
+
+            }
+ 
+
+            // Current three consecutive
+
+            // characters are not same
+
+            else {
+
+                i++;
+
+            }
+
+        }
+
+        return cnt;
+
+    }
+ 
+
+    // Driver code
+
+    static public void Main()
+
+    {
+
+        string str = "aabbbcc";
+
+        int n = str.Length;
+ 
+
+        Console.WriteLine(getCount(str
+
