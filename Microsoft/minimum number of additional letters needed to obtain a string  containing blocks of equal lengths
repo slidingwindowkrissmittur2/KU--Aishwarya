@@ -32,7 +32,26 @@ totalb++;
 return ((maxb*totalb)-sumbSizes);
 }
 ----
+int solution(string s){
+    int i = 0;
+    int j = 0;
+    int count = 0;
+    int maxLen = INT_MIN;
+    for(;j<s.size();){
+        if(s[i] == s[j]){
+            j++;
+        }else{
+            maxLen = max(maxLen, j - i);
+            count++;
+            i = j;
+            j++;
+        }
+    }
+    maxLen = max(maxLen, j - i);
+    return maxLen * (count+1)  - s.size();
+}
 
+-----
 public int solution(String S){
 
     int maxcount = 0;
