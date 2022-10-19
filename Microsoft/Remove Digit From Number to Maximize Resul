@@ -15,6 +15,24 @@ https://leetcode.com/problems/remove-digit-from-number-to-maximize-result/discus
 https://leetcode.com/problems/remove-digit-from-number-to-maximize-result/discuss/2344837/c-solution
 
 public string RemoveDigit(string number, char digit) {
+        //Input: number = "1231", digit = "1"
+        //Output: "231"
+        if (!number.Contains(digit)) { return number; }
+        List<string> tracker = new List<string>();
+
+        for(int i = 0; i<number.Length; i++)
+        {
+            if(number[i] == digit)
+            {
+                tracker.Add(number.Remove(i, 1));
+            }
+        }
+        string result = tracker.OrderByDescending(x => x).First();
+        return result;
+    }
+
+
+public string RemoveDigit(string number, char digit) {
         int i = number.IndexOf(digit);
         
         while (i != -1)
