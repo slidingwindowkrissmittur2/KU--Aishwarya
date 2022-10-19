@@ -1,0 +1,33 @@
+Given an array of integers A and an integer K, find a subsequence of length K that maximize the sum, which must be even. Return the sum, or -1 if no even sum can be made.
+
+Examples:
+
+A = [4,2,6,7,8], K = 3, the algorithm should return 18 as 4 + 6 + 8 = 18
+A = [5, 5, 2, 4, 3], K = 3, the algorithm should return 14 as 5 + 5 + 4 = 14
+
+https://leetcode.com/discuss/interview-question/1736595/Microsoft-Online-Assessment-2022
+
+
+public static void main(string[] args) {
+        int a[]=new int[]{4, 2, 6, 7, 8};
+         int k=3;
+        Console.WriteLine( maxEvenSumOfK(a,k,0,0,0));;
+         a=new int[]{5, 5, 1, 1, 3};
+
+        Console.WriteLine( maxEvenSumOfK(a,k,0,0,0));
+
+    }
+
+    private static int maxEvenSumOfK(int[] a,int k,int i,int c,int sum) {
+        if(c==k){
+            return (sum%2==0?sum:-1);
+        }
+        if (i==a.Length){
+            return -1;
+        }
+
+        return Math.Max(maxEvenSumOfK(a,k,i+1,c,sum),
+        maxEvenSumOfK(a,k,i+1,c+1,a[i]+sum));
+
+    }
+}
