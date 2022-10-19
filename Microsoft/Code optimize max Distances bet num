@@ -1,0 +1,23 @@
+
+https://leetcode.com/discuss/interview-question/1915190/Microsoft-or-OA-or-Redmond-WA-or-Get-Maximum-Distance-of-Same-Elements-in-an-Array
+
+
+public static int maxDistanceNum(int[] nums)
+{
+Dictionary<int, int> maxDiffDic = new Dictionary<int, int>();
+
+        int index = 0;
+        int maxDiff = int.MinValue;
+
+        foreach (int num in nums)
+        {
+            if (!maxDiffDic.ContainsKey(num))
+                maxDiffDic.Add(num, index);
+            else
+                maxDiff = Math.Max(maxDiff, Math.Abs(maxDiffDic[num] - index));
+           
+           index++;
+        }
+
+        return maxDiff;
+    }
