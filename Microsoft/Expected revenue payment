@@ -1,0 +1,26 @@
+https://leetcode.com/discuss/interview-question/1768686/microsoft-oa-codility?page=1
+
+https://leetcode.com/discuss/interview-question/1768686/microsoft-oa-codility?page=1
+const A = [10, -10, -1, -1, 10]
+// const A = [-1, -1, -1, 1, 1, 1, 1]
+// const A = [5, -2, -3, 1]
+const A = [50, -49, -1, -1, -1, 2]
+
+int[] arr = {50,-49,-1,-1,-1,2};
+        int swap = 0;
+        int currMin = Int32.MaxValue;
+        int sum = 0;
+
+        foreach (int nx in arr){
+            sum += nx;
+            currMin = Math.Min(nx,currMin);
+
+            if(sum < 0){
+                sum = sum - currMin;
+                currMin = Int32.MaxValue;
+                swap++;
+            }
+        }
+
+        Console.WriteLine(swap);
+    
