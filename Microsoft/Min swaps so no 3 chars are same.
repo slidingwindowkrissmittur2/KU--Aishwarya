@@ -60,5 +60,7 @@ https://leetcode.com/discuss/interview-question/1736595/Microsoft-Online-Assessm
         int n = str.Length;
  
 
-        Console.WriteLine(getCount(str
+        //Console.WriteLine(getCount(str
+Console.WriteLine(getCount(str, n));
+}
 
