@@ -1,0 +1,80 @@
+You and a group of friends are planning a holiday trip. 
+You have already chosen the flight that's most suitable for you, but still haven't booked the exact seats. 
+On the website of the airline you are provided with the seating plan of the plane. 
+Each seat is either already booked (thus, unavailable), or there is a price for which you can book it. 
+You want to book S neighbouring seats (all on the same row, without any other people between any two of your group). 
+Of course, you'd like to pay as little as possible. 
+Let's for example assume that you and two other friends want to travel (thus S = 3), and the seating plan looks as follows (we'll denote unavailable seats with 'X'): 
+X 42 13 17 23 
+11 13 X 10 10 
+14 12 15 X X 
+16 17 10 11 19 
+X  X  X  X  X 
+X  14 17 X 14 
+There are 6 rows and 5 columns of seats in the plane. 
+One way to select the seats is to choose three on the first row (paying either 42 + 13 + 17 = 72 or 13 + 17 + 23 = 53). 
+You cannot select three neighbouring seats on the second row. 
+The optimal solution here would be to select 17 + 10 + 11 = 38 on the fourth row. 
+Input You will be provided an integer requiredSeats - the number of required seats, and a 2-dimensional matrix of numbers seatPrices[][] - the prices of the seats in the plane. 
+An already taken (thus unavailable) seat will be indicated by the number -1. 
+Output Activate Windows Return one integer - the lowest price at which you can book requiredSeats neighbouring seats on the same row. 
+If there are no such seats available in the entire plane return -1 instead. 
+"""
+
+
+def getMinPrice(requiredSeats, seatPrices):
+    res = []
+
+    mmin = requiredSeats * 10000
+
+    for x in range(len(seatPrices)):
+        if (len(seatPrices[x]) - seatPrices[x].count(-1) < requiredSeats):
+            continue
+        else:
+            for y in range(len(seatPrices[x]) - requiredSeats + 1):
+                temp = seatPrices[x][y:y + requiredSeats]
+                if (temp.count(-1) > 0):
+                    continue
+                else:
+                    tempTotal = sum(temp)
+                    if (tempTotal < mmin):
+                        mmin = tempTotal
+                        res.append(mmin)
+    return min(res) if len(res) > 0 else -1
+
+
+
+namespace Namespace {
+    
+    using System.Collections.Generic;
+    
+    using System;
+    
+    using System.Linq;
+    
+    public static class Module {
+        
+        public static object getMinPrice(int requiredSeats, int[,] seatPrices) {
+            var res = new List<int[]>();
+            var mmin = requiredSeats * 10000;
+            foreach (var x in Enumerable.Range(0, seatPrices.Count)) {
+                if (seatPrices[x].Count - seatPrices[x].count(-1) < requiredSeats) {
+                    continue;
+                } else {
+                    foreach (var y in Enumerable.Range(0, seatPrices[x].Count - requiredSeats + 1)) {
+                        var temp = seatPrices[x][y::(y  +  requiredSeats)];
+                        if (temp.count(-1) > 0) {
+                            continue;
+                        } else {
+                            var tempTotal = temp.Sum();
+                            if (tempTotal < mmin) {
+                                mmin = tempTotal;
+                                res.append(mmin);
+                            }
+                        }
+                    }
+                }
+            }
+            return res.Count > 0 ? min(res) : -1;
+        }
+    }
