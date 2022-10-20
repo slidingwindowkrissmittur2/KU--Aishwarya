@@ -1,0 +1,120 @@
+ // sum function
+
+  static int sum(int[] v)
+
+  {
+
+    int res = 0;
+
+    for (int i = 0; i < v.Length; i++)
+
+      res += v[i];
+
+    return res;
+
+  }
+ 
+
+  // Function to count all valid arrangements
+
+  static int get_possible_seatings(ArrayList seats)
+
+  {
+
+    int dist = 6;
+ 
+
+    // Account for the last seat
+
+    seats.Add(0);
+ 
+
+    // Each seat can be occupied individually
+
+    int[] dp = new int[seats.Count];
+
+    for (int i = 0; i < seats.Count; i++) {
+
+      dp[i] = 1;
+
+    }
+ 
+
+    // Keep track of total distance
+
+    // from first seat
+
+    int[] total_distance = new int[seats.Count];
+
+    for (int i = 0; i < seats.Count; i++) {
+
+      total_distance[i] = 0;
+
+    }
+ 
+
+    int prefix_sum = (int)seats[0];
+
+    for (int index = 1; index < seats.Count; ++index) {
+
+      total_distance[index] = prefix_sum;
+
+      prefix_sum += (int)seats[index];
+
+    }
+ 
+
+    // Start from second seat onwards,
+
+    // this is the curr seat 'i'
+
+    for (int i = 1; i < seats.Count; ++i) {
+
+      for (int j = 0; j < i; ++j) {
+
+        if (total_distance[i] - total_distance[j]
+
+            >= dist)
+
+          dp[i] += dp[j];
+
+      }
+
+    }
+ 
+
+    // Account for no seat occupied
+
+    return sum(dp) + 1;
+
+  }
+ 
+
+  // Driver code
+
+  public static void Main()
+
+  {
+
+    ArrayList list = new ArrayList();
+ 
+
+    list.Add(5);
+
+    list.Add(2);
+
+    list.Add(4);
+
+    list.Add(1);
+
+    list.Add(2);
+ 
+
+    int ans = get_possible_seatings(list);
+
+    Console.Write(ans);
+
+  }
+}
+ 
+// This code
