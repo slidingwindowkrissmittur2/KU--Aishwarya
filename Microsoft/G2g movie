@@ -1,0 +1,64 @@
+public class Solution {
+    public int MaxNumberOfFamilies(int n, int[][] reservedSeats) {
+        if(n < 1) return 0;
+        
+        Hashtable ht = new Hashtable();
+        
+        //for each reserved seat we will update slots that are occuppied
+        foreach (var reservedSeat in reservedSeats) {
+            int row = reservedSeat[0];
+            int col = reservedSeat[1];
+            
+            int [] slots;
+            //check if we already have slots in the hashtable for the current row
+            //if not then let's add it
+            if(ht.ContainsKey(row)) {
+                slots = (int []) ht[row];
+            } else {
+                slots = new int [3];
+                ht.Add(row, slots);
+            }
+            
+            //we are splitting the slot into three category - left, middle, and right
+            //there are two possible slots in a row for group of 4 people based on the
+            //condition. 
+            //    if left slot or right slot is taken then we have one possible
+            //           available slot.
+            //    if both left and right slots are taken then we have middle slot to check
+            //    if none of the slots are taken then it should not be in the reservedSeats
+            if(col >= 2 && col <= 5) { //left slot
+                slots[0] = 1;
+            }
+            if(col >= 4 && col <= 7) { //middle slot
+                slots[1] = 1;
+            }
+            if(col >= 6 && col <= 9) { //right slot
+                slots[2] = 1;
+            }
+            
+            //update the slots
+            ht[row] = slots;
+        }
+        //there are two possible slots for each row, which is max available slots.
+        int availableSlots = 2 * n;
+        
+        //we will deduct available slots based on the reserved seating slots 
+        //populated in the hashtable.
+        foreach(DictionaryEntry entry in ht) {
+            int [] slots = (int []) entry.Value;
+            //check if both left and right are already reserved
+            int taken = slots[0] + slots[2];
+            if(taken == 2) { //both left and right are taken
+                availableSlots--; // we have one less slot
+                //check middle one
+                if(slots[1] == 1) { //if not available
+                    availableSlots--; // no slot for current row
+                }
+            }
+            else if (taken == 1) {
+                availableSlots--; //only one less slot taken
+            }
+        }
+        return availableSlots;
+    }
+}
