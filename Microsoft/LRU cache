@@ -1,0 +1,37 @@
+public class LRUCache_LinkedList {
+        int capacity = 0;
+        LinkedList<int[]> list = new LinkedList<int[]>();
+        Dictionary<int, LinkedListNode<int[]>> dict = new Dictionary<int, LinkedListNode<int[]>>();
+
+        /// <summary>
+        /// Initiate a least recently used cache with a capacity
+        /// </summary>
+        /// <param name="capacity"></param>
+        public LRUCache_LinkedList(int capacity) {
+            this.capacity = capacity;
+        }
+
+        public int Get(int key) {
+            if (!dict.ContainsKey(key)) return -1;
+            Reorder(dict[key]);
+            return dict[key].Value[1];
+        }
+
+        public void Put(int key, int value) {
+            if (dict.ContainsKey(key))
+                dict[key].Value[1] = value;
+            else {
+                if (dict.Count == capacity) {
+                    dict.Remove(list.First.Value[0]);
+                    list.RemoveFirst();
+                }
+                dict.Add(key, new LinkedListNode<int[]>(new int[] { key, value }));
+            }
+            Reorder(dict[key]);
+        }
+
+        private void Reorder(LinkedListNode<int[]> node) {
+            if (node.Next != null) list.Remove(node);
+            if (list.Last != node) list.AddLast(node);
+        }
+    }
