@@ -1,0 +1,25 @@
+public class Solution {
+    public int[] TwoSum(int[] nums, int target) {
+       Dictionary<int,int> indexMap = new Dictionary<int,int>();
+        for(int i = 0; i < nums.Length; i++)
+        {
+            int requiredNum = target- nums[i];
+            if(indexMap.ContainsKey(requiredNum))
+            {
+                return new int[]{indexMap[requiredNum], i};                
+            }
+            
+            if(indexMap.ContainsKey(nums[i]))
+            {
+                indexMap[nums[i]] = i;
+            }
+            else
+            {
+                indexMap.Add(nums[i], i);
+            }
+        }
+        return new int[0];
+    }
+}
+
+return indices of the two numbers such that they add up to target.
