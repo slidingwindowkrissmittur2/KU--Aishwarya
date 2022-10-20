@@ -1,0 +1,11 @@
+public void Rotate(int[] nums, int k)
+{
+	int[] res = new int[nums.Length];
+	int len = nums.Length;
+
+	for (int i = 0; i < len; i++)
+		res[(i + k) % len] = nums[i];
+
+	for (int j = 0; j < len; j++)
+		nums[j] = res[j];
+}
