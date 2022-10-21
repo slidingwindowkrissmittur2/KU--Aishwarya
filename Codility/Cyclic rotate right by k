@@ -1,54 +1,12 @@
-if(nums == null || nums.Length == 0 || k == 0)
-            return;
-        
-        int n = nums.Length;
-        int[] tmp = new int[n];
-        for(int i = 0; i < n; i++)
-            tmp[(i + k) % n] = nums[i];
-        
-         for(int i = 0; i < n; i++)
-             nums[i] = tmp[i];
-
-;;;;;;;;;;;;;;;;;;
+K %= A.Length;
+        int[] res = A.ToArray();
+        for (int i = 0; i < A.Length; i++) 
+            A[i] = res[i - K >= 0 ? i - K: i - K + res.Length];
+    
+return A;
+;;;;;;;;;;;;;//Yes
 
 
-
-
-void RightRotate(int A[], int N, int K)
-{
- 
-
-    // Reverse all the array elements
-
-    reverse(A, A + N);
- 
-
-    // Reverse the first k elements
-
-    reverse(A, A+ K);
- 
-
-    // Reverse the elements from K
-
-    // till the end of the array
-
-    reverse(A + K, A + N);
- 
-
-    // Print the array after rotation
-
-    for (int i = 0; i < N; i++) {
- 
-
-        cout << A[i] << " ";
-
-    }
- 
-
-    cout << endl;
-}
- 
-// Driver code
 
 int main()
 {
