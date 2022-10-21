@@ -19,8 +19,9 @@ int c= 0;
 int prev_end = B[0];
 for ( int idx =0;idx<A.Length; idx++)
 {
+if(A[idx] > prev_end){
    c+=1;
-prev_end = B[idx];
+prev_end = B[idx];}
 }
 return c;
 
