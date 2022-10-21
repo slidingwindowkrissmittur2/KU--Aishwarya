@@ -1,0 +1,65 @@
+Dictionary<int,int> map = new Dictionary<int,int>();      
+        
+        // 1. Counting
+        // map(key, value) ---> map(number, count)
+        for(int i=0; i<A.Length; i++){
+            if( !map.ContainsKey(A[i]) ){ // new number
+                map.Add(A[i],1);          // "put" new number
+            }
+            else{
+                //int count = map.get(A[i]); // "get" count
+                map[A[i]]++;    // count++
+            }
+        }
+        
+        // 2. find the max number of counts
+         int max_Number =A[0];
+        int max_Count =1;
+        // note: use "map.keySet()" in for loop 
+        foreach( KeyValuePair<int,int> k in map ){
+            int cur_Count = k.Value; // get value
+            if( cur_Count > max_Count){
+                max_Count = cur_Count;    // update max count
+                max_Number = k.Key;
+            }
+        }
+        
+        // 3. check if there is a "dominator" or not
+        int leader_Number =0;
+        int leader_Count =0;
+        if( max_Count >  (A.Length)/2 ){
+            leader_Number = max_Number;
+            leader_Count = max_Count;
+        }
+        else{
+            return 0; // no leader ---> no equi leaders
+        }
+        
+        // note: cannot use (1/2) * (A.length)
+        // This is because (1/2) will be "zeor" 
+        // Instead, we can use (0.5) * (A.length) (be careful)
+        
+        // 2. scan the whole array again
+        int num_Equi_leaders = 0; // number of equi leaders
+        int left_Leader_Count =0; // number of leaders in left side
+        
+        // scan the array
+        for(int i=0; i<A.Length; i++){
+            
+            // find a leader (in left side)
+            if(A[i] == leader_Number){
+                left_Leader_Count++;
+            }
+            
+            // if the leader is "a leader in left side" (more than half)
+            if( left_Leader_Count > (0.5) * (i+1) ){ 
+                // then, check right side
+                int right_Leader_Count = leader_Count - left_Leader_Count;                
+                // if the leader is "a leader in right side" (more than half)
+                if( right_Leader_Count > (0.5) * (A.length -i -1) ){
+                    num_Equi_leaders++; // leader in both sides (then, equi leaders++)
+                }
+            } 
+        }
+        // return number of equi leaders
+        return num_Equi_leaders;
