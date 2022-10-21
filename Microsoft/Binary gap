@@ -42,17 +42,3 @@ public static int MaxGap(int n)
         }
 
 
-int pos = -1, prev = -1, longest = 0;
-		while(n > 0) {
-			pos++;
-			if((n & 1) > 0) {
-				if(prev != -1)
-					longest = Math.Max(longest, pos - prev);
-
-				prev = pos;
-			}
-
-			n >>= 1;
-		}
-
-		return longest-1;
