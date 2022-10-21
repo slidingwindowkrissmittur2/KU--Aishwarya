@@ -1,4 +1,5 @@
-var counters = new int[N];
+public int[] solution(int N, int[] A) {
+		var counters = new int[N];
 		int max = 0, min = 0;
 		foreach (var n in A)
 			if (n == N + 1)
@@ -12,3 +13,4 @@ var counters = new int[N];
 			if(counters[i] < min)
 				counters[i] = min;
 		return counters;
+	}
