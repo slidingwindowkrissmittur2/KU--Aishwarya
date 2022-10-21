@@ -1,0 +1,14 @@
+int difference = Y - X;
+        
+        int plus =0; // note: need to decide if to "plus one" or not
+        
+        if( difference % D !=0 ) // using "mod" to decide
+            plus =1;             // if not "perfectly Divisible", then plus one 
+        
+        int hop =0; // number of hops the frog needs to jump
+        
+        hop = difference / D;
+        
+        hop = hop + plus;
+        
+        return (int)hop; 
