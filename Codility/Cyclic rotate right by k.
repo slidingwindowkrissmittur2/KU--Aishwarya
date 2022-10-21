@@ -1,0 +1,8 @@
+int[] new_array = new int[A.Length]; // a new array
+        
+        for(int i=0; i< A.Length; i++){
+            int new_position = (i + K) % A.Length; // using "mod" to do Cyclic Rotation           
+            new_array[new_position] = A[i]; // put A[i] to the new position
+        }
+        
+        return new_array;
