@@ -1,0 +1,49 @@
+  public int solution(int[] A) {
+        // write your code in C# 6.0 with .NET 4.7 (Mono 6.12)
+        Dictionary<int,int> map = new Dictionary<int,int>();      
+        
+        // 1. Counting
+        // map(key, value) ---> map(number, count)
+        for(int i=0; i<A.Length; i++){
+            if( !map.ContainsKey(A[i]) ){ // new number
+                map.Add(A[i],1);          // "put" new number
+            }
+            else{
+                //int count = map.get(A[i]); // "get" count
+                map[A[i]]++;    // count++
+            }
+        }
+        
+        // 2. find the max number of counts
+        int max_Number =0;
+        int max_Count =0; 
+        // note: use "map.keySet()" in for loop 
+        foreach( KeyValuePair<int,int> k in map ){
+            int cur_Count = k.Value; // get value
+            if( cur_Count > max_Count){
+                max_Count = cur_Count;    // update max count
+                max_Number = k.Key;
+            }
+        }
+        
+        // 3. check if there is a "dominator" or not
+        if( max_Count > (A.Length)/2 ){
+            // then, max_Number is the "dominat
+            for(int i=0; i<A.Length; i++){
+            if(A[i] == max_Number){
+                return i; // return the index
+            }}
+        }
+        else{
+            return -1; // no dominator
+        }
+        
+        // 4. return "any index" of "the dominator"
+       /* for(int i=0; i<A.length; i++){
+            if(A[i] == max_Number){
+                return i; // return the index
+            }
+        }*/
+        
+        return -1;
+    }
