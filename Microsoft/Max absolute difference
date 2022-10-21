@@ -1,0 +1,160 @@
+|A[i] – A[j]| + |i – j|,
+public class MaximumAbsoluteDifference
+{
+
+    private static int calculateDiff(int i, int j, 
+
+                                    int[] array)
+
+    {
+
+        // Utility function to calculate
+
+        // the value of absolute difference
+
+        // for the pair (i, j).
+
+        return Math.Abs(array[i] - array[j]) + 
+
+                            Math.Abs(i - j);
+
+    }
+ 
+
+    // Function to return maximum absolute
+
+    // difference in brute force.
+
+    private static int maxDistance(int[] array)
+
+    {
+
+        // Variable for storing the maximum
+
+        // absolute distance throughout the
+
+        // traversal of loops.
+
+        int result = 0;
+ 
+
+        // Iterate through all pairs.
+
+        for (int i = 0; i < array.Length; i++) 
+
+        {
+
+            for (int j = i; j < array.Length; j++)
+
+            {
+ 
+
+                // If the absolute difference of
+
+                // current pair (i, j) is greater
+
+                // than the maximum difference
+
+                // calculated till now, update
+
+                // the value of result.
+
+                result = Math.Max(result, calculateDiff(i, j, array));
+
+            }
+
+        }
+
+        return result;
+
+    }
+ 
+
+    // Driver program
+
+    public static void Main()
+
+    {
+
+        int[] array = { -70, -64, -6, -56, 64,
+
+                        61, -57, 16, 48, -98 };
+
+        Console.WriteLine(maxDistance(array));
+
+    }
+}
+ 
+// This code
+
+|A[i] – A[j]| + |i – j|,
+using System;
+ 
+
+public class MaximumAbsoluteDifference
+{
+
+    // Function to return maximum absolute
+
+    // difference in linear time.
+
+    private static int maxDistance(int[] array)
+
+    {
+
+        // max and min variables as described
+
+        // in algorithm.
+
+        int max1 = int.MinValue ;
+
+        int min1 = int.MaxValue ;
+
+        int max2 = int.MinValue ;
+
+        int min2 =int.MaxValue ;
+ 
+
+        for (int i = 0; i < array.Length; i++)
+
+        {
+ 
+
+            // Updating max and min variables
+
+            // as described in algorithm.
+
+            max1 = Math.Max(max1, array[i] + i);
+
+            min1 = Math.Min(min1, array[i] + i);
+
+            max2 = Math.Max(max2, array[i] - i);
+
+            min2 = Math.Min(min2, array[i] - i);
+
+        }
+ 
+
+        // Calculating maximum absolute difference.
+
+        return Math.Max(max1 - min1, max2 - min2);
+
+    }
+ 
+
+    // Driver program 
+
+    public static void Main()
+
+    {
+
+        int[] array = { -70, -64, -6, -56, 64,
+
+                        61, -57, 16, 48, -98 };
+
+        Console.WriteLine(maxDistance(array));
+
+    }
+}
+ 
+// This code
