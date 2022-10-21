@@ -34,7 +34,7 @@ int n = A.length;
             } 
         }
         
-        if (ans > 10000000) {
+        if (ans > 10_000_000) {
             return -1;    
         }
         
