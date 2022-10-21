@@ -1,0 +1,77 @@
+
+int n = A.length;
+        int[] sum = new int[n];
+        
+        for (int i = 0; i < n; i++) {
+            int right;
+            //if i+A[i]<= n-1, that's it, extract this i+A[i], let sum[i+A[i]]++, means there is one disk that i+A[i]
+            if (n - i - 1 >= A[i]){
+                right = i + A[i];
+            } else {
+                right = n - 1;    
+            }
+            
+            sum[right]++;
+        }
+        
+        for (int i = 1; i < n; i++) {
+            sum[i] += sum[i - 1];  //sum[i] means that there are sum[i] number of values that <= i;
+        }
+        
+        long ans = (long) n * (n - 1) / 2;
+        
+        for (int i = 0; i < n; i++) {
+            int left;
+            
+            if (A[i] > i) {
+                left = 0;
+            } else {
+                left = i - A[i];// Find the positive i-A[i].     
+            }
+            
+            if (left > 0){
+                ans -= sum[left - 1];//Find the number that is smaller than 1-A[i], sum[n-1] will never be used as we only need sum[n-1-1] at most.  
+            } 
+        }
+        
+        if (ans > 10000000) {
+            return -1;    
+        }
+        
+        return (int) ans;
+    }
+ddddddddddddddd
+public int solution(int[] A) {
+        // write your code in C# 6.0 with .NET 4.7 (Mono 6.12)
+        int[] lower = new int[A.Length];
+        int[] upper = new int[A.Length];
+        
+        for(int i=0; i<A.Length; i++){
+            lower[i] = i - (int)A[i]; // note: lower = center - A[i]
+            upper[i] = i + (int)A[i]; // note: upper = center + A[i]
+        }
+        
+        // "sort" the "lower points" and "upper points"
+        Array.Sort(upper);
+        Array.Sort(lower);
+        
+        int intersection = 0; // number of intersections
+        int j=0; // for the lower points
+        
+        // scan the upper points
+        for(int i=0; i<A.Length; i++){
+        
+            // for the curent "j" (lower point)
+            while( j < A.Length && upper[i] >= lower[j]){
+                    intersection = intersection + j; // add j intersections
+                    intersection = intersection - i; // minus "i" (avoid double count) 
+                    j++;
+            }          
+        }
+        
+        // for the overflow cases
+        if(intersection > 10_000_000)
+            return -1;
+        
+        return intersection; 
+    }
