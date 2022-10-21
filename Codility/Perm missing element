@@ -1,0 +1,17 @@
+int ceiling = A.Length +1;
+        int floor = 1;
+        int height = A.Length + 1; / 
+                                     
+        int sum = (ceiling +floor) * height /2; 
+        /*        
+        int high = A.Length +1; 
+        int low = 1;
+        int height = A.Length + 1; 
+        int sum = (high +low) * height /2; 
+        */
+        int missing_number = sum; // initial setting (sum)
+        
+        for(int i=0; i<A.Length; i++){
+            missing_number = missing_number - A[i]; 
+        
+        return (int)missing_number;
