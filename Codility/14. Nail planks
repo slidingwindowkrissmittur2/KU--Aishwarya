@@ -1,0 +1,44 @@
+ 
+ int solution(int A[], int B[], int C[])
+{
+    int N = A.Length;
+    int M = C.Length;
+    int prefix_sum_size = 2 * M + 1;
+    int[] prefix_sum = new int[2*M+1];
+  
+    int beg = 1;
+    int end = M;
+  
+    int answer = -1;
+    while (beg <= end){
+      
+        int mid = (beg + end) / 2;
+        
+      
+        int i = 0;
+        for (i = 0; i < mid; i++){
+            prefix_sum[C[i]]++;
+        }
+      
+        for (i = 1; i <= 2 * M; i++){
+            prefix_sum[i] += prefix_sum[i - 1];
+        }
+      
+        int failed = 0;
+        for (i = 0; i < N; i++){
+            if (prefix_sum[B[i]] == prefix_sum[A[i] - 1]){
+                failed = 1;
+            }
+        }
+      
+        if (failed){
+            beg = mid + 1;
+        }
+        else {
+            end = mid - 1;
+            answer = mid;
+        }
+    }
+  
+    return answer;
+}
