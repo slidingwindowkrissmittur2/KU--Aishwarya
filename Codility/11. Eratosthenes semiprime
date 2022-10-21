@@ -1,0 +1,47 @@
+public int[] solution(int N, int[] P, int[] Q) {
+        // write your code in C# 6.0 with .NET 4.7 (Mono 6.12)
+        int length = P.Length;
+        int[] prime = sieve(N);
+        bool[] semi = semi1(prime);
+        int[] result = new int[length];
+        for(int i=0;i<length;i++) {
+            int primeNumber = countSemiprimes(P[i], Q[i], semi, N);  
+            result[i] = primeNumber;
+        }
+        return result;
+    }
+    
+    public int[] sieve(int N) {
+        int[] prime = new int[N+1];
+        for(int i=2; i<=(double)Math.Sqrt(N); i++) {
+            if(prime[i] == 0) {
+                int k = i*i;
+                while(k <= N) {
+                    if(prime[k] == 0){
+                        prime[k] = i;    
+                    }                    
+                    k += i;
+                }               
+            }
+        }
+        return prime;
+    }
+    
+    public bool[] semi1(int[] prime) {
+        bool []semi = new bool[prime.Length];
+        for(int i=0;i<prime.Length;i++) {
+            if(prime[i] == 0) continue;
+            int firstFactor = prime[i];
+            if(prime[i/firstFactor] == 0) semi[i]=true;   
+        }  
+        return semi;
+    }
+    
+    public int countSemiprimes(int P, int Q, bool[] semi, int N) {
+        int count = 0;
+        if(P > Q || P > N || Q > N) return 0;
+        for(int i=P==1?2:P;i<=Q;i++) {
+            if(semi[i]) count++;
+        }        
+        return count;    
+    }
