@@ -1,0 +1,11 @@
+
+
+int length = A.Length;
+        int maxEnding = A[0];
+        int maxSlice = A[0];
+        for(int i=1;i<length;i++) {
+            maxEnding = Math.max(A[i], maxEnding + A[i]);
+            maxSlice = Math.max(maxEnding, maxSlice);
+        }
+        
+        return maxSlice;
