@@ -1,0 +1,63 @@
+        
+        
+        int positive = 0;
+        int negative = 0;
+        int res = 0;
+        
+        for(int i = 0;i< nums.length;i++){
+            int temp = nums[i];
+            
+            if(temp == 0){
+                positive = 0;
+                negative = 0;
+            }else if(temp > 0){
+                positive++;
+                negative = negative == 0 ? 0 : negative+1;
+            }else{
+                int x = positive;
+                positive = negative == 0 ? 0 : negative + 1;
+                negative = x + 1;
+            }
+            
+            res = Math.max(res,positive);
+        }
+        
+        int left=0;
+            int right=nums.Length-1;
+        foreach(int i in nums)
+        {
+            prod=prod*i;
+        }
+        if(prod ==1)
+        {
+            res = nums.Length;
+        }
+        else
+        {
+            
+            for(int i =-1;++i<nums.Length;)
+            {
+                if( nums[i]>0)
+                  {
+                      continue;
+                      
+                  }
+                  else if(nums[i]<0)
+                  {
+                  left=i;
+                  break;
+                  }
+            }
+            for( int i =nums.Length-1; i>=0; i--)
+            {
+                if(nums[i] >0)
+                continue;
+                else if (nums[i]<0){
+                    right=i;
+                    break;
+                }
+            }
+            res=right+left;
+        }
+        Console.WriteLine ("{0} {1} {2}",right,left,res);
+        
