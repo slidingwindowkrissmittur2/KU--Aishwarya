@@ -1,0 +1,19 @@
+function solution(S, P, Q) {
+    let total = [];
+    let min;
+
+    for (let i = 0; i < P.length; i++) {
+        const substring = S.slice(P[i], Q[i] + 1);
+        if (substring.includes('A')) {
+            min = 1;
+        } else if (substring.includes('C')) {
+            min = 2;
+        } else if (substring.includes('G')) {
+            min = 3;
+        } else if (substring.includes('T')) {
+            min = 4;
+        }
+        total.push(min);
+    }
+    return total;
+}
