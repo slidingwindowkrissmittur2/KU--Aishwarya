@@ -76,20 +76,19 @@ for (int qq= 0; qq < B.Length; qq++)
       //{ { 1, 0 }, { 2, 1 }, { 3, 1 }, { 4, 3 } };
     
     int i, j, k = 0;
-    Dictionary<int,int> dict = new Dictionary<int,int>();
+    List<int> dict = new List<int>();
     int n= edges.GetLength( 0);//row
-    int m= edges.GetLength(1);//col
+    
         for (i = 0; i < n; i++)
         {
-            for (j = 0; j < m; j++)
-            {
-                k = i * m + j;
-                if(!dict.ContainsKey(edges[i,j]))
-                 {dict.Add(edges[i, j],1);}
-                else {dict[edges[i,j]]++;}
-                k++;
+            
+                if(!dict.Contains(A[i]))
+                 {dict.Add(A[i]);}
+                if(! dict.Contains(B[i]))
+                 {dict.Add(B[i]);}
+               
             }
-        }
+        
     int vertices=dict.Count;
     
     int N=vertices;
