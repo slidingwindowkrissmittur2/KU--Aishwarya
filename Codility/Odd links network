@@ -1,0 +1,119 @@
+using System;
+using System.Collections.Generic;
+public class HelloWorld
+{
+
+ 
+    
+        static void dfs(int i, int par, List<List<int> > adj,
+                  List<int> dis)
+  {
+ 
+    // Iterate over all the edges of vertex i
+    foreach(int j in adj[i])
+    {
+ 
+      // If 'j' is not the parent of 'i'.
+      if (j != par)
+      {
+ 
+        // Store the distance from root till 'j'.
+        dis[j] = dis[i] + 1;
+ 
+        // Recurse for the child 'j'.
+        dfs(j, i, adj, dis);
+      }
+    }
+  }
+ 
+  // Function to count pairs
+  static int countPairs(int n, int[, ] edges)
+  {
+ 
+    // Stores the final answer
+    int ans = 0;
+ 
+    // Stores the adjacency List of the tree.
+    List<List<int> > adj = new List<List<int> >(n);
+ 
+    for (int i = 0; i < n; i++) {
+      adj.Add(new List<int>());
+    }
+ 
+    for (int i = 0; i < n - 1; ++i)
+    {
+ 
+      // Add the edge in the adjacency list.
+      adj[edges[i, 0]].Add(edges[i, 1]);
+      adj[edges[i, 1]].Add(edges[i, 0]);
+    }
+ 
+    // Iterate over all 'u'
+    // of the pair ('u', 'v')
+    for (int i = 0; i < n; ++i) {
+      List<int> dis = new List<int>(n);
+ 
+      // Do a dfs with 'i' as the root of the tree.
+      for (int j = 0; j < n; ++j) {
+        dis.Add(0);
+      }
+      dfs(i, -1, adj, dis);
+ 
+      // Iterate over the other end of the pair
+      for (int j = i + 1; j < n; ++j)
+      {
+ 
+        // If the distance is even
+        if (dis[j] % 2 == 0)
+        {
+ 
+          // Increment 'ans' by 1.
+          ans++;
+        }
+      }
+    }
+ 
+    // Return the answer 'ans'.
+    return ans;
+  }
+ 
+  static public void Main()
+  {
+ 
+    // Code
+   
+    // array of edges
+    int[, ] edges= 
+    //{{1, 0}, {2, 1}, {3, 1}, {4, 2}, {5, 3}}; // ans 6 even
+     //{ { 1, 0 }, { 2, 1 }, { 3, 1 }, { 4, 3 } }; // ans 4 even
+       //{{0,3},{3,1},{4,3},{2,3},{6,3},{3,5}};// ans 6 odd
+      {{0,1},{4,3},{2,1},{2,3},{4,5}};// ans 9 odd
+      // {{0,3},{4,5},{4,1},{2,3},{7,4},{6,3},{3,4}}; // ans 16 odd
+      //{ { 1, 0 }, { 2, 1 }, { 3, 1 }, { 4, 3 } };
+    
+    int i, j, k = 0;
+    Dictionary<int,int> dict = new Dictionary<int,int>();
+    int n= edges.GetLength( 0);//row
+    int m= edges.GetLength(1);//col
+        for (i = 0; i < n; i++)
+        {
+            for (j = 0; j < m; j++)
+            {
+                k = i * m + j;
+                if(!dict.ContainsKey(edges[i,j]))
+                 {dict.Add(edges[i, j],1);}
+                else {dict[edges[i,j]]++;}
+                k++;
+            }
+        }
+    int vertices=dict.Count;
+    
+    int N=vertices;
+    int links=N-1;
+    // Function call
+    int P=countPairs(N, edges);
+    int T= (links)*(links+1)/2;
+    int Q=T-P;
+    Console.WriteLine("{0} {1} {2}",T,P,Q);
+  }
+}
