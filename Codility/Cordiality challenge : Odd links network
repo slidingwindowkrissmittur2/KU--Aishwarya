@@ -1,71 +1,7 @@
 https://www.geeksforgeeks.org/count-pairs-of-vertices-in-tree-such-that-distance-between-them-is-even/?ref=rp
 
-using System;
-using System.Collections.Generic;
-public class HelloWorld
-{
 
- 
-    
-        static void dfs(int i, int par, List<List<int> > adj,
-                  List<int> dis)
-  {
- 
-    // Iterate over all the edges of vertex i
-    foreach(int j in adj[i])
-    {
- 
-      // If 'j' is not the parent of 'i'.
-      if (j != par)
-      {
- 
-        // Store the distance from root till 'j'.
-        dis[j] = dis[i] + 1;
- 
-        // Recurse for the child 'j'.
-        dfs(j, i, adj, dis);
-      }
-    }
-  }
- 
-  // Function to count pairs
-  static int countPairs(int n, int[, ] edges)
-  {
- 
-    // Stores the final answer
-    int ans = 0;
- 
-    // Stores the adjacency List of the tree.
-    List<List<int> > adj = new List<List<int> >(n);
- 
-    for (int i = 0; i < n; i++) {
-      adj.Add(new List<int>());
-    }
- 
-    for (int i = 0; i < n - 1; ++i)
-    {
- 
-      // Add the edge in the adjacency list.
-      adj[edges[i, 0]].Add(edges[i, 1]);
-      adj[edges[i, 1]].Add(edges[i, 0]);
-    }
- 
-    // Iterate over all 'u'
-    // of the pair ('u', 'v')
-    for (int i = 0; i < n; ++i) {
-      List<int> dis = new List<int>(n);
- 
-      // Do a dfs with 'i' as the root of the tree.
-      for (int j = 0; j < n; ++j) {
-        dis.Add(0);
-      }
-      dfs(i, -1, adj, dis);
- 
-      // Iterate over the other end of the pair
-      for (int j = i + 1; j < n; ++j)
-      {
- 
-        // If the distance is even
+
 using System;
 // you can also use other imports, for example:
  using System.Collections.Generic;
@@ -203,3 +139,18 @@ for (int qq= 0; qq < B.Length; qq++)
   }
  
 }
+
+
+
+
+    
+         
+    
+    
+      
+        
+        
+ 
+    
+ 
+
