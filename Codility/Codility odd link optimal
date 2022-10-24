@@ -31,6 +31,10 @@ To store the size of set 'L'
     // Function to count pairs
     static int countPairs(int n, int[,] edges)
     {
+    if (n ==0)
+    return 0;
+    if (n ==1)
+    return 1;
     int ans=0:
         // Stores the adjacency List of the tree.
         List<List<int> > adj
