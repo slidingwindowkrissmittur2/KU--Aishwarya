@@ -4,6 +4,14 @@ class Solution {
         return A.GroupBy(a => a).First(a => a.Count() %2 == 1).Key;
     }
 }
+and 
+
+int res = 0;
+        for (int i = 0; i < arr_size; i++)
+        {
+            res = res ^ arr[i];
+        }
+        return res;
 
 *******
 
