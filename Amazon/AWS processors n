@@ -1,0 +1,25 @@
+https://leetcode.com/discuss/interview-question/2754062/Amazon-OA-help
+
+arr=[5,5,5,3,3,6]
+ct,res=dict(),0
+for num in arr:
+    res+=ct.setdefault(num,num)
+    ct[num]=(ct[num]+1)//2
+return res
+
+int [] arr = new int[]{5,5,5,3,3,6};
+
+Dicti<int,int> ct=; 
+Dictionary<int,int> res= new ;
+
+foreach (int num in arr)
+{
+
+res+= ct.setdefaukt(num,num);
+ct[num] = (ct[num]+1)/2;
+}
+return res;
+
+
+
+
