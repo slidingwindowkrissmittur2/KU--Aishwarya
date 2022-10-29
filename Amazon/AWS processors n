@@ -1,5 +1,10 @@
 https://leetcode.com/discuss/interview-question/2754062/Amazon-OA-help
 
+A[i] takes a(i) time to process.
+5(yel), 5(yel),3(green),6(purple),5(yel),3(green)
+
+
+--
 arr=[5,5,5,3,3,6]
 ct,res=dict(),0
 for num in arr:
