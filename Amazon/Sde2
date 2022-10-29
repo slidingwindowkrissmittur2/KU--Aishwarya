@@ -1,0 +1,258 @@
+https://leetcode.com/discuss/interview-question/1331455/amazon-oa-june-2021-labeling-system-multiprocessor-system
+Labeling System
+Amazon is looking to develop a new labeling system in the fulfilment centers. New labels will be devised from the original string labels. Given the original string label, construct a new string by rearranging the original string and deleting characters as needed. Return the alphabetically-largest string that can be constructed respecting the limit as to how many consecutive characters can be the same (represented by k).
+
+"Alphabetically-largest" is defined in reverse alphabetical order (e.g., b is "larger" than a, c is "larger" than b, etc.) from left to right (e.g., "ba" is larger than "ab").
+
+Write an algorithm to return the alphabetically-largest string that can be constructed respecting the
+above limits.
+
+Input
+The input to the function/method consists of two arguments:
+originalLabel, a string representing the original string label;
+charLimit, an integer representing the maximum number of identical consecutive characters the new string can have (k).
+
+Output
+Return a string representing the alphabetically largest string that can be constructed that has no
+more than k identical consecutive characters.
+
+Multiprocessor System
+Multiprocessor systems at Amazon involve multiple CPUs for performing various tasks,
+which increases throughput and reduces response time. A multiprocessor system has a certain number of processors.
+Each processor has the ability to schedule a limited number of processes in one second. However, after each scheduling, the processor's ability is reduced to ability/2 rounded dowry to the nearest number. Only one processor can work to schedule processes each second. As an Amazonian you are tasked to find the minimum time required to schedule all the processes in the system given the processor's abilities and the number of processes.
+
+Write an algorithm that returns minimum time required to schedule the processes.
+
+Input
+The input to the function/method consists of three arguments:
+num, an integer representing the number of processors;
+ability, a list of integers representing the ability of the processors;
+processes, a long integer representing the number of processes to be scheduled.
+
+Output
+Return an integer representing the minimum time required to schedule the processes.
+
+Constraints
+1 <= num <= 10^5
+1 <= ability[i] <= 10^6
+1 <= processes <= 10^12
+0 <= i < num
+
+Note
+It is guaranteed that the processes can be scheduled using the given multiprocessor system.
+
+Optimal Solutions & Link to LeetCode similar problems will be highly appriciated!!
+
+Thanks,
+
+
+amazon online assesmentoaamazon
+Comments: 10
+ 
+Type comment here... (Markdown is supported)
+pancerZH 13  July 30, 2021 12:24 PM
+For 2nd problem: (priority queue)
+
+public static int processTime(int num, int[] ability, long processes) {
+        int count = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>((i1, i2) -> {
+            return i2-i1;
+        });
+        for(int abi : ability) {
+            pq.offer(abi);
+        }
+        while(processes > 0) {
+            int abi = pq.poll();
+            processes -= abi;
+            pq.offer(abi/2);
+            count++;
+        }
+        return count;
+    }
+4ShareReply
+SHOW 2 REPLIES
+pancerZH 13  July 30, 2021 12:11 PM
+For 1st problem:
+
+public static String getLargestString(String origin, int k) {
+        int[] board = new int[26];
+        for(char c : origin.toCharArray()) {
+            board[c-'a']++;
+        }
+        StringBuilder sb = new StringBuilder();
+        int index = 25;
+        int lastCount = 0;
+        while(index >= 0) {
+            if(board[index] == 0) {
+                index--;
+                lastCount = 0;
+                continue;
+            }
+            if(lastCount < k) {
+                sb.append((char)('a'+index));
+                lastCount++;
+                board[index]--;
+            } else {
+                for(int i=index-1; i>=0; i--) {
+                    if(board[i] > 0) {
+                        sb.append((char)('a'+i));
+                        board[i]--;
+                        lastCount = 0;
+                        break;
+                    }
+                }
+                if(lastCount != 0) {
+                    break;
+                }
+            }
+        }
+        return sb.toString();
+    }
+2ShareReply
+rahuldeep 3  July 16, 2021 4:52 PM
+https://leetcode.com/discuss/general-discussion/724785/rearrange-original-string-and-delete-characters-java8
+
+1ShareReply
+AbidWaqar 8  July 3, 2022 3:18 PM
+Hope this helps.
+
+Multiprocessor system java code:
+
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
+public class ProcessScheduling {
+
+    // T = O(p * log(n) * log(n)) | S = O(n)
+    // Where n is input array's length and p is the number of processes.
+    public static int solve(int[] abilities, int processes) {
+        PriorityQueue<Integer> processorsAbilitysMaxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+        for (int ability : abilities) {
+            processorsAbilitysMaxHeap.add(ability);
+        }
+
+        int count = 0;
+        while (processes > 0) {
+            int ability = processorsAbilitysMaxHeap.poll();
+
+            processes -= ability;
+
+            processorsAbilitysMaxHeap.add(ability / 2);
+
+            ++count;
+        }
+
+        return count;
+    }
+}
+0ShareReply
+safoan2 227  October 19, 2021 5:09 PM
+Python Solution for Problem 1:
+
+import collections
+def largestAlphabeticalString(label, k):
+    flippedLabel = sorted(label, reverse=True)
+    counter = collections.Counter(flippedLabel)
+    out = []
+    for c,v in counter.items():
+        out.append(c*min(k, v))
+    
+    return "".join(out)
+0ShareReply
+Lemour-sudo 0  August 15, 2021 7:45 PM
+def relabel(originalLabel: str, charLimit: int) -> str:
+    newLabel = ''
+    oldLabel = sorted(originalLabel, reverse=True)
+
+    refChar = oldLabel[0]
+    numSimChars = 0         # tracks how many times the current letter has been repeated
+    q = []                  # a queue that tracks letters that are cut-off when max number of letters is exceeded
+    for char in oldLabel:
+        # Look out for any change in the letter to restart counting repeated letters
+        if char != refChar:
+            refChar = char
+            numSimChars = 1
+        else:
+            numSimChars += 1
+
+        # Add letters that exceed the limit to the queue
+        if numSimChars > charLimit:
+            q.append(char)
+            continue
+
+        # Add current letter to the new label
+        newLabel += char
+
+        # Add letters from the queue if there are any
+        nAddedFromQ = 0
+        if q:
+            while q and (nAddedFromQ < charLimit):
+                newLabel += q.pop(0)
+                nAddedFromQ += 1
+            numSimChars = 0
+    
+    return newLabel
+0ShareReply
+Lemour-sudo 0  August 15, 2021 4:35 PM
+I do not think the question is clear on what to do with the extra consecutive characters when the maximum number of consecutive characters is exceeded.
+
+0ShareReply
+vogelkaka 371  August 7, 2021 7:30 PM
+Thanks for sharing, the first one is hard
+
+0ShareReply
+doolisty -1  July 21, 2021 5:56 PM
+Solution for 2nd problem (greedy with heap in Python)
+
+heap = list(map(lambda x: -x, ability))
+heapq.heapify(heap)
+ans = 0
+while processes > 0:
+    curr = heapq.heappop(heap)
+    processes += curr
+    heapq.heappush(heap, curr // 2)
+    ans += 1
+print(ans)
+0ShareReply
+SHOW 1 REPLY
+user3205PO -1  July 19, 2021 9:05 AM
+Solution for 1st problem
+
+private static String combine(String s, int k) {
+	StringBuilder sb = new StringBuilder();
+	Map<Character, Integer> map = new HashMap<Character, Integer>();
+	int n = s.length();
+	for (int i = 0; i < n; i++) {
+		char c = s.charAt(i);
+		map.put(c, map.getOrDefault(c, 0) + 1);
+	}
+
+	PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue<Map.Entry<Character, Integer>>(
+			new Comparator<Map.Entry<Character, Integer>>() {
+
+				@Override
+				public int compare(Entry<Character, Integer> o1, Entry<Character, Integer> o2) {
+					return o2.getKey() - o1.getKey();
+				}
+			});
+	pq.addAll(map.entrySet());
+
+	Map.Entry<Character, Integer> previous = new AbstractMap.SimpleEntry<Character, Integer>('$', -1);
+	while (!pq.isEmpty()) {
+		Map.Entry<Character, Integer> current = pq.poll();
+		if (current.getValue() > k) {
+			sb.append(generateString(current.getKey(), k));
+			current.setValue(current.getValue() - k);
+		} else {
+			sb.append(generateString(current.getKey(), current.getValue()));
+			current.setValue(current.getValue() - k);
+		}
+
+		if (previous.getValue() > 0) {
+			pq.add(previous);
+		}
+		previous = current;
+	}
+	return sb.toString();
+}
+-2ShareReply
