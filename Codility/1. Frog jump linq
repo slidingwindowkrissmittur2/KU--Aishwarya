@@ -1,0 +1,8 @@
+solution(X, Y, D):
+    if (Y < X or D <= 0)
+        return 0;// Exception("Invalid arguments")
+        
+    if ((Y- X) % D == 0)
+        return (Y- X) /D;
+    else
+        return (((Y- X) / D) + 1);
