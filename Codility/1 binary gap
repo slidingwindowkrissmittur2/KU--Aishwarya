@@ -1,0 +1,10 @@
+using System.Linq;
+
+string binaryInput = Convert.ToString
+(N, 2).Trim('0');
+
+string[] pieces = binaryInput.Split('1');
+
+return pieces.Max().Length;
+
+using System.Linq;
