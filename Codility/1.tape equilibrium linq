@@ -1,0 +1,16 @@
+public int solution(int[] A) 
+    {
+
+      int left = A[0];
+      int right = A.Skip(1).Aggregate((c,x)=> c+=x);
+      int min = Math.Abs(left-right);
+
+      for(int i=1; i < A.Length-1; i++) 
+      {
+        left+=A[i];
+        right-=A[i];
+        min = Math.Min(min,Math.Abs(left-right));
+      }
+ 
+      return min;
+    }
