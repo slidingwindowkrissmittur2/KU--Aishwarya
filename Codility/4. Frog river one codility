@@ -1,0 +1,2 @@
+int[] B = A.Distinct().ToArray();
+     return (B.Length != X) ? -1 : Array.IndexOf<int>(A, B[B.Length - 1]);
