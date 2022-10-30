@@ -1,0 +1,150 @@
+logo
+ Back to Discuss
+Interview Question
+all categories
+all tags
+Check out the announcement of our new feature - LeetCode Interview
+Share your post on LeetCode and enter our giveaway🎁! 
+Please take a moment to read our Community Rules here before posting.
+      
+Amazon | OA SDE1 | April 2022
+Amazon | OA SDE1 | April 2022
+10.4K
+VIEWS
+22
+Last Edit: April 27, 2022 9:25 AM
+
+Anonymous User
+Problem 1:
+Given list of processes where each value representing memory consuption by the process and given one variable m representing number of processes to be removed. We need to delete m number of processes from the list in contiguous manner and return minimum amount of main memory used by all the proccesses running after deleting contiguous segment of processes.
+
+Example - processes = {10,4,8,13,20}, m = 2;
+output = 22 [removing 13 and 20 as its consuming large memory]
+
+Problem 2:
+Given list of movies, and a variable k representing maximum allowed difference, we need to group the movies into groups. No groups can have movies which has difference amongst them greater than m. We need to return minimum number of groups which follows the condition.
+
+Example - movies = [1,5,4,6,8,9,2], k=3;
+output = 3 [groups-(1,2,4),(5,6,8),(9)]
+
+I solved both the problems and passed all the test cases in both the code, but I got mail saying we cannot consider you for the next round without providing reason.
+
+Can anyone tell me why this could have happened?
+Where I gone wrong and how I can overcome this?
+Am I the only one or someone out there also faced this situation?
+Also I want to know when I can apply again for Amazon?
+
+Thanks in advance! Happy Coding :)
+
+
+arraysamazon online assesmentalgorithmsslidingwindowamazon
+Comments: 8
+ 
+Type comment here... (Markdown is supported)
+nitishup 12  September 21, 2022 1:55 AM
+Problem 1 :->
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int sol(vectorv,int m){
+int sum=0;
+for(int i:v){
+sum+=i;
+}
+int left = 0;
+int temp_sum = 0;
+int mx=INT_MIN;
+for(int i=0; i<v.size(); i++){
+temp_sum+= v[i];
+if(i-left+1==m){
+mx = max(mx, temp_sum);
+temp_sum-=v[left];
+left= left+1;
+}
+}
+return (sum-mx);
+}
+
+int main() {
+int n,m;
+cin>>n;
+
+vectorv(n);
+for(int i=0;i<n;i++){
+int t;
+cin>>t;
+v.push_back(t);
+}
+cin>>m;
+cout<<sol(v,m);
+
+return 0;
+}
+
+12ShareReply
+ezgurs 8  April 28, 2022 2:30 AM
+python greedy solution
+
+def minGroups(movies, k):
+    movies.sort()
+    
+    ret = []
+    # left pointer of subarray
+    l = 0
+    for r in range(len(movies)):        
+        # max difference in subarray > k
+        # array is sorted so rightmost value will always be largest
+        # leftmost is always smallest
+        if (movies[r] - movies[l]) > k:
+            # add group to listofGroups
+            # use r not r+1 so we don't include the value that caused
+            # group to be invalid
+            ret.append(movies[l:r])
+            # move left pointer to current value, start of new subarray
+            l = r
+    
+    # append last group if there was any at the end of the for loop
+    ret.append(movies[l:r+1])   
+    return ret
+        
+print(minGroups([1,5,4,6,8,9,2], 3))
+6ShareReply
+catnoodle 141  April 27, 2022 10:01 AM
+Any better greedy solution?
+
+// "static void main" must be defined in a public class.
+public class Main {
+    
+    public static int minGroups(int[] movies, int diff) {
+        
+        Arrays.sort(movies);
+        // dp[i] -> min groups when we have i .. movies.length-1 movies available
+        int[] dp = new int[movies.length+1];
+        dp[movies.length] = 0;
+        
+        for(int idx=movies.length-1; idx>=0; idx--) {
+            
+            // taking only 1 in current group
+            dp[idx] = 1 + dp[idx+1];
+            
+            // trying to take more movies in group
+            for(int nextIdx=idx+1; nextIdx<movies.length-1; nextIdx++) {
+                
+                if(movies[nextIdx] > movies[idx] + diff) {
+                    break;
+                } else {
+                    dp[idx] = Math.min(dp[idx], 1 + dp[nextIdx+1]);
+                }
+            }
+        }
+        
+        return dp[0];
+    }
+    
+    public static void main(String[] args) {
+        
+        System.out.println(minGroups(new int[]{1,5,4,6,8,9,2}, 3));
+        
+    }
+}
