@@ -1,0 +1,138 @@
+public class Solution {
+public static void Main () {
+
+    Dictionary<string,List<string>> graphNS = new Dictionary<>();
+    Dictionary<String,List<String>> graphEW = new Dictionary<>();
+    
+    String[] input={"P1 N P2", "P2 N P3", "P3 S P1", "P3 NW P4", "P5 SW P4", "P1 W P5", "P1 NW P3"};
+                   
+    foreach(string direction in input)
+    {
+      String[] elements = direction.split(" ");   
+     
+      if(direction.Contains("NE") || direction.Contains("NW") || direction.contains("SE") || direction.contains("SW"))
+      {
+           if(graphNS[elements[0]]==null)
+           graphNS.Add(elements[0], new ArrayList<>());
+         if(graphNS[elements[2]]==null)
+           graphNS.Add(elements[2], new ArrayList<>());  
+         if(graphEW[elements[0]]==null)
+           graphEW.Add(elements[0], new ArrayList<>());
+         if(graphEW[elements[2]]==null)
+           graphEW.Add(elements[2], new ArrayList<>());   
+      }
+      else if(direction.Contains("E") || direction.Contains("W"))
+      {
+         if(graphEW[elements[0]]==null)
+           graphEW.Add(elements[0], new ArrayList<>());
+         if(graphEW[elements[2]]==null)
+           graphEW.Add(elements[2], new ArrayList<>());   
+      }
+       else if(direction.Contains("N") || direction.Contains("S"))
+      {
+         if(graphNS[elements[0]]==null)
+           graphNS.Ass(elements[0], new ArrayList<>());
+         if(graphNS[elements[2]]==null)
+           graphNS.Add(elements[2], new ArrayList<>());   
+      }
+       if (direction.Contains("NE"))
+      {
+        
+         List<string> neighbors = graphNS.getOrDefault(elements[0], new ArrayList<>());
+         neighbors.Add(elements[2]);
+         graphNS.Add(elements[0], neighbors);
+         neighbors = graphEW.getOrDefault(elements[0], new ArrayList<>());
+         neighbors.Add(elements[2]);
+         graphEW.Add(elements[0], neighbors);
+      }
+      else if (direction.Contains("NW"))
+      {
+          
+         List<string> neighbors = graphNS.getOrDefault(elements[0], new ArrayList<>());
+         neighbors.add(elements[2]);
+         graphNS.put(elements[0], neighbors);
+         neighbors = graphEW.getOrDefault(elements[2], new ArrayList<>());
+         neighbors.add(elements[0]);
+         graphEW.put(elements[2], neighbors);
+      }
+      else if (direction.contains("SE"))
+      {
+         List<String> neighbors = graphNS.getOrDefault(elements[2], new ArrayList<>());
+         neighbors.add(elements[0]);
+         graphNS.put(elements[2], neighbors);
+         neighbors = graphEW.getOrDefault(elements[0], new ArrayList<>());
+         neighbors.add(elements[2]);
+         graphEW.put(elements[0], neighbors);
+      }
+      else if (direction.contains("SW"))
+      {
+         List<String> neighbors = graphNS.getOrDefault(elements[2], new ArrayList<>());
+         neighbors.add(elements[0]);
+         graphNS.put(elements[2], neighbors);
+         neighbors = graphEW.getOrDefault(elements[2], new ArrayList<>());
+         neighbors.add(elements[0]);
+         graphEW.put(elements[2], neighbors);
+      }
+      else if (direction.contains("N"))
+      {
+         List<String> neighbors = graphNS.getOrDefault(elements[0], new ArrayList<>());
+         neighbors.add(elements[2]);
+         graphNS.put(elements[0], neighbors);
+      }
+      else if (direction.contains("S"))
+      {
+          List<String> neighbors = graphNS.getOrDefault(elements[2], new ArrayList<>());
+         neighbors.add(elements[0]);
+         graphNS.put(elements[2], neighbors);
+      }
+      else if (direction.contains("E"))
+      {
+         List<String> neighbors = graphEW.getOrDefault(elements[0], new ArrayList<>());
+         neighbors.add(elements[2]);
+         graphEW.put(elements[0], neighbors);
+      }
+      else if (direction.contains("W"))
+      {
+          List<String> neighbors = graphEW.getOrDefault(elements[2], new ArrayList<>());
+         neighbors.add(elements[0]);
+         graphEW.put(elements[2], neighbors);
+      }
+     
+    }  
+    if(isCyclic(graphEW.size(), graphEW) || isCyclic(graphNS.size(), graphNS))
+        System.out.println("False");
+    else
+        System.out.println("True");
+    
+}
+public static boolean checkCycle(String node,  HashMap<String,List<String>> adj, HashMap <String,Integer> vis, HashMap <String,Integer> dfsVis)
+{
+    vis.put(node,1);
+    dfsVis.put(node,1);
+    for(String neighbor: adj.get(node)) {
+        if(vis.get(neighbor) == 0) {
+            if(checkCycle(neighbor, adj, vis, dfsVis) == true) {
+                return true;
+            }
+        } else if(dfsVis.get(neighbor) == 1) {
+            return true;
+        }
+    }
+    dfsVis.put(node,0);
+    return false;
+}
+public static boolean isCyclic(int N,  HashMap<String,List<String>> adj) {
+    HashMap <String,Integer> vis = new HashMap<>();
+    HashMap <String,Integer> dfsVis = new HashMap<>();
+    for(String vertex:adj.keySet())
+    {
+        vis.put(vertex,0);
+        dfsVis.put(vertex,0);
+    }
+    for(String vertex:adj.keySet())
+        if(vis.get(vertex) == 0)
+            if(checkCycle(vertex, adj, vis, dfsVis) == true)
+                return true;
+    return false;
+}
+}
