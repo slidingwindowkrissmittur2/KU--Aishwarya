@@ -1,10 +1,12 @@
 https://www.geeksforgeeks.org/word-break-problem-dp-32
 /amp/
 
+using System;
+
 using System.Collections.Generic;
 
 class GFG {
-{
+
 static void wordBreak(int n, List<string> dict, string s)
 
       {
@@ -36,7 +38,7 @@ wordBreakUtil(n - i, s.Substring(i,n-i), dict, ans+prefix+" ");
 }
 }
 }
-
+}
 static void Main() {
     string str1 = "iloveicecreamandmango"; // for first test case
 
@@ -47,13 +49,11 @@ int n1 = str1.Length;                 // length of first string
 int n2 = str2.Length;                 // length of second string
 
 List<string> dict= new List<string>(new string[]{"mobile","samsung","sam","sung",
+"man","mango", "icecream","and",
+"go","i","love","ice","cream"});
 
 wordBreak(n1,dict,str1);
 wordBreak(n2,dict,str2);
 }
 
 }
-
-
-
-
