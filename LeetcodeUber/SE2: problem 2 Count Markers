@@ -8,3 +8,19 @@ Your task is to find the number of markers on which at least one uber is present
 Example
 
 For coordinates=[[4, 7], [-1, 5], [3, 6]], the output should be easyCountUber(coordinates) = 9.
+
+
+
+def count(markers):
+    counter = 0
+    visited = set()
+    for marker in markers:
+        for i in range(marker[0], marker[1] + 1):
+            if i not in visited:
+                counter += 1
+            visited.add(i)
+    return counter
+
+
+print(count([[4, 7], [-1, 5], [3, 6]]))
+
