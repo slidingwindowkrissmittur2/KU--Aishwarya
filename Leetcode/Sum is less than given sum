@@ -1,0 +1,22 @@
+You are provided with an array containing n non-negative numbers, as well as a non-negative number sum. You must determine the number of subarrays in a whose sum is less than the sum. We can make the assumption that there is no overflow. Sample input and output for the given problem is as follows:
+
+Input: a = [2, 5, 6]
+         sum = 10
+Output: 4
+
+C ++ function which solves the given Data Structures and Algorithm problem is given below:
+
+int foo(vector<int> &a, int sum) {
+   int answer = 0;
+   int s = 0, left = 0,right = 0;
+   while(right < a.size()){
+       s += a[right];
+       while(s >= sum){
+           s -= a[left ++];
+       }
+       answer += (right - left + 1);
+       right ++;
+   }
+   return answer;
+}
+The sliding window technique is
