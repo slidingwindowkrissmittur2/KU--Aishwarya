@@ -1,0 +1,13 @@
+Int maximumSumOfSubarray(vector<int> arr)
+{
+  int n = arr.size();
+  int res = 0;
+  int curMax = 0;
+
+  for (int j = 0; j < n; j ++)
+  {
+       curMax = max(arr[j], curMax + arr[j]);
+       res = max(res, curMax);
+  }
+  return res;
+}
