@@ -1,4 +1,4 @@
-You want to schedule a certain number of trips with a collection of several cabs.
+UseYou want to schedule a certain number of trips with a collection of several cabs.
 
 Given an integer n representing a desired number of trips, and an array cabTravelTime representing your cabs and how long it takes each cab (at that index of the array) to make a trip, return the minimum time required to make n trips.
 
@@ -24,12 +24,18 @@ Time = 6
 
 using System;
 
+using System;
+
+
+
 class Program
 {
     static bool pos(int val,int[] nums,int n){  //greedy checker function
     int len=nums.Length;
     int curr=0;
+    
     for(int i=0;i<len;i++){
+        Console.WriteLine($"{val} {curr}");
         curr+=val/nums[i] ;
         if(curr>=n)
             return true;
@@ -38,8 +44,13 @@ class Program
 }
 
 static int solve(int[] nums,int n){
-    int l=0,r=Int32.MaxValue;
-    int ans=Int32.MaxValue;
+    int cnt=0;
+    foreach(int v in nums)
+    {
+        cnt+=v;
+    }
+    int l=0,r=cnt;//Int32.MaxValue;
+    int ans=cnt;//Int32.MaxValue;
     while(l<r){
         int mid=l+(r-l)/2;
         if(pos(mid ,nums, n)){
