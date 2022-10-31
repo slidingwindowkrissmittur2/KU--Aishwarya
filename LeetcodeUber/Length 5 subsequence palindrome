@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+class Program
+{
+    
+
+
+    public static void Main() {
+        string str = "abcdba";   
+        fillSubsequencesLength5(str);
+        int count = 0;
+        foreach(string s in res) {
+            if(isPal(s)) count++;
+        }
+        Console.WriteLine("Result : "+count);
+    }
+    
+    private static bool isPal(string s) {
+        int l = 0, r = s.Length - 1;
+        while(l < r) {
+            if(s[l] != s[r]) 
+               return false;
+            l++;
+            r--;
+        }
+        return true;
+    }
+    
+    static List<string> res;
+    
+    static void fillSubsequencesLength5(string str) {
+        char[] arr = str.ToCharArray();
+        res = new List<string>();
+        explore(arr, 0, 0, "");
+    }
+    
+    static void explore(char[] arr, int i,int len, string s) {
+        if(len == 5) {
+            res.Add(s);
+            return;
+        }
+        if(i == arr.Length) return;
+        explore(arr, i+1, len, s);
+        explore(arr, i+1, len+1, s+arr[i]);
+    }
+}
+
