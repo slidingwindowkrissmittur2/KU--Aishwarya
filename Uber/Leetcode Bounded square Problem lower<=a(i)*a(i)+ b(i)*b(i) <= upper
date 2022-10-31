@@ -1,0 +1,62 @@
+using System;
+
+class Program
+{
+    public static int countPairs(int[] a, int[] b, int lower, int upper) {
+    if (a.Length > b.Length) {
+        countPairs(b,a,lower,upper);
+    }
+
+    for (int i = 0; i < a.Length; i++) {
+        a[i] = a[i] * a[i];
+    }
+    Array.Sort(a);
+    if (a[0] > upper)
+        return 0;
+    int count = 0;
+    for (int i = 0; i < b.Length; i++) {
+        if (b[i] * b[i] > upper)
+            continue;
+        int rightBound = performBinarySearch(a, upper - b[i] * b[i]);
+        int leftBound =  performBinarySearch(a, lower - b[i] * b[i]);
+        count += rightBound - leftBound;
+    }
+
+    return count;
+
+}
+
+public static int performBinarySearch(int[] nums, int target) {
+    int left = 0;
+    int right = nums.Length - 1;
+    int middle;
+    while (left + 1 < right) {
+        middle = (right - left) / 2 + left;
+        if (nums[middle] == target)
+            return middle;
+        if (nums[middle] < target) {
+            left = middle;
+        } else {
+            right = middle;
+        }
+    }
+
+    if (target <= nums[left]) return left;
+    if (target > nums[left] && target <= nums[right]) return right;
+    if (target > nums[right]) return right + 1;
+    return -1;
+}
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+        int[] a= new int[]{3, -1, 9};
+        int[] b = new int[]{100, 5, -2};
+        
+        int lower = 7;
+        int upper = 99;
+       Console.WriteLine( countPairs(a,b,lower,upper));
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
+
