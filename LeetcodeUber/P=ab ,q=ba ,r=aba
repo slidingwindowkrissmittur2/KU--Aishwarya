@@ -1,0 +1,41 @@
+
+
+
+using System;
+using System.Collections.Generic;
+class Program
+{
+    static int getCount(string a, string b, string c) {
+  return merge(a.ToCharArray(), 0, b.ToCharArray(), 0, c.ToCharArray(), 0, new Dictionary<string,int>());
+}
+
+public static int merge(char[] a, int i, char[] b, int j, char[] c, int k, Dictionary<string, int> map) {
+        if (k >= c.Length) return 1;
+        if (i >= a.Length && j >= b.Length)
+            return 0;
+            
+        String key = i + "," + j + "," + k;
+        if (map.ContainsKey(key)) {
+            return map[key];
+        }
+        
+        int count = 0;
+        // Matches with character in a
+        if (i<a.Length && a[i] == c[k])
+            count += merge(a, i+1, b, j, c, k+1, map);
+        // Matches with character in b    
+        if (j<b.Length && b[j] == c[k])
+            count += merge(a, i, b, j+1, c, k+1, map);
+        // Matches with neither a or b    
+        count += merge(a,i+1,b,j+1,c,k, map);
+        map.Add(key, count);
+        return count;
+    }
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+        Console.WriteLine(getCount("ab","ba","aba"));
+        Console.Write("Sum of x + y = "+ z);
+    }
+}
