@@ -21,3 +21,40 @@ cabTravelTime=[3,4,8]
 * 2 trips with cab 0 (cost 6)
 * 1 trip with cab 1 (cost 4)
 Time = 6
+
+using System;
+
+class Program
+{
+    static bool pos(int val,int[] nums,int n){  //greedy checker function
+    int len=nums.Length;
+    int curr=0;
+    for(int i=0;i<len;i++){
+        curr+=val/nums[i] ;
+        if(curr>=n)
+            return true;
+    }
+    return false;
+}
+
+static int solve(int[] nums,int n){
+    int l=0,r=Int32.MaxValue;
+    int ans=Int32.MaxValue;
+    while(l<r){
+        int mid=l+(r-l)/2;
+        if(pos(mid ,nums, n)){
+            ans=Math.Min(ans,mid);
+            r=mid;
+        }
+        else
+            l=mid+1;
+    }
+    return ans;
+    
+}
+static void Main(){
+    int[] vec={3,4,8};
+    int n=3;
+    Console.WriteLine(solve(vec,n));   
+}
+}
