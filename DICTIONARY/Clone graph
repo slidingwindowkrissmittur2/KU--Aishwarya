@@ -1,0 +1,67 @@
+
+// Definition for a Node.
+public class Node {
+    public int val;
+    public IList<Node> neighbors;
+
+    public Node() {
+        val = 0;
+        neighbors = new List<Node>();
+    }
+
+    public Node(int _val) {
+        val = _val;
+        neighbors = new List<Node>();
+    }
+
+    public Node(int _val, List<Node> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+}
+*/
+
+public class Solution {
+    Dictionary<int, List<int>> adjList;
+    Dictionary<int, Node> graph;
+    
+    public void DFS(Node node) {
+        if (adjList.ContainsKey(node.val))
+            return;
+        
+        List<int> adj = new List<int>();
+        adjList.Add(node.val, adj);
+        
+        foreach (Node neighbor in node.neighbors) {
+            adj.Add(neighbor.val);
+            DFS(neighbor);
+        }
+    }
+    
+    public void Clone() {
+        foreach (int key in adjList.Keys) {
+            Node node = new Node(key);
+            graph.Add(key, node);
+        }
+        
+        foreach (int key in graph.Keys) {
+            Node node = graph[key];
+            foreach (int val in adjList[key]) {
+                if (node.neighbors == null)
+                    node.neighbors = new List<Node>();
+                node.neighbors.Add(graph[val]);
+            }
+        }
+    }
+    
+    public Node CloneGraph(Node node) {
+        if (node == null)
+            return null;
+        
+        adjList = new Dictionary<int, List<int>>();
+        graph = new Dictionary<int, Node>();
+        DFS(node);
+        Clone();
+        return graph[1];
+    }
+}
