@@ -1,0 +1,39 @@
+https://leetcode.com/discuss/interview-question/2754062/Amazon-OA-help
+
+A[i] takes a(i) time to process.
+5(yel), 5(yel),3(green),6(purple),5(yel),3(green)
+
+
+--
+arr=[5,5,5,3,3,6]
+ct,res=dict(),0
+for num in arr:
+    res+=ct.setdefault(num,num)
+    ct[num]=(ct[num]+1)//2
+return res
+
+public static void Main(String[] args) {
+int[] arr = {5,5,3,6,5,3};
+executionTime(arr);
+}
+
+private static void executionTime(int[] arr) {
+    Dictionary<int,int>map = new Dictionary<int,int>();
+    int ans = 0;
+    foreach(int n in arr){
+        if(map.ContainsKey(n)){
+            int curr = (int)Math.Ceiling(n  * 1.0 / (2.0 * map[n]));
+            ans += curr;
+        }else{
+            ans += n;    
+        }
+        int k = map.ContainsKey(n)==true?map[n]+1:1;
+        map[n]=k;
+       }
+       Console.WriteLine(ans);
+}
+}
+
+
+
+
