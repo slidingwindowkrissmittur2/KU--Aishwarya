@@ -1,0 +1,63 @@
+
+Cars with similar features:
+Use xoring
+When two cars differ by one feature then increment count
+
+class Program
+{
+    static int xoring(string a, string b, int n){
+    string ans = "";
+         
+        // Loop to iterate over the
+        // Binary Strings
+        for (int i = 0; i < n; i++)
+        {
+            // If the Character matches
+            if (a[i] == b[i])
+                ans += "0";
+            else
+                ans += "1";
+        }
+       // Console.WriteLine("xor of {0} {1} ={2}", a,b,ans);
+        int c=0;
+        for( int i=0; i< n;i++)
+           if (ans[i]=='1')
+             c++;
+             
+             if(c==1)
+             return 1;
+        return 0 ;
+    }
+    
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+
+ 
+      string[] cars= new string[] /*{"01101","01001","01100","11110"};{"100","110","010","011","100"};*/{"0011","0111","0111","0110","0000"};//);
+      int len=cars.Length;
+      int l=cars[0].Length;
+      
+       int [] ans = new int[len];
+      Console.WriteLine("Sum of x + y = "+ z);
+      for( int i=0;i< len;i++){
+      for( int j=i+1;j< len;j++)
+        {
+            if (cars[i]== cars[j]){
+             ans[i]++;
+             ans[j]++;
+            }
+            if (xoring(cars[i],cars[j],l) ==1)
+             ans[i]++;
+            if(xoring(cars[j],cars[i],l)==1)
+               ans[j]++;
+        }
+      }
+      for( int i=0;i < len;i++){
+          
+        
+       Console.WriteLine(ans[i]);
+      }
+    }
+}
