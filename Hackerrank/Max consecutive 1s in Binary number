@@ -1,0 +1,12 @@
+
+int N= 125;
+string binaryInput = Convert.ToString
+(N, 2);
+
+string[] groupings = binaryInput.Split('0');
+  int max = 0;
+        foreach(string s in groupings){
+            if(max < s.Length()){
+                max = s.Length();
+            }
+        }
