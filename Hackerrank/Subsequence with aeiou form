@@ -1,0 +1,152 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;/*
+public static class Extensions
+{
+    public static string reverse(this string str) {
+        return new string(str.Reverse().ToArray());
+    }
+}*/
+public static class Extensions
+{
+    public static string reverse(this string str)
+    {
+        StringBuilder sb = new StringBuilder();
+ 
+        for (int i = str.Length - 1; i >=0 ; i--) {
+            sb.Append(str[i]);
+        }
+ 
+        return sb.ToString();
+    }
+}
+class Program
+{
+    
+    static char getPrevChar(char c)
+  {
+     
+    // previous characters in the order {a -> e -> i ->
+    // o -> u} previous of 'a' is 'a' (since 'a' can be
+    // placed after 'a')
+    if (c == 'a')
+      return 'a';
+    if (c == 'e')
+      return 'a';
+    if (c == 'i')
+      return 'e';
+    if (c == 'o')
+      return 'i';
+    else
+      return 'o';
+  }
+  
+    static void Main() {
+        int x = 10;
+        int y = 25;
+        int z = x + y;
+
+   Console.Write("Sum of x + y = "+ z);
+   String s ="happy urvee birthday one urvee";//"aeiaaioooaauuaeiou";
+    int n = s.Length;
+    List<int> parent
+      = new List<int>();
+    List<int> dp = new List<int>();
+    
+  // parent[i] ---> stores the previous character's
+    // index to which it can be added
+    for (int i = 0; i < n; i++) {
+      parent.Add(i);
+      dp.Add(0);
+    }
+    
+    // dp[i] ----> length of longest sequence ending at
+    // index i;
+    int ind = -1;
+    for (int i = 0; i < n; i++) {
+      if (s[i] == 'a') {
+        dp[i]= 1;
+        ind = i;
+        break;
+      }
+    }
+    
+    // if there is no 'a'
+    if (ind == -1) {
+      Console.WriteLine("NO POSSIBLE SEQUENCE");
+    }
+ 
+    // iterating from next character (after 'a')
+    for (int i = ind + 1; i < n; i++) {
+      int prev = getPrevChar(s[i]);
+ 
+      // previous character of the current character
+      // in vowel sequence {a -> e -> i -> o -> u}
+      int cur = dp[i];
+      int par = i;
+      for (int j = 0; j < i; j++) {
+        if(s[j]== prev
+            || s[j] == s[i])
+        {
+ 
+          //if it matches its prev char or itself
+          // then we can add to it if its length
+          // is maximum than previous
+          if (cur <= dp[j] + 1) {
+            cur = dp[j] + 1;
+            par = j;
+          }
+        }
+      }
+      dp[i]= Math.Max(cur, 1);
+      parent[i]=par;
+    }
+ 
+    int lastIndex = -1;
+ 
+    // finding the last occurrence of 'u' which will be
+    // last occurrence of the sequence
+    for (int i = n - 1; i >= 0; i--) {
+      if (s[i] == 'u') {
+        lastIndex = i;
+        break;
+      }
+    }
+ 
+    // if we do not find 'u'
+    if (lastIndex == -1) {
+      Console.WriteLine("NO POSSIBLE SEQUENCE");
+    }
+    else {
+      String res = "";
+      while (lastIndex != parent[lastIndex]) {
+        res += s[lastIndex];
+        lastIndex = parent[lastIndex];
+      }
+      res += s[lastIndex];
+ 
+      // adding first character in the subsequence
+      // (which has the parent as its index)
+     if (s[lastIndex]!= 'a') {
+        Console.WriteLine("NO POSSIBLE SEQUENCE");
+      }
+      else
+      {
+ 
+        // reversing the string because we added
+        // from the last
+        //StringBuilder ans = new StringBuilder();
+       // ans.Append(res);
+        StringBuilder ans = new StringBuilder();
+ 
+        for (int i = res.Length - 1; i >=0 ; i--) {
+            ans.Append(res[i]);
+        }
+ 
+        Console.WriteLine("Answer is : {0}", ans);/**/
+   
+      }
+    }
+    }
+}
