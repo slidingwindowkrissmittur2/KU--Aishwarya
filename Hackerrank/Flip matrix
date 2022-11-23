@@ -1,0 +1,14 @@
+public static int flippingMatrix(List<List<Integer>> matrix) {
+    // Write your code here
+    int n=matrix.size()/2;
+    int m=2*n-1;
+    int sum=0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            int max1= Math.max(Math.max(matrix.get(i).get(j), matrix.get(i).get(m-j)), 
+            Math.max(matrix.get(m-i).get(j), matrix.get(m-i).get(m-j)));
+            sum+=max1;
+        }
+    }
+    return sum;
+    }
