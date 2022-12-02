@@ -20,28 +20,27 @@ T8=(5+5+8)/3=6
 A total of two alerts are sent
 during the last two periods.( >Threshold 4)
 
-int[] nc= new int[]{ 2, 2,2,2,5,5,5,8};
+ int[] nc= new int[]{ 2, 2,2,2,5,5,5,8};
 int N=8;
-int alertsth=4;
+int at=4;
 int pm=3;
 int[] nnc= new int[N];
 int i=0;
-while(i<t)
+while(i<pm)
 {
 nnc[i]=nc[i];
 i++;
 }
-for(int i=t-1;i<N;++i){
-nnc[i]=(n[i-2]+n[i-1]+n[i])/pm;
+for(i=pm-1;i<N;++i){
+nnc[i]=(nc[i-2]+nc[i-1]+nc[i])/pm;
 }
 int c=0;
-for(int i=0; i< n;++i)
+for(i=0; i< N;++i)
 {
-if( nnc[i]>alerthsth)
+if( nnc[i]>at)
  c++;
 }
 
-return c;
-
+Console.WriteLine(c);
 
 
