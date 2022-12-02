@@ -1,0 +1,47 @@
+Numcalld= [2, 2,2,2,5,5,5,8]
+N=8
+AlertThreshold=4
+Preceding minutes=3
+
+No alerts sent until T=3 
+because not enough values to consider.
+When t=3 average calls=(2+2+2)/3 =2 ie 
+(N1+n2+n3)/pm
+T1=2
+T2=2
+Average calls from t3 to t8 are: 
+(t1+t2+t3)/pm 
+new t3= (2+2+2)/3=2
+t4=(t2+t3+t4)=( 2+2+2)/3=2
+T5= (t3+t4+t5)/pm = (2+2+5)/3=3
+T6=(4+5+t6)/pm=(2+5+5)/3=4
+T7=(5+5+5)/3 =5
+T8=(5+5+8)/3=6
+A total of two alerts are sent
+during the last two periods.( >Threshold 4)
+
+int[] nc= new int[]{ 2, 2,2,2,5,5,5,8};
+int N=8;
+int alertsth=4;
+int pm=3;
+int[] nnc= new int[N];
+int i=0;
+while(i<t)
+{
+nnc[i]=nc[i];
+i++;
+}
+for(int i=t-1;i<N;++i){
+nnc[i]=(n[i-2]+n[i-1]+n[i])/pm;
+}
+int c=0;
+for(int i=0; i< n;++i)
+{
+if( nnc[i]>alerthsth)
+ c++;
+}
+
+return c;
+
+
+
