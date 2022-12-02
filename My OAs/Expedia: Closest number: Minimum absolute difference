@@ -1,0 +1,64 @@
+static void printMinDiffPairs(int []arr, int n)
+{
+
+    if (n <= 1)
+
+    return;
+
+     
+
+    // Sort array elements
+
+    Array.Sort(arr);
+
+     
+
+    // Compare differences of adjacent
+
+    // pairs to find the minimum difference.
+
+    int minDiff = arr[1] - arr[0];
+
+    for (int i = 2; i < n; i++)
+
+    minDiff = Math.Min(minDiff, arr[i] - arr[i-1]);
+
+     
+
+    // Traverse array again and print all pairs
+
+    // with difference as minDiff.
+
+    for ( int i = 1; i < n; i++)
+
+    {
+
+        if ((arr[i] - arr[i-1]) == minDiff)
+
+        {
+
+        Console.Write(" (" + arr[i-1] + ", "
+
+                          + arr[i] + "), " );
+
+        }             
+
+    }
+}
+
+     
+// Driver code
+
+public static void Main () 
+{
+
+    int []arr = {5, 3, 2, 4, 1};
+
+    int n = arr.Length;
+
+    printMinDiffPairs(arr, n);
+}
+}
+Output: 
+
+(1, 2), (2, 3), (3, 4), (4, 5), 
