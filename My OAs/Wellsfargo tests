@@ -1,0 +1,21 @@
+20 q in 100 minutes december 12 2022
+
+q1: election  find the number of seats won by each party 
+q16: order management system
+q17: display name and count (status='failure')>3 ( tables: customer, campaign,events)
+ q18: youngest employees ( <25) db coding
+q2- q15: db mysql multiple choice
+q19: maximum score in array after k moves
+     ---- (4,6,10,-1,-10,-20) k=4 
+     ---- Array.Sort(arr);
+     ---- Array.Reverse(arr);
+     ---- sum+= arr[0:3]
+     ---- ans=19
+q20: last and second last character in string with space : apple return "e l"
+        string a=" apple";
+        int len= a.Length;
+        char b= a[len-1];
+        char c= a[len-2];
+        string o= b.ToString()+ " "+c.ToString();
+        Console.WriteLine(b+" "+c);
+        Console.WriteLine("Sum of x + y = "+ o);
