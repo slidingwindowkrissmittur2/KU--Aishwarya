@@ -1,0 +1,42 @@
+public static void main(String[] args) {
+        printResults("AB");
+        printResults("AAB");
+        printResults("AABC");
+    }
+
+    private static void printResults(String tiles) {
+        List<String> possibilities = allTilePossibilities(tiles);
+        System.out.println("For " + tiles + " " + possibilities.size() + " :");
+        System.out.println(String.join("-", possibilities));
+    }
+
+    private static List<String> allTilePossibilities(String tiles) {
+        int[] count = new int[26];
+        for(char c : tiles.toCharArray()) count[c - 'A']++;
+
+        LinkedList<Character> linkedList = new LinkedList<>();
+        List<String> allS = new ArrayList<>();
+        dfs(linkedList, count, allS);
+        return allS;
+    }
+
+    private static void dfs(LinkedList<Character> linkedList, int[] count, List<String> allS) {
+        for (int i = 0; i < 26; i++) {
+            if (count[i] == 0) continue;
+            char c = (char) ('A' + i);
+            linkedList.addLast(c);
+            count[i]--;
+            dfs(linkedList, count, allS);
+            count[i]++;
+            allS.add(fromLL(linkedList));
+            linkedList.removeLast();
+        }
+    }
+
+    private static String fromLL(LinkedList<Character> ll) {
+        StringBuilder sb = new StringBuilder();
+        for (Character character : ll) {
+            sb.append(character);
+        }
+        return sb.toString();
+    }
