@@ -1,0 +1,172 @@
+https://www.geeksforgeeks.org/count-pairs-of-vertices-in-tree-such-that-distance-between-them-is-even/?ref=rp
+
+https://app.codility.com/programmers/task/odd_network/
+
+
+https://app.codility.com/demo/results/trainingAVH857-226/
+
+
+using System;
+// you can also use other imports, for example:
+using System.Collections.Generic;
+
+// you can write to stdout for debugging purposes, e.g.
+// Console.WriteLine("this is a debug message");
+
+class Solution {
+   /* public int solution(int[] A, int[] B) {
+        // write your code in C# 6.0 with .NET 4.7 (Mono 6.12)
+    }*/
+
+    //using System;
+// you can also use other imports, for example:
+//using System.Collections.Generic;
+
+// you can write to stdout for debugging purposes, e.g.
+// Console.WriteLine("this is a debug message");
+/*
+class Solution {
+    public int solution(int[] A, int[] B) {
+        // write your code in C# 6.0 with .NET 4.7 (Mono 6.12)
+    }
+}*/
+//class Solution {
+//To store the size of set 'L'
+    // size of set 'R'.
+    static int x = 0, y = 0;
+ 
+    // Function to find the distance
+    static void dfs(int i, int par,
+                    List<List<int> > adj,
+                    int dis)
+    {
+        if (dis % 2 == 0)
+            x++;
+        else
+            y++;
+ 
+        // Iterate over all the edges of vertex i
+        foreach (int j in adj[i]) {
+ 
+            // If 'j' is not the parent of 'i'.
+            if (j != par) {
+ 
+                // Recurse for the child 'j'.
+                dfs(j, i, adj, dis + 1);
+            }
+        }
+    }
+ 
+    // Function to count pairs
+    static int countPairs(int n, int[,] edges)
+    {
+    int ans=0;
+    if( n==0 )
+    return 0;
+    if( n==1)
+    return 1;
+        // Stores the adjacency List of the tree.
+        List<List<int> > adj
+            = new List<List<int> >(n);
+        for (int i = 0; i < n; i++)
+            adj.Add(new List<int>());
+ 
+        for (int i = 0; i < n - 1; ++i) {
+ 
+            // Add the edge in the adjacency list.
+            adj[edges[i,0]].Add(edges[i,1]);
+            adj[edges[i,1]].Add(edges[i,0]);
+        }
+ 
+        // Dfs with '0' as the root of the tree.
+        dfs(0, -1, adj, 0);
+ 
+        // Return the answer.
+        ans=(x * (x - 1) / 2 + y * (y - 1) / 2);
+        return ans;
+    }
+ 
+     public int solution(int[] A, int[] B) {
+        // write your code in C# 6.0 with .NET 4.7 (Mono 6.12)
+
+                
+         
+   int b= Math.Max(A.Length, B.Length);
+   int[,] edges = new int[b, 2];
+
+for (int qq = 0; qq< A.Length; qq++)
+  edges[qq, 0] = A[qq];
+
+for (int qq= 0; qq < B.Length; qq++)
+  edges[qq, 1] = B[qq];
+   
+           int[, ] edges1= 
+    //{{1, 0}, {2, 1}, {3, 1}, {4, 2}, {5, 3}}; // ans 6 even
+     //{ { 1, 0 }, { 2, 1 }, { 3, 1 }, { 4, 3 } }; // ans 4 even
+       //{{0,3},{3,1},{4,3},{2,3},{6,3},{3,5}};// ans 6 odd
+      {{0,1},{4,3},{2,1},{2,3},{4,5}};// ans 9 odd
+      // {{0,3},{4,5},{4,1},{2,3},{7,4},{6,3},{3,4}}; // ans 16 odd
+      //{ { 1, 0 }, { 2, 1 }, { 3, 1 }, { 4, 3 } };
+    
+    int i, j, k = 0;
+   /* List<int> dict = new List<int>();
+    int n= edges.GetLength( 0);//row
+    
+        for (i = 0; i < n; i++)
+        {
+            
+                if(!dict.Contains(A[i]))
+                 {dict.Add(A[i]);}
+                if(! dict.Contains(B[i]))
+                 {dict.Add(B[i]);}
+               
+            }*/
+        
+        Dictionary<int,int> dict = new Dictionary<int,int>();
+    int n= edges.GetLength( 0);//row
+    int m= edges.GetLength(1);//col
+        for (i = 0; i < n; i++)
+        {
+            for (j = 0; j < m; j++)
+            {
+                k = i * m + j;
+                if(!dict.ContainsKey(edges[i,j]))
+                 {dict.Add(edges[i, j],1);}
+                else {dict[edges[i,j]]++;}
+                k++;
+            }
+        }
+    int vertices=dict.Count;
+    
+    int N=vertices;
+    int links=N-1;
+    // Function call
+    int P=countPairs(N, edges);
+    int T= (links)*(links+1)/2;
+    int Q=T-P;
+    //Console.WriteLine("{0} {1} {2}",T,P,Q);
+    return Q;
+  }
+    // Driver Code
+  /*  public static void Main()
+    {
+        int N = 5;
+        // array of edges
+        int[][] edges
+            = { { 1, 0 }, { 2, 1 }, { 3, 1 }, { 4, 3 } };
+ 
+        // Function call
+        Console.WriteLine(countPairs(N, edges));
+    }*/
+}/*using System;
+// you can also use other imports, for example:
+// using System.Collections.Generic;
+
+// you can write to stdout for debugging purposes, e.g.
+// Console.WriteLine("this is a debug message");
+
+class Solution {
+    public int solution(int[] A, int[] B) {
+        // Implement your solution here
+    }
+}*/
