@@ -13,7 +13,8 @@ using System;
 class Solution {
     public int solution(int[] A, int[] B) {
         // write your code in C# 6.0 with .NET 4.7 (Mono 6.12)
-
+if(A.Length==1 || B.Length==1|| A.Length==0|| B Length==0)
+   return 1;
                 /* int [,]edges= new int(Math.Max(A.Length,B.Length),2];
                      //join 2 arrays
                      for( int qq= 0; qq< A.Length; qq++)
