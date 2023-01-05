@@ -30,3 +30,22 @@
         
         return dp[A.Length-1];
     }
+private int solution(int[] A) {
+        int N = A.length;
+        int[] dp = new int[N];
+        dp[0] = A[0];
+
+        for (int i = 1; i < N; i++) {
+            double sm = Double.NEGATIVE_INFINITY;
+            for (int j = 1; j <= 6; j++) {
+                if (i - j < 0) {
+                    break;
+                }
+                double s1 = dp[i - j] + A[i];
+                sm = Double.max(s1, sm);
+            }
+            dp[i] = (int) sm;
+        }
+
+        return dp[N-1];
+    }
