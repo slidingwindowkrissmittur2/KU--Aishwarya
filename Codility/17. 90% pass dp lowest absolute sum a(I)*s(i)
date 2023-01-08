@@ -1,0 +1,77 @@
+using System;
+// you can also use other imports, for example:
+// using System.Collections.Generic;
+
+// you can write to stdout for debugging purposes, e.g.
+// Console.WriteLine("this is a debug message");
+
+class Solution {
+    public int solution(int[] A) {
+        // Implement your solution here
+        int N = A.Length;
+
+    if (N == 0) {
+        return 0;
+    }
+
+    int sum = 0;
+    int max = Int32.MinValue;
+
+    for (int i = 0; i < N; i++) {
+
+        int value = Math.Abs(A[i]);
+        sum += value;
+
+        if (max < value) {
+            max = value;
+        }
+
+        A[i] = value;
+    }
+
+
+    // A      = [1, 5, 2, -2]
+    // A(abs) = [1, 5, 2, 2]
+
+    // Max value = 5
+    // Sum value = 10
+
+    // counts  = [0, 1, 2, 0, 0, 1]
+    int[] counts = new int[max + 1];
+
+    foreach (int value in A) {
+        counts[value]++;
+    }
+
+    // Total = [0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+    int[] Total = new int[sum + 1];
+
+    for (int i = 1; i < Total.Length; i++) {
+        Total[i] = -1;
+    }
+
+    for (int i = 1; i < counts.Length; i++) {
+
+        for (int j = 0; j < Total.Length; j++) {
+
+            if (Total[j] >= 0) {
+                Total[j] = counts[i];
+            } else if (j - i >= 0 && Total[j - i] > 0) {
+                Total[j] = Total[j - i] - 1;
+            }
+        }
+    }
+
+    int result = sum;
+
+    for (int i = 0; i < Total.Length / 2 + 1; i++) {
+//and is important
+        if (Total[i] >= 0 && result > Math.Abs(sum - 2 * i)) {
+            result = Math.Abs(sum - 2 * i);
+        }
+    }
+
+    return result;
+
+    }
+}
