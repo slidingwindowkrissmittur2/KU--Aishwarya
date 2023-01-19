@@ -66,3 +66,46 @@ res.Add(arr[i]);
         Console.Write("Sum of x + y = "+ z);
     }
 }
+
+-----gifting
+public static int GroupGifts(string[] arr)
+        {
+            int[,] matrix = new int[arr.Length, arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    var s = arr[i];
+                    var content = s[j] - '0';
+                    matrix[i, j] = content;
+                }
+            }
+
+            bool[] reached = new bool[arr.Length];
+            int count = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (reached[i])
+                {
+                    continue;
+                }
+
+                FindFriends(matrix, reached, i, arr.Length);
+
+                count++;
+            }
+
+            return count;
+        }
+
+private static void FindFriends(int[,] matrix, bool[] reached, int i, int arrLenght)
+        {
+            reached[i] = true;
+            for (int j = 0; j < arrLenght; j++)
+            {
+                if (matrix[i, j] == 1 && !reached[j])
+                {
+                    FindFriends(matrix, reached, j, arrLenght);
+                }
+            }
+        }
