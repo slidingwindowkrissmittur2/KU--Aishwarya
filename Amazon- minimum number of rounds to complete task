@@ -1,0 +1,47 @@
+Q1.
+You are an amazon delivery and you have some boxes that you have to deliver, but there are some conditions -
+
+You can take 2 boxes of same weight in one round
+you can take 3 boxes of same weight in one round
+You have to find the minimum number of rounds to deliver the boxes or -1 if it is not possible to deliver them.
+
+Example cases -
+Input: boxes - [2, 2, 3, 3, 2, 4, 4, 4, 4, 4]
+Output: 4
+Explanation: 3 boxes of weight 2 in 1st round, 2 boxes of weight 3 in 2nd round, 3 boxes of wt 4 in 3rd and 2 boxes of wt 4 in 4th round.
+
+Input: boxes - [2, 3, 3]
+Output: -1
+
+
+
+
+Dictionary<int,int>mymap= new Dictionary<int,int>();
+for(int i=0;i<nums.Length;i++){
+if(!mymap.ContainsKey(mums[i])
+ mymap.Add(mums[i],1);
+else
+mymap[nums[i]]++;
+}
+int ans=0;
+foreach( int it in mymap)
+{
+if(it.Value==1){
+return -1;
+}
+else if(it.Value%3==0){
+ans+=it.Value/3;
+}
+else
+{
+ans+=it.Value/3 +1;
+}
+}
+return ans;
+/*
+[2,4,6,6,4,2,4] = 3
+[3,4,4,3,1] = -1
+[2,2,3,3,2,4,4,4,4,4] = 4
+[2,2,2,2,2,2,2] =3
+[3,3,3,3,3,3,3,3] =3
+*/
