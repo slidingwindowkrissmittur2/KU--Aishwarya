@@ -1,0 +1,38 @@
+if pixel[i][j] = 0 then pixel is black
+if pixel[i][j] = 1 then pixel is white
+Calculate maximum greyness of image.
+Where greyness of a pixel[i][j] = (number of 1s in ith row + number of 1s in jth column) - (number of 0s in ith row + number of 0s in jth column)
+
+
+private static int getMaximumGreyness(int[][] mat) {
+        int maxGreyness = 0;
+        int m = mat.length;
+        int n = mat[0].length;
+
+        int[] row_1s = new int[m];
+        for(int i=0; i<m; i++){
+            int count=0;
+            for(int j=0; j<n; j++){
+                if(mat[i][j] == 1) count++;
+            }
+            row_1s[i] = count;
+        }
+
+        int[] col_1s =new int[n];
+        for(int i=0; i<n; i++){
+            int count=0;
+            for(int j=0; j<m; j++){
+                if(mat[j][i] == 1) count++;
+            }
+            col_1s[i] = count;
+        }
+
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                int tempGreyness = 2*(row_1s[i] + col_1s[j]) - (m + n);
+                maxGreyness = Math.max(maxGreyness, tempGreyness);
+            }
+        }
+
+        return maxGreyness;
+    }
