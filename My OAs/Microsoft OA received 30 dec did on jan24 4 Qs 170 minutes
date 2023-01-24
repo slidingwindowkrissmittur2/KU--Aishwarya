@@ -1,0 +1,22 @@
+Had interview on Jan 9 10 for team Entra 
+1. Java
+2.C++
+3. C#
+4. Java
+
+4. N*m matrix board ints. Biggest 
+integer achieved when concatenating values.
+
+3. Find maximum distance between
+ two identical diagrams in string
+aaaa: 1 aa, aa
+
+2.two arrays a, b. Min number of dice to
+Be turned to make sum of all dice in both
+Arrays equal 
+A:{5}
+B:{1,1,6}
+6 in b2 should be turned to 3
+
+1. Circular array maximum adjacent pair with
+Even sum
