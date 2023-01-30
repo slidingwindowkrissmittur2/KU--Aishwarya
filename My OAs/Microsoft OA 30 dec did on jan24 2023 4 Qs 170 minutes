@@ -86,7 +86,59 @@ int minOperations(int[] n1, int[] n2, int sum1, int sum2) {
     }    
     return res;
 }
+*******c#
 
+   public int MinOperations(int[] nums1, int[] nums2) {
+        
+        int total1= nums1.Sum();
+        int total2= nums2.Sum();
+        
+        int[] allNums = new int[nums1.Length + nums2.Length];
+        
+        if(total1 < total2)
+        {
+           allNums = BalanceArray(nums1,nums2);
+        }
+        else
+        {
+          allNums =   BalanceArray(nums2, nums1);
+        }
+        
+        Array.Sort(allNums);
+        Array.Reverse(allNums);
+        
+        int diff = Math.Abs(total1-total2);
+        int ans=0;
+        for(int i=0; i< allNums.Length; i++)
+        {
+             if(diff <= 0)
+                break;
+            
+            diff -= allNums[i];
+            ans+=1; 
+        }
+        return diff <=0 ?  ans:-1; 
+        
+    }
+    
+    
+    private int[] BalanceArray(int[] nums1, int[] nums2)
+    {
+        int[] totalNums = new int[nums1.Length+ nums2.Length];
+        
+        for(int i=0; i< nums1.Length; i++)
+        {
+            //Subtract 6-num to increase the number
+            totalNums[i] = 6 - nums1[i];
+        }
+        for(int i=0 ; i< nums2.Length; i++)
+        {
+            //Subtract num-1 to decrease the number
+            totalNums[i+ nums1.Length] = nums2[i] -1;
+        }
+        return totalNums;
+    }
+    *****c#
 =====
 1. Circular array maximum adjacent pair with
 Even sum
