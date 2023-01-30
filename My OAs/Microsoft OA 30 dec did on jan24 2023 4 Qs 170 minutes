@@ -91,7 +91,29 @@ int minOperations(int[] n1, int[] n2, int sum1, int sum2) {
 1. Circular array maximum adjacent pair with
 Even sum
 =======
+private static int findMaxEvenPair(int[] arr){
+        
+        int[] nums =  Arrays.copyOf(arr,arr.length+1);
+        nums[arr.length] = nums[0];
+        int count1 = findMaxPair(0, nums.length-2,nums);
+        int count2 = findMaxPair(1, nums.length-1,nums);
+     
+       return Math.max(count1, count2);
+    }
+    
+    
+    private static int findMaxPair(int start, int end, int[] nums){
+        
+        int count =0;
+        for(int i = start;i+1<=end;i++){
+            if((nums[i]+nums[i+1])%2==0){
+                count++; 
+                i++;
+            }
+        }
 
+        return count; 
+    }
 
 
 =======
