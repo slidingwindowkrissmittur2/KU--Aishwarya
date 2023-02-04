@@ -1,0 +1,28 @@
+using System.Linq;
+
+string binaryInput = Convert.ToString
+(N, 2).Trim('0');
+
+string[] pieces = binaryInput.Split('1');
+
+return pieces.Max().Length;
+*******
+Consecutive ones: count: if N has ; and from 0 to N
+using System.Linq;
+  
+   int N=5;
+   int c=0;
+for(int i=0; i<=N; i++){
+string binaryInput = Convert.ToString
+(i, 2);//.Trim('0');
+string binaryInput1= Convert.ToString(i,2).Trim('0');
+string[] pieces = binaryInput.Split('1');
+int num=pieces.Max().Length;
+ 
+if(num==0){
+c++;
+Console.WriteLine("{0} {1} {2} {3}", i, binaryInput,binaryInput1,pieces.Max().Length);
+}}Console.WriteLine(c-1);  
+c--;
+Console.WriteLine("number of non consecutive ones:"+(N-c+1));
+  
