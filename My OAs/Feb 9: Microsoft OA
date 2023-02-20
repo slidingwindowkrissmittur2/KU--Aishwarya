@@ -1,0 +1,167 @@
+1. Java
+2.C++
+3. C#
+4. Java
+
+4. N*m matrix board ints. Biggest 
+integer achieved when concatenating values.
+======
+int ans;
+int[][] board;
+int m,n,len;
+int[] maxPos;
+int[][] dirs;
+
+public int biggest(int[][] b) {
+ ans = 0;
+ board = b;
+ m = board.length;
+ n = board[0].length;
+ len = 4;
+ maxPos = new int[len];
+ dirs = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+ for(int r=0; r<m; r++) {
+  for(int c=0; c<n; c++) {
+   dfs(r,c,0,0);
+  }
+ }
+ return ans;
+}
+
+private void dfs(int r, int c, int pos, int cur) {
+ if(r<0 || r>=m || c<0 || c>=n || board[r][c]==-1) return;
+ cur = cur*10+board[r][c];
+ if(maxPos[pos]>cur) return;
+ maxPos[pos] = cur;
+ if(pos==len-1) {
+  if(cur>ans) ans = cur;
+  return;
+ }
+ int temp = board[r][c];
+ board[r][c] = -1;
+ for(int[] dir : dirs) {
+  int newR = dir[0]+r;
+  int newC = dir[1]+c;
+  dfs(newR, newC, pos+1, cur);
+ }
+ board[r][c] = temp;
+}
+
+
+
+=====
+3. Find maximum distance between
+ two identical digrams in string
+aaaa: 1 aa, aa
+=====
+
+
+======
+2.two arrays a, b. Min number of dice to
+Be turned to make sum of all dice in both
+Arrays equal 
+A:{5}
+B:{1,1,6}
+6 in b2 should be turned to 3
+=======
+int minOperations(int[] n1, int[] n2) {
+    if (n2.length * 6 < n1.length || n1.length * 6 < n2.length)
+        return -1;
+    int sum1 = Arrays.stream(n1).sum(), sum2 = Arrays.stream(n2).sum();
+    if (sum1 < sum2)
+        return minOperations(n1, n2, sum1, sum2);
+    return minOperations(n2, n1, sum2, sum1);
+}
+int minOperations(int[] n1, int[] n2, int sum1, int sum2) {
+    int cnt[] = new int[6], diff = sum2 - sum1, res = 0;
+    for (var n : n1)
+        ++cnt[6 - n];
+    for (var n : n2)
+        ++cnt[n - 1];
+    for (int i = 5; i > 0 && diff > 0; --i) {
+        int take = Math.min(cnt[i], diff / i + (diff % i != 0 ? 1 : 0));
+        diff -= take * i;
+        res += take;
+    }    
+    return res;
+}
+*******c#
+
+   public int MinOperations(int[] nums1, int[] nums2) {
+        
+        int total1= nums1.Sum();
+        int total2= nums2.Sum();
+        
+        int[] allNums = new int[nums1.Length + nums2.Length];
+        
+        if(total1 < total2)
+        {
+           allNums = BalanceArray(nums1,nums2);
+        }
+        else
+        {
+          allNums =   BalanceArray(nums2, nums1);
+        }
+        
+        Array.Sort(allNums);
+        Array.Reverse(allNums);
+        
+        int diff = Math.Abs(total1-total2);
+        int ans=0;
+        for(int i=0; i< allNums.Length; i++)
+        {
+             if(diff <= 0)
+                break;
+            
+            diff -= allNums[i];
+            ans+=1; 
+        }
+        return diff <=0 ?  ans:-1; 
+        
+    }
+    
+    
+    private int[] BalanceArray(int[] nums1, int[] nums2)
+    {
+        int[] totalNums = new int[nums1.Length+ nums2.Length];
+        
+        for(int i=0; i< nums1.Length; i++)
+        {
+            //Subtract 6-num to increase the number
+            totalNums[i] = 6 - nums1[i];
+        }
+        for(int i=0 ; i< nums2.Length; i++)
+        {
+            //Subtract num-1 to decrease the number
+            totalNums[i+ nums1.Length] = nums2[i] -1;
+        }
+        return totalNums;
+    }
+    *****c#
+=====
+1. Circular array maximum adjacent pair with
+Even sum
+=======
+private static int findMaxEvenPair(int[] arr){
+        
+        int[] nums =  Arrays.copyOf(arr,arr.length+1);
+        nums[arr.length] = nums[0];
+        int count1 = findMaxPair(0, nums.length-2,nums);
+        int count2 = findMaxPair(1, nums.length-1,nums);
+     
+       return Math.max(count1, count2);
+    }
+    
+    
+    private static int findMaxPair(int start, int end, int[] nums){
+        
+        int count =0;
+        for(int i = start;i+1<=end;i++){
+            if((nums[i]+nums[i+1])%2==0){
+                count++; 
+                i++;
+            }
+        }
+
+        return count; 
+    }
