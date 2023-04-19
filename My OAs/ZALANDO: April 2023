@@ -1,0 +1,27 @@
+Three:
+Q1.
+
+how-to-create-longest-string-by-joining-few-given-string
+
+Count of strings
+AA=5 , AB=0 , BB=3
+Resultant string - AABBAABBAA
+
+joined string should not contains substring AAA or BBB
+
+
+https://www.chegg.com/homework-help/questions-and-answers/solve-question-analytical-technique-graphical-method-q106790169
+
+Q2.
+https://stackoverflow.com/questions/59064595/how-to-call-a-function-recursively-when-using-a-while-loop-and-break-it-properly
+
+Q3.
+
+https://stackoverflow.com/questions/65580280/write-a-python-program-to-reverse-the-given-numbers
+
+https://leetcode.com/discuss/interview-question/3119073/Codility-Test/
+
+
+
+https://leetcode.com/discuss/interview-question/3404501/OA%3A-AA5AB0BB2-return-AABBAABBAA/
+
