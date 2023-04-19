@@ -1,0 +1,8 @@
+ 
+var sum = 0;
+        for(int i = 0; i < A.Length; i++)
+            sum += A[i];
+
+        return A.Length % 2 == 0 ? -sum + (A.Length/2 + 1) * (A.Length+1)
+         : -sum + (A.Length/2 + 1) * (A.Length+2);
+    }
