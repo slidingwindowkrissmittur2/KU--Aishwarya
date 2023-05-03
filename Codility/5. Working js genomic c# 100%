@@ -1,0 +1,19 @@
+function solution(S, P, Q) {
+    int[] total = new int[P.Length];
+    int min=0;
+
+    for (int i = 0; i < P.Length; i++) {
+        string substring = S.Substring(P[i], Q[i]-P[i] + 1);
+        if (substring.Contains('A')) {
+            min = 1;
+        } else if (substring.Contains('C')) {
+            min = 2;
+        } else if (substring.Contains('G')) {
+            min = 3;
+        } else if (substring.Contains('T')) {
+            min = 4;
+        }
+        total[i]=min;
+    }
+    return total;
+}
