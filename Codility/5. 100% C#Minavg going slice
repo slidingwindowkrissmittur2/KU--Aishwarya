@@ -1,12 +1,12 @@
 double minAvg = 100000;
         int index=0;
     
-        if(A.length<=2) {
+        if(A.Length<=2) {
     
             return 0;
         }
     
-        for(int i=0;i<A.length-2;i++) {
+        for(int i=0;i<A.Length-2;i++) {
     
             if((A[i]+A[i+1])/2.0<minAvg) {
                 minAvg=(A[i]+A[i+1])/2.0;
