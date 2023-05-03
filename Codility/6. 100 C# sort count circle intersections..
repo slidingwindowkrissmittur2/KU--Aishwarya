@@ -1,4 +1,4 @@
-
+100% 
 int n = A.Length;
         int[] sum = new int[n];
         
