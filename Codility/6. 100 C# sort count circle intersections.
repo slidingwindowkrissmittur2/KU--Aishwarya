@@ -44,7 +44,7 @@ int n = A.Length;
     }
 
 
-ddddddddddddddd
+ddddddddddddddd 93% only below:
 public int solution(int[] A) {
         // write your code in C# 6.0 with .NET 4.7 (Mono 6.12)
         int[] lower = new int[A.Length];
