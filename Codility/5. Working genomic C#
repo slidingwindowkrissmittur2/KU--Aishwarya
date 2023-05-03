@@ -1,40 +1,40 @@
- int[] result = new int[P.length];
+ int[] result = new int[P.Length];
 
         // to count "A"、"C"、"G"、"T"
         // A[i] means: num of 'a' from 0 to i-1
-        int A[] = new int[S.length()+1];
-        int C[] = new int[S.length()+1];
-        int G[] = new int[S.length()+1];
-        int T[] = new int[S.length()+1];
-        // note: we use "S.length()+1" 
+        int A[] = new int[S.Length+1];
+        int C[] = new int[S.Length+1];
+        int G[] = new int[S.Length+1];
+        int T[] = new int[S.Length+1];
+        // note: we use "S.length+1" 
         // which will let A[0]=0, C[0]=0, G[0]=0, T[0]=0
         // becasue we will compute number of 'a' by "A[Q+1] - A[P]"
         // we actually shift to right by one, and assume the biginning is a dummy '0' 
 
         // counting ( note: A[0]=0, C[0]=0, G[0]=0, T[0]=0 )
-        for (int i = 0; i < S.length(); i++) {
-            if(S.charAt(i) == 'A')
+        for (int i = 0; i < S.Length; i++) {
+            if(S[i] == 'A')
             {
                 A[i+1] = A[i]+1;
                 C[i+1] = C[i];
                 G[i+1] = G[i];
                 T[i+1] = T[i];
             }
-            else if(S.charAt(i) == 'C')
+            else if(S[i]== 'C')
             {
                 A[i+1] = A[i];
                 C[i+1] = C[i]+1;
                 G[i+1] = G[i];
                 T[i+1] = T[i];
             }
-            else if(S.charAt(i) == 'G')
+            else if(S[i] == 'G')
             {
                 A[i+1] = A[i];
                 C[i+1] = C[i];
                 G[i+1] = G[i]+1;
                 T[i+1] = T[i];
             }
-            else if(S.charAt(i) == 'T')
+            else if(S[i]== 'T')
             {
                 A[i+1] = A[i];
                 C[i+1] = C[i];
@@ -44,7 +44,7 @@
         }
 
         // to handle the queries
-        int num_of_query = P.length; // or Q.length
+        int num_of_query = P.Length; // or Q.length
         for (int i = 0; i < num_of_query; i++) {
             int a = A[ Q[i] + 1] - A[ P[i] ]; // num of 'a' between P and Q
             int c = C[ Q[i] + 1] - C[ P[i] ]; // num of 'c' between P and Q
