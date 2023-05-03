@@ -1,10 +1,12 @@
 
-int n = A.length;
+int n = A.Length;
         int[] sum = new int[n];
         
         for (int i = 0; i < n; i++) {
             int right;
-            //if i+A[i]<= n-1, that's it, extract this i+A[i], let sum[i+A[i]]++, means there is one disk that i+A[i]
+            /*if i+A[i]<= n-1, that's it,
+ extract this i+A[i], let sum[i+A[i]]++,
+ means there is one disk that i+A[i]*/
             if (n - i - 1 >= A[i]){
                 right = i + A[i];
             } else {
@@ -40,6 +42,8 @@ int n = A.length;
         
         return (int) ans;
     }
+
+
 ddddddddddddddd
 public int solution(int[] A) {
         // write your code in C# 6.0 with .NET 4.7 (Mono 6.12)
