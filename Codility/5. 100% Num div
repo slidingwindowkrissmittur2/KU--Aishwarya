@@ -5,11 +5,11 @@
         // using math equation (low complexity)
         
         // number of divisible values smaller than B
-        int num_B = (int) Math.floor( B/K );
+        int num_B = (int) Math.Floor( B/K );
         // note: take "Math.floor" which is the basic number
         
         // number of divisible values smaller than A
-        int num_A = (int) Math.floor( A/K );
+        int num_A = (int) Math.Floor( A/K );
         // note: take "Math.floor" which is the basic number
         
         // number of divisible numbers
