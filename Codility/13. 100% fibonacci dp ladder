@@ -4,7 +4,7 @@ class Solution {
 		// we know that the result of a number modulo 2^P is the bit under P, so
         // if we first let the number modulo 2^Q(Q > P) and then modulo 2^P, the
         // result is the same.
-        int L = A.length;
+        int L = A.Length;
         int[] fib = new int[L+2];
         int[] result = new int[L];
         fib[1] = 1;
