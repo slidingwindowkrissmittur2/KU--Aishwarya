@@ -1,4 +1,4 @@
-bool check(vector<int> &A, vector<int> &B, vector<int> &C, int mid)             
+bool check(int[] A, int[] B, int[] C, int mid)             
 {                                                                               
    int M = C.Length;                                                       
   int[] prefix_sums = new int[2 * M + 1];// 0);                                        
