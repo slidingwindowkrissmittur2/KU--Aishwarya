@@ -1,0 +1,23 @@
+
+using System;
+// you can also use other imports, for example:
+ using System.Collections.Generic;
+
+// you can write to stdout for debugging purposes, e.g.
+// Console.WriteLine("this is a debug message");
+
+class Solution {
+    public int solution(int[] A) {
+        // Implement your solution here
+    HashSet<int> hash= new HashSet<int>();
+    for(int i=0; i<A.Length;++i){
+       if(A[i]<0) 
+          A[i]=-1*A[i];
+          if(!hash.Contains(A[i]))
+          hash.Add(A[i]);
+
+
+    }
+    return hash.Count;
+    
+}
