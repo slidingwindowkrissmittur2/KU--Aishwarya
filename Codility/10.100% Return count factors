@@ -1,6 +1,6 @@
 int result = 0;
-        for (int i=1; i<=(double)Math.sqrt(N); i++) {
-            if(i==(double)Math.sqrt(N)) {
+        for (int i=1; i<=(double)Math.Sqrt(N); i++) {
+            if(i==(double)Math.Sqrt(N)) {
                 result++;
             }else if(N % i == 0) {
                 result = result + 2;
