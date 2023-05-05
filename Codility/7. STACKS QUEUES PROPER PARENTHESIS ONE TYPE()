@@ -1,0 +1,11 @@
+Stack<char> sign = new Stack<char>();
+
+            foreach (var item in s.ToCharArray())
+                if (item == '(')
+                    sign.Push(')');
+                
+                else if (sign.Count == 0 || sign.Pop() != item)
+                    return 0;
+
+            return sign.Count == 0?1:0;
+        
