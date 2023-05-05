@@ -38,12 +38,7 @@
             return -1; // no dominator
         }
         
-        // 4. return "any index" of "the dominator"
-       /* for(int i=0; i<A.length; i++){
-            if(A[i] == max_Number){
-                return i; // return the index
-            }
-        }*/
+        
         
         return -1;
     }
