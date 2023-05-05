@@ -1,21 +1,5 @@
 
-public static  int[] row = { -1, -1, 0 };
-    public static  int[] col = { -1, 0, -1 };
-    public static bool isSafeMove(int x, int y) {
-        return (x >= 0) && (y >= 0);
-    }
-    private static int[] findNeighbors(int[][] A, int x, int y) {
-        int[] neighbors = new int [3];
-        for (int k = 0; k < 3; k++) {
-            neighbors[k] = -1;
-        }
-        for (int k = 0; k < 3; k++) {
-            if (isSafeMove(x + row[k], y + col[k])) {
-                neighbors[k] = A[x + row[k]][y + col[k]];
-            }
-        }
-        return neighbors;
-    }
+
     public static int solution(int[][] A) {
         int M = A.Length;
         int N = A[0].Length;
@@ -38,5 +22,26 @@ public static  int[] row = { -1, -1, 0 };
         Console.Write("Number of countries are " + countries);
         return countries;
         }
+        
+      public static  int[] row = { -1, -1, 0 };
+    public static  int[] col = { -1, 0, -1 };
+    public static bool isSafeMove(int x, int y) {
+        return (x >= 0) && (y >= 0);
+    }
+    private static int[] findNeighbors(int[][] A, int x, int y) {
+        int[] neighbors = new int [3];
+        for (int k = 0; k < 3; k++) {
+            neighbors[k] = -1;
         }
+        for (int k = 0; k < 3; k++) {
+            if (isSafeMove(x + row[k], y + col[k])) {
+                neighbors[k] = A[x + row[k]][y + col[k]];
+            }
+        }
+        return neighbors;
+    
+    
+    }}
+        
+        
 
