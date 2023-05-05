@@ -1,19 +1,27 @@
-int n =S.Length;
-Stack<char> sta=new Stack<char>();
-int i=0;
-while(i<n){
-if(S[i]=='(') 
-  sta.Push(')');
-else if(S[i]=='[')
-  sta.Push(']');
-else if(S[i]=='{') 
-  sta.Push('}');
-else if(S[i]==')') 
-  sta.Pop();
-else if(stack.Count==0|| sta.Pop()!=S[i])
-  return 0;
+using System;
+// you can also use other imports, for example:
+ using System.Collections.Generic;
 
+// you can write to stdout for debugging purposes, e.g.
+// Console.WriteLine("this is a debug message");
 
-i++;
+class Solution {
+    public int solution(string S) {
+        // Implement your solution here
+    Stack<char> sign = new Stack<char>();
+
+            foreach (var item in S.ToCharArray())
+                if (item == '(')
+                    sign.Push(')');
+                else if (item == '[')
+                    sign.Push(']');
+                else if (item == '{')
+                    sign.Push('}');
+                else if (sign.Count == 0 || sign.Pop() != item)
+                    return 0;//false;
+
+            return (sign.Count == 0?1:0);
+            
+
+    }
 }
-return 1;
