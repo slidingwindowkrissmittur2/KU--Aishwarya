@@ -1,8 +1,8 @@
  public int solution(int K, int[] A) {
-        int N = A.length;
+        int N = A.Length;
         int result = 0;
         int length = 0;
-        for (int rope : A) {
+        foreach (int rope in A) {
             length += rope;
             if (length >= K) {
                 result++;
