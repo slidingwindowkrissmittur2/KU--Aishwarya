@@ -1,0 +1,20 @@
+int n =S.Length;
+Stack<int> sta=new Stack<int>();
+int i=0;
+while(i<n){
+if(S[i]=='(') 
+  sta.Push(')');
+if(S[i]=='['))
+  sta.Push(']');
+if(S[i]=='{') 
+  sta.Push('}');
+if(S[i]==')') 
+  sta.Pop();
+if(S[i]==']'))
+  sta.Pop();
+if(S[i]=='}') 
+  sta.Pop();
+
+i++;
+}
+return(sta.Count!=0?0:1);
