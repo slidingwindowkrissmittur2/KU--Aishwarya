@@ -56,7 +56,7 @@ Dictionary<int,int> map = new Dictionary<int,int>();
                 // then, check right side
                 int right_Leader_Count = leader_Count - left_Leader_Count;                
                 // if the leader is "a leader in right side" (more than half)
-                if( right_Leader_Count > (0.5) * (A.length -i -1) ){
+                if( right_Leader_Count > (0.5) * (A.Length -i -1) ){
                     num_Equi_leaders++; // leader in both sides (then, equi leaders++)
                 }
             } 
