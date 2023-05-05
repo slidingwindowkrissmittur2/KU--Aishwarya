@@ -1,0 +1,12 @@
+ //focus on correctness
+ func timestamp(_ input: String) -> Int {
+        let components = input.components(separatedBy: ":").compactMap { Int($0) }
+        return components[0] * 60 + components[1]
+    }
+    
+    var cost = 2 + 3    
+    var duration = timestamp(L) - timestamp(E)
+  
+    duration -= 60
+    if duration > 0 { cost += Int((Double(duration) / 60.0).rounded(.up)) * 4 }
+    return cost
