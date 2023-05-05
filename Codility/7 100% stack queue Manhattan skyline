@@ -1,0 +1,17 @@
+Assume height>0
+
+int squares = 0;
+        Stack<int> s = new Stack<int>();
+        s.Push(0);
+
+        foreach (int h in hs) {
+            while (s.Peek() > h) {
+                s.Pop();
+            }
+            if (s.Peek() != h) {
+                s.Push(h);
+                ++squares;
+            }
+        }
+
+        return squares;
