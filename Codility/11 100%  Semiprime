@@ -2,7 +2,7 @@
     {
        if (N<4) return new int [P.length]; //If Max Number is Less Than 4, Return Array of Zeroes (4 is First Semiprime)
  
-  int M = P.length; //Number of Queries
+  int M = P.Length; //Number of Queries
         int [] semiRanges = new int [M]; //Array of Semiprime Counts Between Ranges
         int [] semisCount = getSemis(N); //Get Count of Semiprimes of Each Number Up to Max
 
@@ -17,8 +17,8 @@
         int [] sieve = sifter(N); //Get Array of Minimum Prime Factors
         int [] rsc = new int [N+1]; //Array of Counts of Semiprimes
         int sc = 0; //Semiprimes Count
-        //Arrays.fill(rsc, 0); //Automatic Initialization to 0 in Java
-        for (int i=4; i<rsc.length; i++) //Loop From 4 To One More Than Max Number
+        //Arrays.Fill(rsc, 0); //Automatic Initialization to 0 in Java
+        for (int i=4; i<rsc.Length; i++) //Loop From 4 To One More Than Max Number
         {
             if (sieve[i]!=0 && sieve[i/sieve[i]]==0) sc++; //If Semiprime, Increase Count
             rsc[i] = sc; //Set Count of Semiprimes at Integer
@@ -31,7 +31,7 @@
     {
         int [] sieve = new int [N+1]; //Array of Minimum Prime Factors
         //Arrays.fill(sieve, 0); //Automatic Initialization to 0 in Java
-        for (int i=2; i<=Math.sqrt(N); i++) //Loop From 2 till Max Number
+        for (int i=2; i<=Math.Sqrt(N); i++) //Loop From 2 till Max Number
         {
             if (sieve[i]==0) //If Prime Number
             {
