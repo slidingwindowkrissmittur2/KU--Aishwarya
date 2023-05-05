@@ -19,7 +19,7 @@
                 }
             }
         }
-        Console.Write("Number of countries are " + countries);
+       // Console.Write("Number of countries are " + countries);
         return countries;
         }
         
