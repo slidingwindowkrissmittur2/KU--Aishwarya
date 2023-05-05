@@ -1,5 +1,5 @@
 minimal perimeter
-int sqrtN = (int) Math.sqrt(N);
+int sqrtN = (int) Math.Sqrt(N);
         int perimeter = (1 * 2) + (N * 2); // perimeter = (A*2)+(B*2)
         
         for(int i = sqrtN; i > 0; i--){ // from the one closest to sqrt(N)
@@ -17,7 +17,7 @@ int sqrtN = (int) Math.sqrt(N);
         int i=1;
         while(i*i<=N) {
             if(N % i == 0) {
-                min = Math.min(min, N/i+i);
+                min = Math.Min(min, ((N/i)+i));
             }
             i++;
         }
