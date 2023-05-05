@@ -1,0 +1,7 @@
+int count = 1;
+        int value = a[0];
+        while (value!=-1) {
+            value = a[value];
+            count++;
+        }
+        return count;
