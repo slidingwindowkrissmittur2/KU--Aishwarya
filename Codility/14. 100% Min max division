@@ -4,10 +4,10 @@ public int solution(int K, int M, int[] A) {
         int max = 0;
         for (int i = 0; i < A.Length; i++) {//get the sum as max, and the largest number as min
             max += A[i];
-            //min = Math.Max(min, A[i]);
+            min = Math.Max(min, A[i]);
         }
         int result = max;
-        min=M;
+        //For value k=2; M=10; arr=4,4 we can't have min=M
         while (min <= max) {
             int mid = (min + max) / 2;
             if (divisionSolvable(mid, K - 1, A)) {
