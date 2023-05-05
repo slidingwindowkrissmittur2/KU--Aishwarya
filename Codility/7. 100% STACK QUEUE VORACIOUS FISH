@@ -1,0 +1,49 @@
+, beyond input storage (not counting the storage required for input arguments).
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Solution
+{
+    public int solution(int[] A, int[] B)
+    {
+        const int UpstreamFloater = 0;
+        const int DownstreamFloater = 1;
+
+        Stack<int> downstreamersStack = new Stack<int>();
+
+        int topStackDownstreamer;
+
+        int aliveFishesCounter = 0;
+
+        for (int fish = 0; fish < B.Length; fish++)
+        {
+            if (downstreamersStack.Count == 0 && B[fish] == UpstreamFloater)
+            {
+                aliveFishesCounter++;
+            }
+            else if (B[fish] == DownstreamFloater)
+            {
+                downstreamersStack.Push(fish);
+            }
+            else if (B[fish] == UpstreamFloater)
+            {
+                topStackDownstreamer = downstreamersStack.Peek();
+                while (downstreamersStack.Count > 0 && A[fish] > A[topStackDownstreamer])
+                {
+                    downstreamersStack.Pop();
+                    if (downstreamersStack.Count > 0)
+                    {
+                        topStackDownstreamer = downstreamersStack.Peek();
+                    }
+                }
+                if (downstreamersStack.Count == 0)
+                {
+                    aliveFishesCounter++;
+                }
+            }
+        }
+        aliveFishesCounter += downstreamersStack.Count;
+        return aliveFishesCounter;
+   }}
