@@ -1,12 +1,12 @@
 public int solution(int[] A) {
-        int N = A.length;
-        Arrays.sort(A);
+        int N = A.Length;
+        Array.Sort(A);
         int tail = 0;
         int head = N - 1;
-        int minAbsSum = Math.abs(A[tail] + A[head]);
+        int minAbsSum = Math.Abs(A[tail] + A[head]);
         while (tail <= head) {
             int currentSum = A[tail] + A[head];
-            minAbsSum = Math.min(minAbsSum, Math.abs(currentSum));
+            minAbsSum = Math.Min(minAbsSum, Math.Abs(currentSum));
             // If the sum has become
             // positive, we should know that the head can be moved left
             if (currentSum <= 0)
