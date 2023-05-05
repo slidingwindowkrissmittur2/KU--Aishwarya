@@ -1,0 +1,66 @@
+70%
+int n=A.Length;
+    int j=0;
+    int r=0;
+    for(int i=0; i<n;++i){
+        int min=A[i];
+        int max=A[i];
+        for( j=i; j<n;){
+            min=Math.Min(A[j],min);
+            max=Math.Max(A[j],max);
+            if((max-min)<=K)
+            j+=1;
+            else 
+            break;
+        }
+        r=r+(j-i);
+
+
+        }
+    if (r>= 1000000000 )
+return 1000000000;
+return r;
+
+===
+int result = A.Length;
+    int count =1,min=a[0];
+    int n=a.Length;
+    j=1;
+    for (int i = 1; i < n-1; i++) {
+      max=Math.Max(max,a[i]);
+      if(max==k+min) count++;
+      else min=A[j++];
+      
+      if (temp==a[i]){
+            count++;
+        }
+        else{
+            temp=a[i];
+            result = result + (count*(count+1)/2);
+            count=1;
+        }
+    }
+    result = result + (count*(count+1)/2);
+    return result;
+    
+
+===
+int result = 0;
+    int count =1,temp=a[0];
+    int n=a.Length;
+    
+    for (int i = 1; i < n-1; i++) {
+     
+     
+      if (temp==a[i]){
+            count++;
+        }
+        else{
+            temp=a[i];
+            result = result + (count*(count+1)/2);
+            count=1;
+        }
+    }
+    result = result + (count*(count+1)/2);
+    return result;
+    
