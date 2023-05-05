@@ -1,5 +1,5 @@
 int n =S.Length;
-Stack<int> sta=new Stack<int>();
+Stack<char> sta=new Stack<char>();
 int i=0;
 while(i<n){
 if(S[i]=='(') 
