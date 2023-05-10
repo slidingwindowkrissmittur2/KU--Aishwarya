@@ -1,0 +1,30 @@
+#include <algorithm>
+ 
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+ 
+vector<long long> prepareArray(vector<int> &A) {
+    long long maxA = *(std::max_element(A.begin(), A.end())) + 1;
+    vector<long long> AL;
+    for (auto i : A) {
+        AL.push_back(2 * maxA + (long long)i);
+        AL.push_back(2 * maxA - (long long)i);
+        AL.push_back((long long)i);
+    }
+    return AL;
+}
+int findLISBetter(vector<long long>A) {
+    vector< long long> M;
+    for (auto i : A) {
+        // binary search using function from std lib
+        auto j = upper_bound(M.begin(), M.end(), i);
+        if (M.end() == j)
+            M.push_back(i);// not found, extend M
+        else
+            *j = i; // found in A, replace M[j] = i
+    }
+    return M.size();
+}
+int solution(vector<int> &A) {
+    return findLISBetter(prepareArray(A));
+}
