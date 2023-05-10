@@ -1,0 +1,7 @@
+if (a == 0 && b == 0) return "";
+        if (a == 0) return "b" + strWithout3a3b(a, b - 1);
+        if (b == 0) return "a" + strWithout3a3b(a - 1, b);
+        if (a == b) return "ab" + strWithout3a3b(a - 1, b - 1);
+        if (b > a) return "bba" + strWithout3a3b(a - 1, b - 2);
+        // a > b
+        return "aab" + strWithout3a3b(a - 2, b - 1); 
