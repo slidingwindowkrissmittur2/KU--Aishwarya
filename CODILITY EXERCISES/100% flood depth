@@ -1,0 +1,18 @@
+
+#include <vector>
+#include <algorithm>
+using namespace std;
+int solution(vector<int> &A) {
+    int left = 0, right = A.size() - 1, maxHeightFromLeft = 0, maxHeightFromRight = 0, ans = 0;
+    while(left < right) {
+        if(A[left] <= A[right]) {
+            maxHeightFromLeft = std::max(maxHeightFromLeft, A[left]);
+            ans = std::max(ans, maxHeightFromLeft - A[left++]);
+        }
+        else {
+            maxHeightFromRight = std::max(maxHeightFromRight, A[right]);
+            ans = std::max(ans, maxHeightFromRight - A[right--]);
+        }
+    }
+    return ans;
+}
