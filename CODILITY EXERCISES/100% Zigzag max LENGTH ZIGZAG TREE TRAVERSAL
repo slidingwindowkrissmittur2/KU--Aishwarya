@@ -1,0 +1,23 @@
+
+if(T==null){
+return 0;
+}
+return dfs(T,0,0);
+}
+//-1 left, 1 right, 0 neutral
+
+public static int dfs(Tree tree, int zigzag, int direction){
+int max=zigzag;
+if(tree.l!=null){
+int newzigzag=zigzag;
+if(direction==1) newzigzag++;
+max=Math.Max(dfs(tree.l,newzigzag,-1),max);
+}
+
+if(tree.r!=null){
+int newzigzag=zigzag;
+if(direction==-1) newzigzag++;
+max=Math.Max(dfs(tree.r,newzigzag,1),max);
+}
+return max;
+}
