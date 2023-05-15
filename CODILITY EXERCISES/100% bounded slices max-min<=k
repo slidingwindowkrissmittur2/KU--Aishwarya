@@ -1,0 +1,34 @@
+	$size = count($A);
+	$B = array_fill(0, $size + 1, 0);
+	$C = array();
+
+	for ($i=1; $i < $size + 1; $i++) {
+		$B[$i] = $B[$i - 1] + $A[$i - 1];
+	}
+
+	$min_avg = prefix_sum($B, 0, 1) / 2;
+	$position = 0;
+
+	for ($i=2; $i < $size; $i++) {
+		$avg = (prefix_sum($B, $i - 1, $i) / 2);
+		if ($avg < $min_avg) {
+			$min_avg = $avg;
+			$position = $i - 1;
+		}
+	}
+	
+	for ($i=0; $i < $size - 2; $i++) {
+		$avg = (prefix_sum($B, $i, $i + 2) / 3);
+		if ($avg < $min_avg) {
+			$min_avg = $avg;
+			$position = $i;
+		}
+	}
+	
+	return $position;
+}
+
+function prefix_sum($b, $x, $y)
+{
+	return $b[$y + 1] - $b[$x];
+}
