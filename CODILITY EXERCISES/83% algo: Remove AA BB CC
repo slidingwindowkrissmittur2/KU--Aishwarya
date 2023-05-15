@@ -35,3 +35,44 @@
         
     }
     return S;
+    
+    above 83%
+bool changed = true;
+   
+  
+
+    while(changed){
+    changed=false;
+        if (S.Contains("AA")){
+            S = S.Replace("AA", "");
+            changed=true;
+      
+           changed = true;
+          
+           
+        }
+
+        if(S.Contains("BB")){
+            S = S.Replace("BB", "");
+       
+            changed = true;
+           
+         
+        }
+
+        if(S.Contains("CC")){
+            S = S.Replace("CC", "");
+        
+            changed = true;
+          
+          
+        }
+
+        if(!changed){
+            break;
+        }
+     
+     
+        
+    }
+    return S;
