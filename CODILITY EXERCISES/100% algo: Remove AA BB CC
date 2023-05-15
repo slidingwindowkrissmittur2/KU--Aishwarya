@@ -7,25 +7,31 @@
             S = S.Replace("AA", "");
         } else {
            notAA = true;
+           notBB=false;
+           notCC=false;
         }
 
         if(S.Contains("BB")){
             S = S.Replace("BB", "");
         } else {
             notBB = true;
+            notAA=false;
+            notCC=false;
         }
 
         if(S.Contains("CC")){
             S = S.Replace("CC", "");
         } else {
             notCC = true;
+            notAA=false;
+            notBB=false;
         }
 
         if(notAA && notBB && notCC){
             break;
         }
-        notAA=false;
-        notBB=false;
-        notCC=false;
+     
+     
+        
     }
     return S;
