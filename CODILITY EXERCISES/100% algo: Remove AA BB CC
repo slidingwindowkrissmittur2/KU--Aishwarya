@@ -1,0 +1,14 @@
+  Stack<char> stack = new Stack<char>();
+        foreach(char s in S.ToCharArray()){
+            if(stack.Count()!= && stack.Peek() == s)
+                stack.Pop();
+            else
+                stack.Push(s);
+        }
+        StringBuilder sb = new StringBuilder();
+        foreach(char s in stack) sb.Append(s);
+        return sb.ToString();  
+   
+  
+
+    
