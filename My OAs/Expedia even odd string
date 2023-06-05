@@ -22,7 +22,87 @@ Odd X Odd = Odd
 So you just need to identify whether there is any even number present in the multiplication.
 3. For sum: if Odd numbers occur odd times, final sum will be Odd.
 So you need to compute the odd count
+c#
 
+using System;
+
+class Program
+{
+    public static void Main(){
+
+         
+
+        String [] data = {"aceace","ceceaa","abdbdbdbakjkljhkjh"};
+
+        Console.WriteLine(checkComputation(data));
+
+         
+
+        String[] data2 = {"azbde","abcher","acegk"};
+
+        Console.WriteLine(checkComputation(data2));
+
+                 
+
+    }
+
+     
+
+    public static  bool checkComputation(String[] data ){
+
+         
+
+        bool[] isStringEvenArray = new bool[data.Length] ;
+
+        int tempVal;
+
+        bool isEvenPresent = false;
+
+         
+
+        for(int i=0; i<data.Length;i++){
+
+            isEvenPresent= false;
+
+             
+
+            for(int j=0; j<data[i].Length;j++ ){
+
+                tempVal = (int) data[i][j];
+
+                if(tempVal%2==0){
+
+                    isEvenPresent = true;
+                    break;
+                }
+
+            }           
+
+            isStringEvenArray[i] = isEvenPresent;           
+
+        }
+
+         
+
+        int oddCount=0;     
+
+        for(int i=0; i<data.Length; i++){            
+
+            if(!isStringEvenArray[i])
+
+                oddCount++;         
+
+        }
+
+         
+
+        if(oddCount%2!=0)return false;
+else return true;
+}
+}=
+=================================
+
+java
     public static void main(String args[]){
 
          
