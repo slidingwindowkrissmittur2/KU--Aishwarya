@@ -1,10 +1,56 @@
-you have a street of length N from1 to N. you want to sell as much of it as possible. The sale process is by selling a part of the street starting from a start point and end point between 1 to N. you receive Q purchase offers starting at Si and ending at Ei. assume that you choose a set of these offers so that you can sell the largest possible length of the street. your task is to find the smallest length possible on the remaining street.
+you have a street of length N from1 to N. 
+you want to sell as much of it as possible. 
+The sale process is by selling a part of the street
+starting 
+from a start point and end point 
+between 1 to N.
+you receive Q purchase offers 
+starting at Si and 
+ending at Ei. assume that you 
+choose a set of these
+offers so that you can sell the
+largest possible length
+of the street. your task is to 
+find the smallest length
+possible on the remaining street.
 
 eg:
 n= 18
-q= [ [1,2], [1 4],[3,5], [4,13], [16,18],[13,18], [5,10], [11,15] ]
+q= [ [1,2], [1 4],[3,5],
+[4,13], [16,18],[13,18], [5,10],
+[11,15] ]
 
 answer = 0
-explanation largest set: [1,4],[4,13],[13,18], thus remaining = n(total length) - 18 = 0;
+explanation largest set: 
+[1,4],[4,13],[13,18],
+thus remaining = 
+n(total length) - 18 = 0;
 
-what approaches come to mind? what the best tc you can get , o(n^2) or o(nlogn)?
+what approaches come to mind? 
+what the best tc you can get ,
+o(n^2) or o(nlogn)?
+
+Answer=>
+groups:
+[1 2]
+[1 4] [4 13] [13 18]
+[3 5] [5 10]
+[16 18]
+[11 15]
+//Sort by end
+
+1 2/1 4/3 5/5 10/4 13/11 15
+/13 18/16 18
+int low=0;
+int hi=q.Length-1;
+int mid=(low+(hi-low)/2);
+int start=q[0][0];
+int end=q[0][1];
+while(low<=high){
+ 
+ mid=(low+(hi-low)/2);
+}
+for(int i=0; i<q.Length;++i){
+  
+}
+
