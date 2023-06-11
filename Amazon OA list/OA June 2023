@@ -1,0 +1,10 @@
+you have a street of length N from1 to N. you want to sell as much of it as possible. The sale process is by selling a part of the street starting from a start point and end point between 1 to N. you receive Q purchase offers starting at Si and ending at Ei. assume that you choose a set of these offers so that you can sell the largest possible length of the street. your task is to find the smallest length possible on the remaining street.
+
+eg:
+n= 18
+q= [ [1,2], [1 4],[3,5], [4,13], [16,18],[13,18], [5,10], [11,15] ]
+
+answer = 0
+explanation largest set: [1,4],[4,13],[13,18], thus remaining = n(total length) - 18 = 0;
+
+what approaches come to mind? what the best tc you can get , o(n^2) or o(nlogn)?
