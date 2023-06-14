@@ -1,0 +1,51 @@
+
+    using System;
+using System.Collections.Generic;
+class Program
+{
+    public static int solution(int[] a) {
+    int n = a.Length;
+   var have = new Dictionary<int, List<int>>();
+    for (int i = 0; i < n; ++i) {
+        if(!have.ContainsKey(a[i]))
+        have.Add(a[i],new List<int>());
+        have[a[i]].Add(i);
+    }
+    int r = n;
+    foreach (KeyValuePair<int,List<int>>  p in have) {
+        int len = p.Value[0] - p.Value[p.Value.Count-1] - 1 + n;
+        for (int i = 1; i < p.Value.Count; ++i) {
+            len = Math.Max(len, p.Value[i] - p.Value[i - 1] - 1);   
+        }
+        r = Math.Min(r, (len + 1) / 2);
+    }
+    return r;
+}
+
+static void Main() {
+  /* Console.WriteLine(solution(new int[]{1, 2}));
+   Console.WriteLine(solution(new int[]{1}));
+   Console.WriteLine(solution(new int[]{1, 1, 1}));
+
+Console.WriteLine(solution(new int[]{2, 2, 1, 1}));
+  */ Console.WriteLine(solution(new int[]{1, 2, 3, 4}));
+  /* Console.WriteLine(solution(new int[]{1, 1, 1, 2, 3, 1, 1, 1, 4, 5, 6, 8, 1, 7}));
+   Console.WriteLine(solution(new int[]{1, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2}));
+   
+
+
+
+ 
+   
+   
+      
+    
+  
+  
+ 
+       
+           
+        
+      
+    
+   
