@@ -1,0 +1,56 @@
+include<bits/stdc++.h>
+
+class Solution{
+public:
+	void parenting(TreeNode* root, unordered_map<TreeNode*, TreeNode*> &parent){
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int n = q.size();
+            for(int i=0;i<n;i++){
+                auto it = q.front();
+                q.pop();
+                if(it->left){
+                    parent[it->left] = it;
+                    q.push(it->left);
+                }
+                if(it->right){
+                    parent[it->right] = it;
+                    q.push(it->right);
+                }
+            }
+        }
+    }
+	
+	int timeToBurnTree(TreeNode* root, TreeNode* target) {
+        unordered_map<TreeNode*, TreeNode*> parent;
+        parenting(root,parent);
+        
+        unordered_map<TreeNode*, bool> visited;
+        queue<TreeNode*> q;
+        q.push(target);
+        visited[target] = true;
+        int time = 0;
+        while(!q.empty()){
+            int n = q.size();
+            for(int i=0;i<n;i++){
+                auto it = q.front();
+                q.pop();
+                if(it->left && !visited[it->left]){
+                    q.push(it->left);
+                    visited[it->left] = true;
+                }
+                if(it->right && !visited[it->right]){
+                    q.push(it->right);
+                    visited[it->right] = true;
+                }
+                if(parent[it] && !visited[parent[it]]){
+                    q.push(parent[it]);
+                    visited[parent[it]] = true;
+                }
+            }
+            time++;
+        }
+		return time;
+	}
+};
