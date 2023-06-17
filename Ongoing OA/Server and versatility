@@ -1,0 +1,128 @@
+image
+I had this question in a recent hiring round. I think it is over now. I tried greedy but it didn't worked. Though of binary search but couldn't formulate.
+Can someone help. Thanks!
+
+This was my greedy approach
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int maximumServerRating(vector<int>& power, vector<int>& frequency, int M) {
+    int N = power.size();
+    set<int> uniqueFrequencies;
+    int Total_Power = 0;
+    int Versatility_Count = 0;
+
+    vector<int> indices(N);
+    for (int i = 0; i < N; i++) {
+        indices[i] = i;
+    }
+    sort(indices.begin(), indices.end(), [&](int a, int b) {
+        return power[b] < power[a];
+    });
+
+    for (int i = 0; i < M; i++) {
+        int index = indices[i];
+        Total_Power += power[index];
+
+        int freq = frequency[index];
+        uniqueFrequencies.insert(freq);
+    }
+    Versatility_Count=uniqueFrequencies.size();
+    int Server_Rating = Total_Power + Versatility_Count * Versatility_Count;
+    cout<<Total_Power<<' '<<Versatility_Count<<"----";
+    return Server_Rating;
+}
+
+int main() {
+
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int T;
+    cin >> T;
+    for(int t_i = 0; t_i < T; t_i++)
+    {
+        int N;
+        cin >> N;
+        vector<int> P(N);
+        for(int i_P = 0; i_P < N; i_P++)
+        {
+        	cin >> P[i_P];
+        }
+        vector<int> F(N);
+        for(int i_F = 0; i_F < N; i_F++)
+        {
+        	cin >> F[i_F];
+        }
+        int M;
+        cin >> M;
+
+        long long out_;
+        out_ = maximumServerRating(P, F, M);
+        cout << out_;
+        cout << "\n";
+    }
+}
+
+greedy
+binary search
+Comments: 2
+BestMost VotesNewest to OldestOldest to Newest
+Type comment here... (Markdown is supported)
+
+Preview
+
+Post
+
+
+
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+long long sqr(long long x) {
+    return x * x;
+}
+
+long long maximumServerRating (int N, vector<int> P, vector<int> F, int M) {
+   // Write your code here.
+   vector<int> ind(N);
+   for (int i = 0; i < N; ++i) {
+        ind[i] = i;
+   }
+   sort(ind.begin(), ind.end(), [&](const int x, const int y) {
+        return P[x] > P[y];
+   });
+   unordered_map<int, int> have;
+   long long total = 0;
+   set<pair<int, int>> s;
+   for (int i = 0; i < M; ++i) {
+        ++have[F[ind[i]]];
+        total += P[ind[i]];
+        s.insert({P[ind[i]], ind[i]});
+   }
+   long long r = total + sqr(have.size());
+   for (int i = M; !s.empty() && i < N; ++i) {
+        if (have.count(F[ind[i]])) {
+            continue;
+        }
+        while (!s.empty()) {
+            const auto p = *s.begin();
+            s.erase(s.begin());
+            if (have[F[p.second]] > 1) {
+                --have[F[p.second]];
+                ++have[F[ind[i]]];
+                total -= p.first;
+                total += P[ind[i]];
+                s.insert({P[ind[i]], ind[i]});
+                r = max(r, total + sqr(have.size()));
+                break;
+            }
+        }
+   }
+    return r;
+
+}
