@@ -1,51 +1,52 @@
-include<bits/stdc++.h>
+using System.Collections;
+using System.Collections.Generic;
 
 class Solution{
-public:
-	void parenting(TreeNode* root, unordered_map<TreeNode*, TreeNode*> &parent){
-        queue<TreeNode*> q;
-        q.push(root);
-        while(!q.empty()){
-            int n = q.size();
+
+	public static void parenting(TreeNode root, Dictionary<TreeNode, TreeNode> parent){
+        Queue<TreeNode> q= new Queue<TreeNode>();
+        q.Push(root);
+        while(q.Count!=0){
+            int n = q.Count;
             for(int i=0;i<n;i++){
-                auto it = q.front();
-                q.pop();
-                if(it->left){
-                    parent[it->left] = it;
-                    q.push(it->left);
+                var it = q.Peek();
+                q.Dequeue();
+                if(it.left){
+                    parent[it.left] = it;
+                    q.Enqueue(it.left);
                 }
-                if(it->right){
-                    parent[it->right] = it;
-                    q.push(it->right);
+                if(it.right){
+                    parent[it.right] = it;
+                    q.Enqueue(it.right);
                 }
             }
         }
     }
 	
-	int timeToBurnTree(TreeNode* root, TreeNode* target) {
-        unordered_map<TreeNode*, TreeNode*> parent;
+	public static int timeToBurnTree(TreeNode root, TreeNode target) {
+        Dictionary<TreeNode, TreeNode> parent;
         parenting(root,parent);
         
-        unordered_map<TreeNode*, bool> visited;
-        queue<TreeNode*> q;
-        q.push(target);
+        Dictionary<TreeNode, bool> visited;
+        Queue<TreeNode> q= new Queue<TreeNode>();
+        q.Enqueue(target);
         visited[target] = true;
         int time = 0;
         while(!q.empty()){
-            int n = q.size();
+            int n = q.Count;
             for(int i=0;i<n;i++){
                 auto it = q.front();
                 q.pop();
                 if(it->left && !visited[it->left]){
-                    q.push(it->left);
-                    visited[it->left] = true;
+                    q.Enqueue(it.left);
+                    visited[it.left] = true;
                 }
-                if(it->right && !visited[it->right]){
-                    q.push(it->right);
-                    visited[it->right] = true;
+                if(it.right && !visited[it.right]){
+                    q.Enqueue(it.right);
+                    visited[it.right] = true;
                 }
                 if(parent[it] && !visited[parent[it]]){
-                    q.push(parent[it]);
+                    q.Enqueue(parent[it]);
                     visited[parent[it]] = true;
                 }
             }
