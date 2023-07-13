@@ -1,0 +1,30 @@
+int solution( int[] a) {
+    int[] m=new int[10];
+    int num=new int[100];
+    foreach (int x in a) {
+       int p = x / 10, q = x % 10;
+        ++m[p];
+        if (p != q) {
+            ++m[q];
+        }
+        ++num[Math.Max(p, q) * 10 + Math.Min(p, q)];
+    }
+    int r = Array.Sort(m);
+    for (int x = 0; x <= 9; ++x) {
+        for (int y = x + 1; y <= 9; ++y) {
+            if (num[y * 10 + x]) {
+                for (int z = y + 1; z <= 9; ++z) {
+                    if (num[z * 10 + x] && num[z * 10 + y]) {
+                        r = Math.Max(r, num[z * 10 + x] + num[z * 10 + y] + num[y * 10 + x]);
+                    }
+                }
+            }
+        }
+    }
+    return r;
+}
+
+int main() {
+    cout << solution({50, 30, 15, 51, 10, 20, 15}) << endl;
+    cout << solution({11, 33, 55}) << endl;
+}
