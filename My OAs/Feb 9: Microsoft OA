@@ -54,7 +54,38 @@ private void dfs(int r, int c, int pos, int cur) {
  two identical digrams in string
 aaaa: 1 aa, aa
 =====
-
+public static int digram(string a)
+    {
+        //store all digrams in set
+        //substring of length 2
+        int max=-1;
+        Dictionary<string,int> d= new Dictionary<string,int>();
+        List<int> k= new List<int>();
+        for (var i = 0; i < a.Length-1; i++)
+            {
+             string t= a.Substring(i, 2);
+             Console.WriteLine(t);
+             if(!d.ContainsKey(t))
+             {
+                 d.Add(t,i);
+             }
+             else{
+             int m=d[t];
+             d[t]=Math.Min(m,i);
+             max=Math.Max(max,Math.Abs(i-m));
+            // Console.WriteLine("{0} {1} {2} {3} {4}",t,d[t],i,m,max);
+        
+             
+               }
+           //  Console.WriteLine("{0} {1} {2}",t,d[t],i);
+        
+            }
+            
+           
+        return max==0?-1:max;
+        
+    }
+    
 
 ======
 2.two arrays a, b. Min number of dice to
