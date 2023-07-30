@@ -8,7 +8,73 @@ AA=5 , AB=0 , BB=3
 Resultant string - AABBAABBAA
 
 joined string should not contains substring AAA or BBB
+string longestDiverseString(int a, int b, int ab) {
+   
+      
+       
+      
+   int aa=a;
+   int bb=b;
+   int cc=ab;     
+      
+        
+        
+ 
+ //  start with AA or BB which is more
+ string graw="";
+ string AA="";
+ string BB="";
+ string AB1="";
+ for(int i=0; i<a;++i)
+     AA+="AA";
+ for(int i=0; i<b;++i)
+     BB+="BB";
+ for(int i=0; i<ab;++i)
+     AB1+="AB";
 
+
+ string str="";
+
+        int j = 0, s1 = AA.size(), s2 = BB.size();
+if(s1>=s2){
+        while(j < s1 && j < s2){
+            str+="AA";
+            str+="BB";
+            j+=2;
+        }
+   
+      if(j<s1&& j>=s2) str+="AA";
+}
+  else if(s2>s1){
+      while(j < s1 && j<s2){
+            str+="BB";
+         
+           
+           str+="AA";
+            j+=2;
+        }
+      if(j<s2&& j>=s1) str+="BB";
+  }      
+  int endA=0;
+  int endB=0;
+ if(str.size()>0){if(str[str.size()-1]=='A')
+     endA=1;
+ else if(str[str.size()-1]=='B')
+     endB=1;
+ }
+ if(endA==1)
+     str=AB1+str;
+ else if(endB==1)
+     str=str+AB1;
+     
+  else str=AB1;       
+      
+        
+   
+   
+ cout<<"string is:";
+     cout<<str<<"\n";
+    
 
 https://www.chegg.com/homework-help/questions-and-answers/solve-question-analytical-technique-graphical-method-q106790169
 
