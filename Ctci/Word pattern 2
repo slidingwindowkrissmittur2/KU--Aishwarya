@@ -3,48 +3,84 @@ word pattern 2
 aabab
 catcatgocatgo
 
-public static bool patternMatches(String value, String pattern) {
-char mainChar = pattern[0];
-char subChar=mainChar=='a'?'b':'a';
-int mainCount = mainChar == 'a' ?
-count(pattern, 'a') : 
-count(pattern, 'b');
-int subCount =
-pattern.Length - mainCount;
-  
-int maxMainSize = 
-mainCount == 0 ? 0 : 
-value.Length / mainCount;
-int firstSubIndex = pattern.IndexOf(subChar);  
-for (int mainSize = 0; mainSize <= maxMainSize; i++) {
+using System;
+using System.Collections.Generic;
+using System.Text;
+class Program
+{
     
-    int subSize = (value.Length- mainCount * mainSize) / subCount;
-    if (subSize * subCount + mainSize * mainCount != value.Length) {
-      
-      continue;
-    }
-    
-    String main = value.SubString(0, mainSize);
-      String sub = value.SubString(mainSize * firstSubIndex, mainSize * firstSubIndex + subSize);
-  
-    String expected = build(pattern, main, mainCount, sub, subCount);
-    if (value.Equals(expected)) {
-      return true;
-    }
-  }
-  return false;
-}
+    public static bool doesMatch(String pattern, String value) {
+		if (pattern.Length == 0) return value.Length == 0;
+		
+		char mainChar = pattern[0];
+		char altChar = mainChar == 'a' ? 'b' : 'a';
+		int size = value.Length;
 
-public static String build(String pattern, String main, String sub) {
-  StringBuilder sb = new StringBuilder();
-  char mainChar = pattern[0];
-  for (int i = 0; i < pattern.Length; i++) {
-    char curr = pattern[i];
-    if (curr == mainChar) {
-      sb.Append(main);
-    } else {
-      sb.Append(sub);
-    }
-  }
-  return sb.ToString();
+		int countOfMain = countOf(pattern, mainChar);
+		int countOfAlt = pattern.Length - countOfMain;
+		int firstAlt = pattern.IndexOf(altChar);
+		int maxMainSize = size / countOfMain;
+		
+		for (int mainSize = 0; mainSize <= maxMainSize; mainSize++) {
+			int remainingLength = size - mainSize * countOfMain;
+			if (countOfAlt == 0 || remainingLength % countOfAlt == 0) {
+				int altIndex = firstAlt * mainSize;
+				int altSize = countOfAlt == 0 ? 0 : remainingLength / countOfAlt;
+				if (matches(pattern, value, mainSize, altSize, altIndex)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}	
+	
+	public static bool matches(String pattern, String value, int mainSize, int altSize, int firstAlt) {
+		int stringIndex = mainSize;
+		for (int i = 1; i < pattern.Length; i++) {
+			int size = pattern[i] == pattern[0] ? mainSize : altSize;
+			int offset = pattern[i] == pattern[0] ? 0 : firstAlt;
+			if (!isEqual(value, offset, stringIndex, size)) {
+				return false;
+			}
+			stringIndex += size;
+		}
+		return true;
+	}
+	
+	public static bool isEqual(String s1, int offset1, int offset2, int size) {
+		for (int i = 0; i < size; i++) {
+			if (s1[offset1 + i]!= s1[offset2 + i]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static int countOf(String pattern, char c) {
+		int count = 0;
+		for (int i = 0; i < pattern.Length; i++) {
+			if (pattern[i] == c) {
+				count++;
+			}
+		}
+		return count;
+	}
+ 	
+	
+	
+	static void Main() {
+		String[][] tests = new string[][]
+		{new string[]{"aabab", "catcatgocatgo"},
+		new string[]{"abab", "backsbatbackbats"}, 
+		new string[]{"aba", "backsbatbacksbat"}};
+		foreach (String[] test in tests) {
+			String pattern = test[0];
+			String value = test[1];
+			Console.WriteLine(pattern + ", " + value + ": " + doesMatch(pattern, value));
+		}
+
+	}
+
+
+    
 }
