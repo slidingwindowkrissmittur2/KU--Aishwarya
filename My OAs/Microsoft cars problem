@@ -1,0 +1,63 @@
+using System;
+
+class Program
+{
+     
+    static void Main() {
+ string[] f=new string[]{
+    "11011", "11010","10011" ,"10010"};
+   string [] cars = new string[]{"100", "110", "010", "011", "100"};
+ 
+   int[] res=new int[cars.Length];
+  int similarcar=0;
+ 
+  for(int i=0; i<cars.Length;++i){
+  
+   x=btd((Convert.ToInt32(cars[i])));
+   
+   similarcar=0;
+  
+  for(int j=0; j<cars.Length;++j){
+  
+  y=btd(Convert.ToInt32(cars[j]));
+  
+  if(i!=j){
+   if ((differAtOneBitPos(x, y) == true)||(x==y))
+           similarcar++;
+  
+         
+        
+ 
+  }}
+      res[i]=similarcar;
+  
+
+    
+ 
+    } 
+          Console.WriteLine(String.Join(",",res));
+
+    }  
+   
+    
+ static bool isPowerOfTwo(int x)
+    {
+        // First x in the below expression is
+        // for the case when x is 0
+        return x != 0 && ((x & (x - 1)) == 0);
+    }
+ 
+    // function to check whether the two numbers
+    // differ at one bit position only
+    static bool differAtOneBitPos(int a, int b)
+    {
+        return isPowerOfTwo(a ^ b);
+    }
+     
+    // Driver code
+    
+   
+  
+ 
+    
+}
