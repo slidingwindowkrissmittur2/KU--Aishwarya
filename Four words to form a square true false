@@ -1,0 +1,117 @@
+using System;
+using System.Collections.Generic;
+class GFG {
+     
+    // Return true if an order among strings is possible  
+    static bool possibleOrderAmongString(string[] s, int n)
+    {
+        int m = 26;
+        bool[] mark = new bool[m];
+        int[] In = new int[26];
+        int[] Out = new int[26];
+          
+        List<List<int>> adj = new List<List<int>>();
+        for(int i = 0; i < m; i++)
+            adj.Add(new List<int>());
+              
+        // Process all strings one by one
+        for(int i = 0; i < n; i++)
+        {
+              
+            // Find first and last characters
+            int f = (int)(s[i][0] - 'a');
+            int l = (int)(s[i][s[i].Length - 1] - 'a');
+              
+            // Mark the characters
+            mark[f] = mark[l] = true;
+              
+            // Increase indegree and outdegree count
+            In[l]++;
+            Out[f]++;
+              
+            // Add an edge in graph
+            adj[f].Add(l);
+        }
+          
+        // If for any character indegree is not equal to
+        // outdegree then ordering is not possible
+        for(int i = 0; i < m; i++)
+        {
+            if ((In[i] == Out[i])|| (In[i]==(Out[i]+2)||((In[i]+2)==Out[i])))
+        
+        return isConnected(adj, mark,
+                           s[0][0] - 'a');
+        }
+        return false;
+
+   
+    }
+      
+    // Returns true if all vertices are strongly
+    // connected i.e. can be made as loop
+    public static bool isConnected(
+        List<List<int>> adj,
+        bool[] mark, int src)
+    {
+        bool[] visited = new bool[26];
+          
+        // Perform a dfs from src
+        dfs(adj, visited, src);
+        for(int i = 0; i < 26; i++)
+        {
+          
+            /*  I character is marked (i.e. it was first or
+             last character of some string) then it should
+             be visited in last dfs (as for looping, graph
+             should be strongly connected) */
+            if (mark[i] && !visited[i])
+                return false;
+        }
+          
+        // If we reach that means graph is connected
+        return true;
+    }
+     public static int count=0; 
+    // Utility method for a depth first
+    // search among vertices
+    public static void dfs(List<List<int>> adj,
+                           bool[] visited, int src)
+    {
+        visited[src] = true;
+        for(int i = 0; i < adj[src].Count; i++)
+            if (!visited[adj[src][i]]){
+                dfs(adj, visited, adj[src][i]);
+                count++;
+            }
+    }
+ 
+  static void Main() {
+    string[] s = {"ar", "rt","ts","as" ,"ad", "dk", "am", "mk" };
+    int n = s.Length;
+      
+    if (possibleOrderAmongString(s, n))
+        Console.Write("Ordering is possible "+count);
+    else
+        Console.Write("Ordering is not possible "+ count);
+  
+  string q="a";
+  q="aca";
+  q="ab";
+      n = q.Length;
+     int m = (n + 1) >> 1;
+   int[] num= new int[26];
+    foreach (char c in q) {
+        ++num[c - 'a'];
+    }
+    int common = 0;
+    for (int total = 0; (total += num[common]) < m; ++common)
+    ;
+    int r = 0;
+    for (int i = 0; i < 26; ++i) {
+        r += Math.Abs(i - common) * num[i];
+    }
+    Console.WriteLine(r);
+}
+
+
+}
