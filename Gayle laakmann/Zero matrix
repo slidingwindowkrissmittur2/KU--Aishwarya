@@ -1,0 +1,76 @@
+
+using System;
+
+class Program
+{
+    static void Main() {
+     int n=3;
+     int[][] mat=new int[][]{
+         new int[]{1,1,1},
+         new int[]{1,1,0},
+         new int[]{1,1,1}};
+    
+     int i=0;
+     int j=0;
+     bool colhas=false;
+     bool rowhas=false;
+     
+     for(  i=0; i<n;++i){
+     if(mat[0][i]==0)
+     rowhas=true;
+     }
+     for(  i=0; i<n;++i){
+        if(mat[i][0]==0)
+        colhas=true;
+     }
+     for(i=1; i<n;++i){
+       for(j=1; j<n;++j){
+       
+        if(mat[i][j]==0) {
+            mat[i][0]=0;
+            mat[0][j]=0;
+        }
+     }}
+     
+     for(i=1; i<n;++i){
+        if(mat[i][0]==0)
+          nullifyrow(ref mat,i);
+     }    
+       for(j=1; j<n;++j){
+          if(mat[0][j]==0)
+            nullifycol(ref mat,j);
+       }
+       if(rowhas){
+           nullifyrow(ref mat,0);
+       }
+     
+       if(colhas){
+           nullifycol(ref mat,0);
+       }
+       
+     for( i=0; i<n;++i){
+         for( j=0; j<n;++j){
+             Console.Write(mat[i][j]+" ");
+         }
+         Console.WriteLine();
+     }
+}
+       // Console.Write("Sum of x + y = "+ z);
+  
+  public static void nullifyrow(ref int[][] mat, int row)
+  {
+      for(int i=1; i<mat.Length;++i){
+      mat[row][i]=0;
+        }
+     
+  }
+  
+  public static void nullifycol(ref int[][] mat, int col)
+  {
+      for(int i=1; i<mat.Length;++i){
+      mat[i][col]=0;
+        }
+     
+  }
+    
+}
