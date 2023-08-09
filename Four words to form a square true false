@@ -115,3 +115,105 @@ class GFG {
 
 
 }
+
+//////
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+class Program
+{
+    static void Main() {
+         string[] words={"acid","danc","cant","acet","abce","emit","toon","aoon","acid","atom","mirk","disk"};
+        
+         Dictionary<string,HashSet<string>> map= new Dictionary<string,HashSet<string>>();
+        string[] ark=new string[words.Length];
+        
+        for(int i=0; i<words.Length;++i){
+           char a=words[i][0];
+           char b=words[i][3];
+           string c=(a).ToString()+(b).ToString();
+           ark[i]=c;
+           map.TryAdd(ark[i],new HashSet<string>());
+           
+        }
+    
+    step1(ark, ref map);  
+     
+    int j=0;
+    string[] res=new string[map.Count];
+     foreach(KeyValuePair<string,HashSet<string>> kvp in map){
+       // Console.WriteLine(kvp.Key+"_"+String.Join(",",kvp.Value)+"_"+kvp.Value.Count);
+       if(kvp.Value.Count>0){ 
+           string c=kvp.Key;
+        string d=String.Join("",kvp.Value);
+         StringBuilder sb= new StringBuilder();
+        sb.Append(c[0]);
+        sb.Append(d[1]);
+        res[j++]=sb.ToString();
+     }}
+
+     
+     int count=0;
+     HashSet<string> rem=new HashSet<string>();
+     for(int i=0; i<res.Length;++i){
+         
+         if(!rem.Contains(res[i]))
+         rem.Add(res[i]);
+         else if(rem.Contains(res[i]))
+         count++;
+         
+         
+     }
+
+   Console.WriteLine(count);
+     
+   
+   
+    }
+    
+    static void step1(string [] ark,ref Dictionary<string,HashSet<string>> map){
+        for(int i=0; i<ark.Length;++i){
+         for(int j=0; j<ark.Length;++j){
+             
+         if(i!=j){
+          int k= XorAscii(ark[i],ark[j]);  
+        //  Console.WriteLine(ark[i]+"_"+ark[j]+"_"+k);
+          if(k==10) 
+           {
+               HashSet<string> h=map[ark[i]];
+              
+               h.Add(ark[j]);
+               map[ark[i]]=h;
+               
+           }  
+         }
+        }
+    }
+    }
+    static int XorAscii(String a,  string b)
+{
+   
+    // store value of first character
+    int ans= (a[0]);
+    int ans1=a[1];
+   
+        // Traverse String to find the XOR
+        ans = ((a[0]) ^ (b[0]));
+        ans1= ((a[1]) ^ (b[1]));
+        
+       // Console.WriteLine(ans+"_"+ans1+"_"+(ans^ans1));
+        
+        return (ans^ans1);
+    }
+   public static bool poweroftwo(int n){
+       return(n!=0&&((n&(n-1))==0));
+   }
+    // Return the XOR
+  
+
+
+}
+/////
+
