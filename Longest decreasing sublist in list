@@ -1,0 +1,154 @@
+
+using System;
+
+class Program
+{
+    
+    public static int lenOfLongDecSubArr(int[] arr,
+                                             int n)
+    {
+
+        int max = 1, maxIndex=0, len = 1;
+ 
+        for (int i = 1; i < n; i++) {
+             
+            
+            if (arr[i] <=arr[i - 1])
+                len++;
+            else {
+                 
+
+        if (max < len)
+        {
+        max = len;
+         maxIndex = i - max;
+           } 
+            len = 1;
+            }
+        }
+ 
+        // comparing the length of the last
+      if (max < len)
+    {
+        max = len;
+        maxIndex = n - max;
+    }
+ 
+for(int j=0; j<max;++j){
+    for (int i=maxIndex+j; i<max+maxIndex; i++)
+        Console.Write(arr[i]+" ");
+Console.WriteLine();
+}
+
+        // required maximum length
+        return max;
+    }
+ 
+ 
+ public static int dec(Node head)
+                                            
+    {
+
+        int max = 1, maxIndex=0, len = 1;
+ int n=1;
+for (Node curr = head; curr.next != null;
+curr = curr.next)
+         {
+             
+            
+            if (curr.data >=curr.next.data)
+                len++;
+            else {
+                 
+
+        if (max < len)
+        {
+        max = len;
+         maxIndex = n - max;
+           } 
+            len = 1;
+            }
+            n++;
+        }
+ 
+        // comparing the length of the last
+      if (max < len)
+    {
+        max = len;
+        maxIndex = n - max;
+    }
+ int i = 0;
+    for (Node curr = head; curr != null;
+                           curr = curr.next)
+ { if(i==maxIndex){
+   while (i <max+maxIndex)
+            {
+                // Display the list and temp point
+                // to the next element.
+                Console.Write(curr.data + " ");
+                curr = curr.next;
+                i++;
+            }
+            break;
+        }
+        i++;
+ }
+Console.WriteLine();
+
+
+        // required maximum length
+        return max;
+    }
+public class Node
+{
+    public int data;
+    public Node next;
+}
+public static Node head;    
+ public static void push(Node head_ref, int data)
+{
+    Node newNode = new Node();
+    newNode.data = data;
+    newNode.next = head_ref;
+    head_ref = newNode;
+    head = head_ref;
+}
+  static void printList(Node node)
+{
+    while (node != null)
+    {
+        Console.Write(node.data + " ");
+        node = node.next;
+    }
+    Console.WriteLine();
+} 
+    /* Driver program to test above function */
+    public static void Main()
+    {
+        int[] arr = {2,5,4,4,5,3,2,1};
+        int n = arr.Length;
+        Console.WriteLine("Length = " +
+                           lenOfLongDecSubArr(arr, n));
+   
+   
+   head = null;
+ 
+    // push() insert node in linked list.
+    // 15 -> 18 -> 5 -> 8 -> 11 -> 12
+    push(head, 12);
+    push(head, 11);
+    push(head, 4);
+    push(head, 1);
+    push(head, 2);
+    push(head,3);
+    Console.WriteLine("Linked list:");
+    printList(head);
+ 
+    // Function call countIncreasingElements(head)
+    dec(head);
+    
+}
+    
+}
+    
+    
