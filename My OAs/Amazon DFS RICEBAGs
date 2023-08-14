@@ -43,3 +43,89 @@ public class RiceBags {
         return 0;
     }
 }
+
+
+===
+public static int solve(int[] arr) {
+HashMap<Integer, Integer> map = new HashMap<>();
+Arrays.sort(arr);
+int max = 1;
+int onesCount = 0; // To count occurrences of 1
+for (int i : arr) {
+if (i == 1) {
+onesCount++;
+} else {
+int tmp = 0;
+map.put(i * i, tmp = map.getOrDefault(i, 0) + 1);
+max = Math.max(tmp, max);
+}
+}
+return Math.max(max, onesCount) < 2 ? -1 : Math.max(max, onesCount);
+
+===
+cpcs
+int solution(const vector<int> &riceBags) {
+    unordered_set<long long> s;
+    int r = 0, m = 0;
+    for (int x : riceBags) {
+        if (x == 1) {
+            ++r;
+        } else if (x > 1) {
+            s.insert(x);
+        }
+        m = max(m, x);
+    }
+    for (long long x : s) {
+        int len = 0;
+        for (; s.count(x); x *= x, ++len)
+        ;
+        r = max(r, len);
+    }
+    return r < 2 ? (-1) : r;
+}
+    
+
+int main() {
+    cout << solution({3, 9, 4, 2, 16}) << endl;
+    cout << solution({1, 2, 3, 4, 1, 1}) << endl;
+    cout << solution({1, 2, 3}) << endl;
+}
+====
+import java.util.Arrays;
+import java.util.HashMap;
+public class Solution
+{
+    public static int solve(int arr[]){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        Arrays.sort(arr);
+        int max = 1;
+        for(int i: arr){
+           int tmp = 0;
+           map. Put(i*i,tmp =  map.getOrDefault(i, 0)+1);
+           max = Math.max(tmp, max);
+        }    
+        return max;
+    }
+}
+
+===
+public static decimal solve(int[] arr) {
+Dictionary<decimal, decimal> map = new Dictionary<decimal,decimal>();
+Array.Sort(arr);
+decimal max = 1;
+decimal onesCount = 0; // To count occurrences of 1
+foreach (int i in arr) {
+if (i == 1) {
+onesCount++;
+} else {
+    Console.WriteLine("i="+i);
+decimal tmp = 0;
+map.TryAdd(i * i, tmp = map.GetValueOrDefault(i, 0) + 1);
+max = Math.Max(tmp, max);
+}
+}
+foreach(KeyValuePair<decimal,decimal> kvp in map){
+    Console.WriteLine(kvp.Key+"-"+kvp.Value);
+}
+return Math.Max(max, onesCount) < 2 ? -1 : Math.Max(max, onesCount);
+}
