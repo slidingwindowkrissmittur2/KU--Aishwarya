@@ -129,3 +129,26 @@ foreach(KeyValuePair<decimal,decimal> kvp in map){
 }
 return Math.Max(max, onesCount) < 2 ? -1 : Math.Max(max, onesCount);
 }
+
+====
+public static long solution(int[] riceBags) {
+    List<long> s=new List<long>();
+    long r = 0, m = 0;
+    foreach (int x in riceBags) {
+        if (x == 1) {
+            ++r;
+        } else if (x > 1) {
+            s.Add(x);
+        }
+        m = Math.Max(m, x);
+    }
+    foreach (long x in s) {
+        int len = 0;
+        long y=x;
+        for (; s.Contains(y); y=y*y, ++len)
+        ;
+        r = Math.Max(r, len);
+    }
+    return r < 2 ? (-1) : r;
+}
+  
