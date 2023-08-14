@@ -7,6 +7,16 @@ Return number of moments for which every
 turned on bulb shines.
 
 2. Word machine 4 5 6 -7+
+Given a Word Machine that takes commands:
+int - pushes the int onto the stack 
+POP - pops the top of the stack value
+DUP - duplicates the top of the stack value
+- - substracts the 2nd element from the top of the stack 
+and pushes the results onto the stack
++ - pushes the sum of the 2 top elements onto the stack
+
+Make a method solution, that takes a string of instruction and returns -1 for any errors 
+or, if no errors, the top of the stack value after applying all the functions
 
 
 class Node(object):
