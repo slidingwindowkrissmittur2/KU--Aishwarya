@@ -55,8 +55,46 @@ private void dfs(int r, int c, int pos, int cur) {
  two identical digrams in string
 aaaa: 1 aa, aa
 =====
-
-
+public class Digram:IComparable<Digram>{
+        
+      public string gram;
+      public int idx;
+      public int count;
+       
+       public Digram(string a, int idx,int cnt){
+           this.gram=a;
+           this.idx=idx;
+           this.count=cnt;
+       }
+       
+       public int CompareTo(Digram objnode){
+          Digram node=objnode as Digram;
+          return this.idx-node.idx;
+       }
+    }
+public static void Main(string[] args){
+string a="amkrjamrjtirjamknrjeh";
+List<Digram> dig=new List<Digram>();
+      int diff=0;
+      int max=int.MinValue;
+      string fin="";
+      for(int i=0; i<a.Length-1;++i){
+     string t=a.Substring(i,2);
+     var d=dig.Where(b=>b.gram==t).ToList().FirstOrDefault();
+     if(d==null)
+     dig.Add(new Digram(t,i,1));
+     else{
+        dig.Remove(d);
+        diff=Math.Abs(d.idx-i);
+        if(max<diff){
+        max=Math.Max(max,diff);
+        fin=d.gram;
+        }
+        dig.Add(new Digram(d.gram,Math.Min(d.idx,i),d.count+1));
+     }     
+       }
+       Console.WriteLine("\n"+"fin="+fin+"--"+max);
+}
 ======
 2.two arrays a, b. Min number of dice to
 Be turned to make sum of all dice in both
