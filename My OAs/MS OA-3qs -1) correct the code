@@ -1,0 +1,35 @@
+
+wrong code for us to correct:
+bool algorithm(vector<int> &A, int k)
+{
+   n = A.size();
+   for(int i = 0; i < n-1; i++)
+   {
+      if(A[i]+1 < A[i+1])
+         return false;
+   }
+   if(A[0] != 1 && A[n-1] != K)
+   {
+      return false;
+   }
+   else
+   {
+      return true;
+   }
+}
+
+correction:
+Change 1st if condition to
+
+if ((A[i] != A[i+1]) 
+&& (A[i] + 1 != A[i+1]) {
+    return false;
+}
+Change 2nd if condition to
+
+if (A[0] != 1 || 
+A[n-1] != K) {
+    return false;
+}
+
+https://stackoverflow.com/questions/32726166/find-if-in-an-array-there-are-at-least-once-all-the-numbers-from-1-to-k
