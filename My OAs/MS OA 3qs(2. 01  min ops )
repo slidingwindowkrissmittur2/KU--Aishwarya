@@ -1,0 +1,50 @@
+SOLVED THIS APPLYING OOPS CONCEPT OF 
+public class Node: IComparable<Node>{
+
+int a;
+int fre;
+public Node(int a,int f){
+this.a=a;
+this.fre=f;
+}
+public int CompareTo(Node p){
+return p.fre-this
+fre;
+}
+
+}
+
+string s=S.TrimStart('0');
+
+
+Given a binary number, I need to write a function to count the total steps reaching zero. The rules are:
+
+If the number is even, divide it by 2
+If the number is odd, subtract 1 from it
+for example, it takes six iterations for "1110" (14) to become 0:
+
+14 / 2 = 7
+7 - 1 = 6
+6 / 2 = 3
+3 - 1 = 2
+2 / 2 = 1
+1 - 1 = 0
+
+def iterate_string(S: str):
+    acc = 0
+    for c in S:
+        if c == "0":
+            acc += 1
+        else:
+            acc += 2
+    acc -= 1 # the very first 1 is only + 1, thus - 1
+    return acc
+
+AND
+
+def solution(s): # 's' should be a binary input (011100)
+    while s[0] == "0":
+        s = s[1:]
+    ones = s.count('1')
+    zeros = s.count('0')
+    return ones*2+zeros-1
